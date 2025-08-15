@@ -1,0 +1,59 @@
+{
+  "title": "多环境配置管理",
+  "description": "学习如何为不同环境（开发、测试、生产）配置不同的 Webpack 构建策略，掌握环境变量和配置合并技巧。",
+  "difficulty": "中级",
+  "estimatedTime": "35分钟",
+  "category": "webpack",
+  "level": 6,
+  "objectives": [
+    "理解多环境配置的重要性",
+    "学会使用 webpack-merge 合并配置",
+    "掌握环境变量的使用",
+    "配置不同环境的优化策略"
+  ],
+  "files": [
+    {
+      "name": "webpack.common.js",
+      "type": "config",
+      "description": "通用配置文件"
+    },
+    {
+      "name": "webpack.dev.js",
+      "type": "config",
+      "description": "开发环境配置"
+    },
+    {
+      "name": "webpack.prod.js",
+      "type": "config",
+      "description": "生产环境配置"
+    },
+    {
+      "name": "src/config.js",
+      "type": "source",
+      "description": "应用配置文件"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": [
+      "npm run build:dev",
+      "npm run build:prod"
+    ]
+  },
+  "hints": [
+    "使用 webpack-merge 来合并不同环境的配置",
+    "通过 DefinePlugin 注入环境变量",
+    "开发环境注重构建速度，生产环境注重优化",
+    "使用不同的 devtool 配置 source map"
+  ],
+  "resources": [
+    {
+      "title": "Webpack 环境配置",
+      "url": "https://webpack.js.org/guides/production/"
+    },
+    {
+      "title": "webpack-merge 文档",
+      "url": "https://github.com/survivejs/webpack-merge"
+    }
+  ]
+}

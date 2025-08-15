@@ -1,0 +1,56 @@
+{
+  "title": "多框架支持配置",
+  "description": "学习如何在一个 Vite 项目中同时支持 React、Vue、Svelte 等多个前端框架，掌握多入口和插件配置。",
+  "difficulty": "中级",
+  "estimatedTime": "30分钟",
+  "category": "vite",
+  "level": 4,
+  "objectives": [
+    "配置多个前端框架插件",
+    "设置多入口点构建",
+    "理解框架间的差异和共同点",
+    "掌握 Vite 插件的组合使用"
+  ],
+  "files": [
+    {
+      "name": "vite.config.js",
+      "type": "config",
+      "description": "Vite 多框架配置文件"
+    },
+    {
+      "name": "src/react/App.jsx",
+      "type": "source",
+      "description": "React 应用组件"
+    },
+    {
+      "name": "src/vue/App.vue",
+      "type": "source",
+      "description": "Vue 应用组件"
+    },
+    {
+      "name": "index.html",
+      "type": "template",
+      "description": "主入口 HTML"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": ["npm run build"]
+  },
+  "hints": [
+    "使用不同的插件支持不同框架",
+    "配置多个入口点处理不同框架",
+    "注意框架间的依赖冲突",
+    "使用条件配置优化构建"
+  ],
+  "resources": [
+    {
+      "title": "Vite 插件生态",
+      "url": "https://vitejs.dev/plugins/"
+    },
+    {
+      "title": "多入口配置",
+      "url": "https://vitejs.dev/guide/build.html#multi-page-app"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "title": "Monorepo 项目管理",
+  "description": "学习在 Monorepo 环境中配置 Vite，掌握多包项目的依赖管理、构建优化和开发体验。",
+  "difficulty": "高级",
+  "estimatedTime": "40分钟",
+  "category": "vite",
+  "level": 7,
+  "objectives": [
+    "配置 Monorepo 中的 Vite 项目",
+    "设置包间的依赖关系",
+    "优化开发和构建性能",
+    "实现包的热更新和联调"
+  ],
+  "files": [
+    {
+      "name": "vite.config.js",
+      "type": "config",
+      "description": "Vite Monorepo 配置"
+    },
+    {
+      "name": "package.json",
+      "type": "config",
+      "description": "包配置文件"
+    },
+    {
+      "name": "../../package.json",
+      "type": "config",
+      "description": "根目录包配置"
+    },
+    {
+      "name": "src/App.jsx",
+      "type": "source",
+      "description": "应用组件"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": ["npm run build"]
+  },
+  "hints": [
+    "使用路径别名引用其他包",
+    "配置 optimizeDeps 包含内部依赖",
+    "设置 server.fs.allow 允许访问上级目录",
+    "使用 workspace 协议管理依赖版本"
+  ],
+  "resources": [
+    {
+      "title": "Vite Monorepo 配置",
+      "url": "https://vitejs.dev/guide/dep-pre-bundling.html#monorepos-and-linked-dependencies"
+    },
+    {
+      "title": "pnpm Workspace",
+      "url": "https://pnpm.io/workspaces"
+    }
+  ]
+}

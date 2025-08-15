@@ -46,7 +46,7 @@ class LearningPlatform {
     updateProgressDisplay() {
         const progress = JSON.parse(localStorage.getItem('learning-progress') || '{}');
         const completed = Object.keys(progress).filter(key => progress[key].completed).length;
-        const total = 33; // 总关卡数
+        const total = 43; // 总关卡数 (原33个 + webpack新增5个 + vite新增5个)
         const rate = Math.round((completed / total) * 100);
 
         const completedEl = document.getElementById('completed-count');
@@ -319,6 +319,9 @@ class LearningPlatform {
 
             // 隐藏下一关按钮
             document.getElementById('next-btn').style.display = 'none';
+
+            // 重置提示状态
+            this.resetHintsState();
 
         } catch (error) {
             console.error('加载关卡详情失败:', error);
@@ -664,6 +667,8 @@ class LearningPlatform {
             const currentConfig = this.currentFiles[this.activeFile] || '';
             const levelId = this.getCurrentLevelId();
 
+            console.log('显示提示 - 当前关卡:', levelId, '关卡类型:', this.currentType);
+
             // 生成提示内容
             const hints = this.generateHints(levelId, currentConfig);
 
@@ -689,6 +694,8 @@ class LearningPlatform {
     // 生成智能提示
     generateHints(levelId, currentConfig) {
         const hints = [];
+
+        console.log('生成提示 - 关卡ID:', levelId, '关卡类型:', this.currentType, '关卡标题:', this.currentLevel?.title);
 
         // 根据当前关卡类型和ID生成提示
         if (this.currentLevel && this.currentLevel.hints) {
@@ -739,6 +746,26 @@ class LearningPlatform {
     // 获取当前关卡ID
     getCurrentLevelId() {
         return this.currentLevelId || 'unknown';
+    }
+
+    // 重置提示状态
+    resetHintsState() {
+        const hintsSection = document.getElementById('hints-section');
+        const hintBtn = document.getElementById('hint-btn');
+
+        if (hintsSection) {
+            hintsSection.style.display = 'none';
+        }
+
+        if (hintBtn) {
+            hintBtn.textContent = '💡 获取提示';
+        }
+
+        // 清空提示内容
+        const hintsContent = document.getElementById('hints-content');
+        if (hintsContent) {
+            hintsContent.innerHTML = '';
+        }
     }
 
     // 前往下一关

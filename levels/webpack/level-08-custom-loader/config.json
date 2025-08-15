@@ -1,0 +1,56 @@
+{
+  "title": "自定义 Loader 开发",
+  "description": "学习如何开发自定义的 Webpack Loader，深入理解 Webpack 的模块转换机制，创建属于自己的加载器。",
+  "difficulty": "高级",
+  "estimatedTime": "45分钟",
+  "category": "webpack",
+  "level": 8,
+  "objectives": [
+    "理解 Loader 的工作原理",
+    "开发同步和异步 Loader",
+    "学习 Loader 的配置和选项",
+    "掌握 Loader 的测试和调试"
+  ],
+  "files": [
+    {
+      "name": "webpack.config.js",
+      "type": "config",
+      "description": "Webpack 配置文件"
+    },
+    {
+      "name": "loaders/markdown-loader.js",
+      "type": "loader",
+      "description": "Markdown 转换 Loader"
+    },
+    {
+      "name": "loaders/banner-loader.js",
+      "type": "loader",
+      "description": "文件头部注释 Loader"
+    },
+    {
+      "name": "src/content.md",
+      "type": "source",
+      "description": "Markdown 内容文件"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": ["npm run build"]
+  },
+  "hints": [
+    "Loader 本质上是一个导出函数的 Node.js 模块",
+    "使用 this.callback() 处理异步操作",
+    "通过 loader-utils 获取 Loader 选项",
+    "使用 schema-utils 验证选项格式"
+  ],
+  "resources": [
+    {
+      "title": "编写 Loader",
+      "url": "https://webpack.js.org/contribute/writing-a-loader/"
+    },
+    {
+      "title": "Loader API",
+      "url": "https://webpack.js.org/api/loaders/"
+    }
+  ]
+}

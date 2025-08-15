@@ -1,0 +1,60 @@
+{
+  "title": "模块联邦实战",
+  "description": "深入学习 Webpack 5 的模块联邦功能，构建真正的微前端架构，实现应用间的模块共享和独立部署。",
+  "difficulty": "高级",
+  "estimatedTime": "50分钟",
+  "category": "webpack",
+  "level": 7,
+  "objectives": [
+    "理解模块联邦的核心概念",
+    "配置 Host 和 Remote 应用",
+    "实现组件的跨应用共享",
+    "掌握依赖共享策略"
+  ],
+  "files": [
+    {
+      "name": "shell/webpack.config.js",
+      "type": "config",
+      "description": "主应用（Shell）配置"
+    },
+    {
+      "name": "header/webpack.config.js",
+      "type": "config",
+      "description": "Header 微应用配置"
+    },
+    {
+      "name": "sidebar/webpack.config.js",
+      "type": "config",
+      "description": "Sidebar 微应用配置"
+    },
+    {
+      "name": "shell/src/App.js",
+      "type": "source",
+      "description": "主应用组件"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": [
+      "cd shell && npm run build",
+      "cd header && npm run build",
+      "cd sidebar && npm run build"
+    ]
+  },
+  "hints": [
+    "使用 ModuleFederationPlugin 配置模块联邦",
+    "Host 应用使用 remotes 配置消费远程模块",
+    "Remote 应用使用 exposes 配置暴露模块",
+    "注意共享依赖的版本兼容性"
+  ],
+  "resources": [
+    {
+      "title": "Module Federation 官方文档",
+      "url": "https://webpack.js.org/concepts/module-federation/"
+    },
+    {
+      "title": "微前端实践指南",
+      "url": "https://micro-frontends.org/"
+    }
+  ]
+}

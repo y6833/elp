@@ -1,0 +1,56 @@
+{
+  "title": "自定义 Plugin 开发",
+  "description": "学习开发自定义的 Webpack Plugin，深入理解 Webpack 的插件系统和编译生命周期，创建功能强大的插件。",
+  "difficulty": "专家",
+  "estimatedTime": "50分钟",
+  "category": "webpack",
+  "level": 9,
+  "objectives": [
+    "理解 Webpack 插件系统架构",
+    "掌握编译器和编译生命周期",
+    "开发同步和异步插件",
+    "学习插件的测试和发布"
+  ],
+  "files": [
+    {
+      "name": "webpack.config.js",
+      "type": "config",
+      "description": "Webpack 配置文件"
+    },
+    {
+      "name": "plugins/build-info-plugin.js",
+      "type": "plugin",
+      "description": "构建信息插件"
+    },
+    {
+      "name": "plugins/asset-manifest-plugin.js",
+      "type": "plugin",
+      "description": "资源清单插件"
+    },
+    {
+      "name": "src/index.js",
+      "type": "source",
+      "description": "应用入口文件"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": ["npm run build"]
+  },
+  "hints": [
+    "插件是一个包含 apply 方法的类或函数",
+    "使用 compiler.hooks 监听编译生命周期",
+    "通过 compilation.assets 操作输出资源",
+    "使用 tapAsync 处理异步操作"
+  ],
+  "resources": [
+    {
+      "title": "编写插件",
+      "url": "https://webpack.js.org/contribute/writing-a-plugin/"
+    },
+    {
+      "title": "插件 API",
+      "url": "https://webpack.js.org/api/plugins/"
+    }
+  ]
+}

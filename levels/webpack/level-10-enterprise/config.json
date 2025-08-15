@@ -1,0 +1,60 @@
+{
+  "title": "企业级配置实践",
+  "description": "学习大型企业项目的 Webpack 配置最佳实践，包括性能优化、安全配置、监控集成和团队协作规范。",
+  "difficulty": "专家",
+  "estimatedTime": "60分钟",
+  "category": "webpack",
+  "level": 10,
+  "objectives": [
+    "掌握大型项目的配置架构",
+    "实现高级性能优化策略",
+    "配置安全和合规要求",
+    "集成监控和分析工具"
+  ],
+  "files": [
+    {
+      "name": "webpack.config.js",
+      "type": "config",
+      "description": "主配置文件"
+    },
+    {
+      "name": "config/webpack.base.js",
+      "type": "config",
+      "description": "基础配置"
+    },
+    {
+      "name": "config/webpack.prod.js",
+      "type": "config",
+      "description": "生产环境配置"
+    },
+    {
+      "name": "config/optimization.js",
+      "type": "config",
+      "description": "优化配置"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": [
+      "npm run build:prod",
+      "npm run analyze",
+      "npm run audit"
+    ]
+  },
+  "hints": [
+    "使用配置工厂模式管理复杂配置",
+    "实现渐进式代码分割策略",
+    "配置 CSP 和安全头部",
+    "集成构建性能监控"
+  ],
+  "resources": [
+    {
+      "title": "Webpack 最佳实践",
+      "url": "https://webpack.js.org/guides/production/"
+    },
+    {
+      "title": "企业级前端架构",
+      "url": "https://frontendmasters.com/guides/front-end-handbook/"
+    }
+  ]
+}

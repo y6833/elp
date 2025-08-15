@@ -277,8 +277,8 @@ docker run -p 3000:3000 elp
 ## 📞 联系我们
 
 - **项目地址**：https://github.com/y6833/elp
-- **问题反馈**：https://github.com/y6833/elp/issues
-- **讨论交流**：https://github.com/y6833/elp/discussions
+- **问题反馈**：qq:1819503703
+- **讨论交流**：qq:1819503703
 
 ---
 

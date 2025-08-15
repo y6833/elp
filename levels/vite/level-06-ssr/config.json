@@ -1,0 +1,59 @@
+{
+  "title": "SSR 服务端渲染",
+  "description": "学习使用 Vite 配置服务端渲染（SSR），掌握同构应用开发、客户端水合和 SEO 优化技术。",
+  "difficulty": "高级",
+  "estimatedTime": "45分钟",
+  "category": "vite",
+  "level": 6,
+  "objectives": [
+    "配置 Vite SSR 构建",
+    "实现服务端和客户端入口",
+    "掌握客户端水合技术",
+    "优化 SEO 和首屏性能"
+  ],
+  "files": [
+    {
+      "name": "vite.config.js",
+      "type": "config",
+      "description": "Vite SSR 配置文件"
+    },
+    {
+      "name": "src/entry-server.jsx",
+      "type": "source",
+      "description": "服务端入口文件"
+    },
+    {
+      "name": "src/entry-client.jsx",
+      "type": "source",
+      "description": "客户端入口文件"
+    },
+    {
+      "name": "server.js",
+      "type": "server",
+      "description": "Express 服务器"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": [
+      "npm run build:client",
+      "npm run build:server"
+    ]
+  },
+  "hints": [
+    "配置客户端和服务端不同的入口文件",
+    "使用 renderToString 进行服务端渲染",
+    "客户端使用 hydrateRoot 进行水合",
+    "注意服务端和客户端的环境差异"
+  ],
+  "resources": [
+    {
+      "title": "Vite SSR 指南",
+      "url": "https://vitejs.dev/guide/ssr.html"
+    },
+    {
+      "title": "React SSR",
+      "url": "https://react.dev/reference/react-dom/server"
+    }
+  ]
+}

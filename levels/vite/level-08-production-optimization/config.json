@@ -1,0 +1,59 @@
+{
+  "title": "生产环境优化",
+  "description": "深入学习 Vite 生产环境的高级优化技术，包括代码分割、压缩、缓存策略和性能监控。",
+  "difficulty": "高级",
+  "estimatedTime": "40分钟",
+  "category": "vite",
+  "level": 8,
+  "objectives": [
+    "配置高级代码分割策略",
+    "优化资源加载和缓存",
+    "实现构建性能监控",
+    "掌握生产环境最佳实践"
+  ],
+  "files": [
+    {
+      "name": "vite.config.js",
+      "type": "config",
+      "description": "生产优化配置文件"
+    },
+    {
+      "name": "src/App.jsx",
+      "type": "source",
+      "description": "应用主组件"
+    },
+    {
+      "name": "src/utils/performance.js",
+      "type": "source",
+      "description": "性能监控工具"
+    },
+    {
+      "name": "analyze.js",
+      "type": "script",
+      "description": "构建分析脚本"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": [
+      "npm run build",
+      "npm run analyze"
+    ]
+  },
+  "hints": [
+    "使用 manualChunks 精确控制代码分割",
+    "配置 terser 选项优化 JavaScript",
+    "启用 CSS 代码分割减少首屏加载",
+    "使用 rollup-plugin-visualizer 分析构建结果"
+  ],
+  "resources": [
+    {
+      "title": "Vite 构建优化",
+      "url": "https://vitejs.dev/guide/build.html"
+    },
+    {
+      "title": "Rollup 代码分割",
+      "url": "https://rollupjs.org/guide/en/#code-splitting"
+    }
+  ]
+}

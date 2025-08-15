@@ -1,0 +1,56 @@
+{
+  "title": "库模式构建配置",
+  "description": "学习使用 Vite 的库模式构建 npm 包，掌握多格式输出、外部依赖处理和 TypeScript 声明文件生成。",
+  "difficulty": "中级",
+  "estimatedTime": "35分钟",
+  "category": "vite",
+  "level": 5,
+  "objectives": [
+    "配置 Vite 库模式构建",
+    "生成多种格式的输出文件",
+    "处理外部依赖和 peer dependencies",
+    "生成 TypeScript 声明文件"
+  ],
+  "files": [
+    {
+      "name": "vite.config.js",
+      "type": "config",
+      "description": "Vite 库模式配置"
+    },
+    {
+      "name": "src/index.js",
+      "type": "source",
+      "description": "库的主入口文件"
+    },
+    {
+      "name": "src/utils/formatters.js",
+      "type": "source",
+      "description": "格式化工具函数"
+    },
+    {
+      "name": "package.json",
+      "type": "config",
+      "description": "包配置文件"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": ["npm run build"]
+  },
+  "hints": [
+    "使用 build.lib 配置库模式",
+    "通过 rollupOptions.external 排除外部依赖",
+    "配置多种输出格式：ES、UMD、CJS",
+    "使用 dts 插件生成类型声明"
+  ],
+  "resources": [
+    {
+      "title": "Vite 库模式",
+      "url": "https://vitejs.dev/guide/build.html#library-mode"
+    },
+    {
+      "title": "发布 npm 包",
+      "url": "https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages"
+    }
+  ]
+}
