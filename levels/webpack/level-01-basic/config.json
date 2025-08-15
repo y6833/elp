@@ -1,0 +1,38 @@
+{
+  "title": "Webpack 基础配置",
+  "description": "<h3>🎯 学习目标</h3><p>掌握 webpack 的基本配置，包括入口文件、输出配置和模式设置。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>设置入口文件为 <code>./src/index.js</code></li><li>设置输出目录为 <code>dist</code>，文件名为 <code>bundle.js</code></li><li>设置模式为开发模式</li></ul><h3>💡 提示</h3><p>webpack 配置文件导出一个配置对象，包含 entry、output 和 mode 三个基本属性。</p>",
+  "files": ["webpack.config.js", "src/index.js"],
+  "difficulty": "beginner",
+  "estimatedTime": "10分钟",
+  "validation": {
+    "required": [
+      {
+        "key": "entry: './src/index.js'",
+        "message": "请设置入口文件为 './src/index.js'",
+        "hints": ["entry 属性用于指定 webpack 开始构建的入口点"]
+      },
+      {
+        "key": "path: path.resolve(__dirname, 'dist')",
+        "message": "请设置输出目录为 'dist'",
+        "hints": ["使用 path.resolve(__dirname, 'dist') 设置绝对路径"]
+      },
+      {
+        "key": "filename: 'bundle.js'",
+        "message": "请设置输出文件名为 'bundle.js'",
+        "hints": ["filename 属性指定输出文件的名称"]
+      },
+      {
+        "key": "mode: 'development'",
+        "message": "请设置模式为开发模式",
+        "hints": ["mode 可以设置为 'development'、'production' 或 'none'"]
+      }
+    ],
+    "patterns": [
+      {
+        "regex": "const\\s+path\\s*=\\s*require\\(['\"]path['\"]\\)",
+        "description": "导入 path 模块",
+        "hint": "记得在文件顶部导入 path 模块"
+      }
+    ]
+  }
+}

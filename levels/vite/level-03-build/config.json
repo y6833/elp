@@ -1,0 +1,7 @@
+{
+  "title": "Vite 构建优化",
+  "description": "<h3>🎯 学习目标</h3><p>掌握 Vite 的构建优化配置，提升生产环境性能。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>配置 <code>build.rollupOptions</code> 自定义构建</li><li>设置 <code>build.lib</code> 构建库模式</li><li>优化 <code>build.minify</code> 压缩选项</li></ul><h3>💡 提示</h3><p>Vite 使用 Rollup 进行生产构建，可以充分利用 Rollup 的强大功能。</p>",
+  "files": ["vite.config.js", "src/lib/index.js", "package.json"],
+  "difficulty": "advanced",
+  "estimatedTime": "25分钟"
+}

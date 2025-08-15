@@ -1,0 +1,7 @@
+{
+  "title": "Webpack 插件系统",
+  "description": "<h3>🎯 学习目标</h3><p>掌握 webpack 插件的使用，学会配置常用插件来增强构建功能。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>使用 <code>HtmlWebpackPlugin</code> 自动生成 HTML 文件</li><li>使用 <code>CleanWebpackPlugin</code> 清理输出目录</li><li>配置插件的选项参数</li></ul><h3>💡 提示</h3><p>插件通过 plugins 数组配置，每个插件都是一个类的实例。HtmlWebpackPlugin 可以自动注入打包后的资源。</p>",
+  "files": ["webpack.config.js", "src/index.js", "src/template.html"],
+  "difficulty": "intermediate",
+  "estimatedTime": "20分钟"
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端工程化学习平台</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🚀 前端工程化学习平台</h1>
+            <p>通过实战关卡掌握 Webpack 和 Vite</p>
+        </header>
+
+        <nav class="nav">
+            <button class="nav-btn active" data-type="webpack">Webpack 关卡</button>
+            <button class="nav-btn" data-type="vite">Vite 关卡</button>
+        </nav>
+
+        <main class="main">
+            <div class="levels-grid" id="levels-grid">
+                <!-- 关卡列表将在这里动态生成 -->
+            </div>
+
+            <div class="level-detail" id="level-detail" style="display: none;">
+                <div class="level-header">
+                    <button class="back-btn" id="back-btn">← 返回关卡列表</button>
+                    <h2 id="level-title"></h2>
+                </div>
+                
+                <div class="level-content">
+                    <div class="description" id="level-description"></div>
+                    
+                    <div class="editor-section">
+                        <h3>配置文件</h3>
+                        <div class="file-tabs" id="file-tabs"></div>
+                        <textarea id="code-editor" placeholder="在这里编写配置..."></textarea>
+                    </div>
+                    
+                    <div class="actions">
+                        <button class="btn primary" id="run-btn">运行配置</button>
+                        <button class="btn secondary" id="reset-btn">重置</button>
+                        <button class="btn success" id="next-btn" style="display: none;">下一关</button>
+                    </div>
+                    
+                    <div class="output" id="output"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

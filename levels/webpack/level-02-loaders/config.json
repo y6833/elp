@@ -1,0 +1,36 @@
+{
+  "title": "Webpack 加载器配置",
+  "description": "<h3>🎯 学习目标</h3><p>学会配置各种加载器来处理不同类型的文件。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>为 CSS 文件配置 <code>style-loader</code> 和 <code>css-loader</code></li><li>为图片文件配置 <code>file-loader</code></li></ul><h3>💡 提示</h3><p>加载器的执行顺序是从右到左，从下到上。CSS 需要先用 css-loader 处理，再用 style-loader 注入到页面。</p>",
+  "files": ["webpack.config.js", "src/index.js", "src/styles.css"],
+  "difficulty": "beginner",
+  "estimatedTime": "15分钟",
+  "validation": {
+    "required": [
+      {
+        "key": "test: /\\.css$/",
+        "message": "请为 CSS 文件添加测试规则",
+        "hints": ["使用正则表达式 /\\.css$/ 匹配 CSS 文件"]
+      },
+      {
+        "key": "'style-loader'",
+        "message": "请添加 style-loader",
+        "hints": ["style-loader 将 CSS 注入到 DOM 中"]
+      },
+      {
+        "key": "'css-loader'",
+        "message": "请添加 css-loader", 
+        "hints": ["css-loader 解析 CSS 文件中的 @import 和 url()"]
+      },
+      {
+        "key": "test: /\\.(png|jpg|gif)$/",
+        "message": "请为图片文件添加测试规则",
+        "hints": ["使用正则表达式匹配常见的图片格式"]
+      },
+      {
+        "key": "'file-loader'",
+        "message": "请添加 file-loader 处理图片",
+        "hints": ["file-loader 将文件输出到输出目录并返回 URL"]
+      }
+    ]
+  }
+}

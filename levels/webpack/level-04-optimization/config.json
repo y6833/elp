@@ -1,0 +1,7 @@
+{
+  "title": "代码分割与优化",
+  "description": "<h3>🎯 学习目标</h3><p>学习 webpack 的代码分割技术，优化打包策略和加载性能。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>配置 <code>splitChunks</code> 提取公共代码</li><li>设置 <code>runtimeChunk</code> 分离运行时代码</li><li>使用动态导入实现懒加载</li></ul><h3>💡 提示</h3><p>代码分割可以减少初始加载时间，提升用户体验。合理的分割策略很重要。</p>",
+  "files": ["webpack.config.js", "src/index.js", "src/utils.js", "src/components/LazyComponent.js"],
+  "difficulty": "advanced",
+  "estimatedTime": "25分钟"
+}

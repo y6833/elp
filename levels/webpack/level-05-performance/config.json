@@ -1,0 +1,7 @@
+{
+  "title": "性能优化进阶",
+  "description": "<h3>🎯 学习目标</h3><p>掌握 webpack 的高级性能优化技巧，提升构建速度和运行效率。</p><h3>📝 任务说明</h3><p>请完成以下优化配置：</p><ul><li>配置 <code>cache</code> 启用持久化缓存</li><li>使用 <code>resolve.alias</code> 优化模块解析</li><li>配置 <code>externals</code> 排除大型库</li><li>启用 <code>Tree Shaking</code></li></ul><h3>💡 提示</h3><p>性能优化是一个持续的过程，需要根据项目特点选择合适的策略。</p>",
+  "files": ["webpack.config.js", "src/index.js", "src/heavy-library.js"],
+  "difficulty": "expert",
+  "estimatedTime": "30分钟"
+}
