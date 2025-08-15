@@ -5,6 +5,9 @@ class LearningPlatform {
         this.levels = {};
         this.currentFiles = {};
         this.activeFile = null;
+        this.codeEditor = null;
+        this.levelStats = JSON.parse(localStorage.getItem('level-stats') || '{}');
+        this.startTime = null;
         
         this.init();
     }
@@ -30,8 +33,16 @@ class LearningPlatform {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
-                this.currentType = e.target.dataset.type;
-                this.showLevels();
+                const type = e.target.dataset.type;
+                
+                if (type === 'stats') {
+                    this.showStats();
+                } else if (type === 'achievements') {
+                    this.showAchievements();
+                } else {
+                    this.currentType = type;
+                    this.showLevels();
+                }
             });
         });
 
@@ -49,11 +60,22 @@ class LearningPlatform {
         document.getElementById('reset-btn').addEventListener('click', () => {
             this.resetLevel();
         });
+
+        // 提示按钮
+        document.getElementById('hint-btn').addEventListener('click', () => {
+            this.showHints();
+        });
     }
 
     showLevels() {
         document.getElementById('levels-grid').style.display = 'grid';
         document.getElementById('level-detail').style.display = 'none';
+        
+        // 显示资源区域
+        const resourcesSection = document.querySelector('.resources-section');
+        if (resourcesSection) {
+            resourcesSection.style.display = 'block';
+        }
         
         const grid = document.getElementById('levels-grid');
         grid.innerHTML = '';
@@ -150,6 +172,12 @@ class LearningPlatform {
             
             document.getElementById('levels-grid').style.display = 'none';
             document.getElementById('level-detail').style.display = 'block';
+            
+            // 隐藏资源区域
+            const resourcesSection = document.querySelector('.resources-section');
+            if (resourcesSection) {
+                resourcesSection.style.display = 'none';
+            }
             
             document.getElementById('level-title').textContent = levelData.title;
             document.getElementById('level-description').innerHTML = levelData.description;

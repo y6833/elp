@@ -3,10 +3,12 @@ const path = require('path');
 const chalk = require('chalk');
 const { getLevels, getLevelConfig } = require('./levelManager');
 const ConfigValidator = require('./configValidator');
+const AchievementManager = require('./achievementManager');
 
 const app = express();
 const PORT = 3000;
 const validator = new ConfigValidator();
+const achievementManager = new AchievementManager();
 
 // 中间件
 app.use(express.json({ limit: '10mb' }));
@@ -54,6 +56,35 @@ app.post('/api/validate/:type/:level', async (req, res) => {
       error: '服务器内部错误',
       type: 'system'
     });
+  }
+});
+
+// 获取学习统计
+app.get('/api/stats', (req, res) => {
+  try {
+    // 这里可以从数据库或文件中读取统计数据
+    // 现在返回模拟数据
+    const stats = {
+      totalUsers: 1,
+      totalLevels: Object.keys(getLevels().webpack || []).length + Object.keys(getLevels().vite || []).length,
+      completedLevels: 0,
+      averageTime: '15分钟'
+    };
+    
+    res.json(stats);
+  } catch (error) {
+    res.status(500).json({ error: '获取统计数据失败' });
+  }
+});
+
+// 获取成就信息
+app.post('/api/achievements', (req, res) => {
+  try {
+    const { progress, levelStats } = req.body;
+    const achievements = achievementManager.getAchievementProgress(progress || {}, levelStats || {});
+    res.json(achievements);
+  } catch (error) {
+    res.status(500).json({ error: '获取成就信息失败' });
   }
 });
 

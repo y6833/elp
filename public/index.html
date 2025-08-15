@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>前端工程化学习平台</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- 代码编辑器样式 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -16,11 +21,40 @@
         <nav class="nav">
             <button class="nav-btn active" data-type="webpack">Webpack 关卡</button>
             <button class="nav-btn" data-type="vite">Vite 关卡</button>
+            <button class="nav-btn" data-type="stats">学习统计</button>
+            <button class="nav-btn" data-type="achievements">成就系统</button>
         </nav>
 
         <main class="main">
             <div class="levels-grid" id="levels-grid">
                 <!-- 关卡列表将在这里动态生成 -->
+            </div>
+
+            <div class="resources-section">
+                <h2>📚 官方文档</h2>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <img src="https://webpack.js.org/icon-square-small.svg" alt="Webpack" onerror="this.style.display='none'">
+                        </div>
+                        <h3>Webpack 官方文档</h3>
+                        <p>深入学习 Webpack 的完整指南，包含所有配置选项和最佳实践。</p>
+                        <a href="https://webpack.docschina.org/" target="_blank" class="resource-link">
+                            访问文档 →
+                        </a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <img src="https://vite.dev/logo.svg" alt="Vite" onerror="this.style.display='none'">
+                        </div>
+                        <h3>Vite 官方文档</h3>
+                        <p>探索 Vite 的快速构建工具，了解现代前端开发的最新技术。</p>
+                        <a href="https://vite.dev/" target="_blank" class="resource-link">
+                            访问文档 →
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <div class="level-detail" id="level-detail" style="display: none;">
@@ -41,13 +75,79 @@
                     <div class="actions">
                         <button class="btn primary" id="run-btn">运行配置</button>
                         <button class="btn secondary" id="reset-btn">重置</button>
+                        <button class="btn info" id="hint-btn">获取提示</button>
                         <button class="btn success" id="next-btn" style="display: none;">下一关</button>
                     </div>
                     
                     <div class="output" id="output"></div>
                 </div>
             </div>
+
+            <!-- 统计页面 -->
+            <div class="stats-page" id="stats-page" style="display: none;">
+                <h2>📊 学习统计</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>完成关卡</h3>
+                        <div class="stat-number" id="completed-levels">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>学习时间</h3>
+                        <div class="stat-number" id="total-time">0分钟</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>成功率</h3>
+                        <div class="stat-number" id="success-rate">0%</div>
+                    </div>
+                </div>
+                
+                <div class="progress-chart">
+                    <h3>学习进度</h3>
+                    <div class="progress-bars" id="progress-bars"></div>
+                </div>
+            </div>
+
+            <!-- 成就页面 -->
+            <div class="achievements-page" id="achievements-page" style="display: none;">
+                <h2>🏆 成就系统</h2>
+                <div class="achievements-grid" id="achievements-grid"></div>
+            </div>
         </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>🎯 学习资源</h4>
+                    <ul>
+                        <li><a href="https://webpack.docschina.org/guides/" target="_blank">Webpack 指南</a></li>
+                        <li><a href="https://vite.dev/guide/" target="_blank">Vite 指南</a></li>
+                        <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript" target="_blank">MDN JavaScript</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>🛠️ 工具推荐</h4>
+                    <ul>
+                        <li><a href="https://nodejs.org/" target="_blank">Node.js</a></li>
+                        <li><a href="https://www.npmjs.com/" target="_blank">NPM</a></li>
+                        <li><a href="https://code.visualstudio.com/" target="_blank">VS Code</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>📖 社区</h4>
+                    <ul>
+                        <li><a href="https://github.com/webpack/webpack" target="_blank">Webpack GitHub</a></li>
+                        <li><a href="https://github.com/vitejs/vite" target="_blank">Vite GitHub</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/webpack" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 前端工程化学习平台 | 让学习更简单，让配置更清晰</p>
+            </div>
+        </footer>
     </div>
 
     <script src="app.js"></script>
