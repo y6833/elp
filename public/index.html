@@ -16,6 +16,26 @@
         <header class="header">
             <h1>🚀 前端工程化学习平台</h1>
             <p>通过实战关卡掌握 Webpack 和 Vite</p>
+            
+            <div class="progress-overview" id="progress-overview">
+                <div class="progress-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="completed-count">0</span>
+                        <span class="stat-label">已完成</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-count">8</span>
+                        <span class="stat-label">总关卡</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="completion-rate">0%</span>
+                        <span class="stat-label">完成率</span>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
         </header>
 
         <nav class="nav">
@@ -75,8 +95,13 @@
                     <div class="actions">
                         <button class="btn primary" id="run-btn">运行配置</button>
                         <button class="btn secondary" id="reset-btn">重置</button>
-                        <button class="btn info" id="hint-btn">获取提示</button>
+                        <button class="btn info" id="hint-btn">💡 获取提示</button>
                         <button class="btn success" id="next-btn" style="display: none;">下一关</button>
+                    </div>
+                    
+                    <div class="hints-section" id="hints-section" style="display: none;">
+                        <h4>💡 智能提示</h4>
+                        <div class="hints-content" id="hints-content"></div>
                     </div>
                     
                     <div class="output" id="output"></div>

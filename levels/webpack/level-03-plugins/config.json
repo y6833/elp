@@ -3,5 +3,36 @@
   "description": "<h3>🎯 学习目标</h3><p>掌握 webpack 插件的使用，学会配置常用插件来增强构建功能。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>使用 <code>HtmlWebpackPlugin</code> 自动生成 HTML 文件</li><li>使用 <code>CleanWebpackPlugin</code> 清理输出目录</li><li>配置插件的选项参数</li></ul><h3>💡 提示</h3><p>插件通过 plugins 数组配置，每个插件都是一个类的实例。HtmlWebpackPlugin 可以自动注入打包后的资源。</p>",
   "files": ["webpack.config.js", "src/index.js", "src/template.html"],
   "difficulty": "intermediate",
-  "estimatedTime": "20分钟"
+  "estimatedTime": "20分钟",
+  "validation": {
+    "required": [
+      {
+        "key": "const HtmlWebpackPlugin = require('html-webpack-plugin')",
+        "message": "请导入 HtmlWebpackPlugin",
+        "hints": ["使用 require 导入 html-webpack-plugin 模块"]
+      },
+      {
+        "key": "const { CleanWebpackPlugin } = require('clean-webpack-plugin')",
+        "message": "请导入 CleanWebpackPlugin",
+        "hints": ["使用解构赋值导入 CleanWebpackPlugin"]
+      },
+      {
+        "key": "new HtmlWebpackPlugin",
+        "message": "请在 plugins 数组中添加 HtmlWebpackPlugin 实例",
+        "hints": ["插件需要用 new 关键字实例化"]
+      },
+      {
+        "key": "new CleanWebpackPlugin",
+        "message": "请在 plugins 数组中添加 CleanWebpackPlugin 实例",
+        "hints": ["CleanWebpackPlugin 会在每次构建前清理输出目录"]
+      }
+    ],
+    "patterns": [
+      {
+        "regex": "plugins:\\s*\\[",
+        "description": "plugins 数组配置",
+        "hint": "确保正确配置 plugins 数组"
+      }
+    ]
+  }
 }

@@ -3,12 +3,12 @@ const path = require('path');
 const chalk = require('chalk');
 const { getLevels, getLevelConfig } = require('./levelManager');
 const ConfigValidator = require('./configValidator');
-const AchievementManager = require('./achievementManager');
+const ProgressManager = require('./progressManager');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3001;
 const validator = new ConfigValidator();
-const achievementManager = new AchievementManager();
+const progressManager = new ProgressManager();
 
 // 中间件
 app.use(express.json({ limit: '10mb' }));
@@ -48,6 +48,11 @@ app.post('/api/validate/:type/:level', async (req, res) => {
       return res.status(400).json({ error: '不支持的配置类型' });
     }
 
+    // 如果验证成功，保存进度
+    if (result.success) {
+      progressManager.markLevelCompleted('default', type, level, config);
+    }
+
     res.json(result);
   } catch (error) {
     console.error('验证配置时出错:', error);
@@ -56,6 +61,38 @@ app.post('/api/validate/:type/:level', async (req, res) => {
       error: '服务器内部错误',
       type: 'system'
     });
+  }
+});
+
+// 进度管理 API
+app.get('/api/progress', (req, res) => {
+  try {
+    const userId = req.query.userId || 'default';
+    const progress = progressManager.getUserProgress(userId);
+    res.json(progress);
+  } catch (error) {
+    res.status(500).json({ error: '获取进度失败' });
+  }
+});
+
+app.post('/api/progress', (req, res) => {
+  try {
+    const userId = req.body.userId || 'default';
+    const progress = req.body.progress;
+    const success = progressManager.saveUserProgress(userId, progress);
+    res.json({ success });
+  } catch (error) {
+    res.status(500).json({ error: '保存进度失败' });
+  }
+});
+
+app.get('/api/recommendations', (req, res) => {
+  try {
+    const userId = req.query.userId || 'default';
+    const recommendations = progressManager.getLearningRecommendations(userId);
+    res.json(recommendations);
+  } catch (error) {
+    res.status(500).json({ error: '获取学习建议失败' });
   }
 });
 

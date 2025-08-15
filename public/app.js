@@ -8,13 +8,17 @@ class LearningPlatform {
         this.codeEditor = null;
         this.levelStats = JSON.parse(localStorage.getItem('level-stats') || '{}');
         this.startTime = null;
+        this.progress = {};
+        this.currentView = 'levels';
         
         this.init();
     }
 
     async init() {
         await this.loadLevels();
+        await this.loadProgress();
         this.bindEvents();
+        this.updateProgressDisplay();
         this.showLevels();
     }
 
@@ -25,6 +29,27 @@ class LearningPlatform {
         } catch (error) {
             console.error('加载关卡失败:', error);
         }
+    }
+
+    async loadProgress() {
+        try {
+            const response = await fetch('/api/progress');
+            this.progress = await response.json();
+        } catch (error) {
+            console.error('加载进度失败:', error);
+            this.progress = { stats: { totalCompleted: 0, totalLevels: 8, completionRate: 0 } };
+        }
+    }
+
+    updateProgressDisplay() {
+        const stats = this.progress.stats || {};
+        
+        document.getElementById('completed-count').textContent = stats.totalCompleted || 0;
+        document.getElementById('total-count').textContent = stats.totalLevels || 8;
+        document.getElementById('completion-rate').textContent = `${stats.completionRate || 0}%`;
+        
+        const progressFill = document.getElementById('progress-fill');
+        progressFill.style.width = `${stats.completionRate || 0}%`;
     }
 
     bindEvents() {
@@ -518,4 +543,241 @@ class LearningPlatform {
 // 启动应用
 document.addEventListener('DOMContentLoaded', () => {
     new LearningPlatform();
-});
+});    // 
+显示智能提示
+    showHints() {
+        const hintsSection = document.getElementById('hints-section');
+        const hintsContent = document.getElementById('hints-content');
+        
+        if (hintsSection.style.display === 'none') {
+            // 显示提示
+            hintsSection.style.display = 'block';
+            
+            // 获取当前配置内容
+            const currentConfig = this.currentFiles[this.activeFile] || '';
+            const levelId = this.getCurrentLevelId();
+            
+            // 生成提示内容
+            const hints = this.generateHints(levelId, currentConfig);
+            
+            hintsContent.innerHTML = '';
+            hints.forEach(hint => {
+                const hintItem = document.createElement('div');
+                hintItem.className = 'hint-item';
+                hintItem.innerHTML = `
+                    <div class="hint-message">${hint.message}</div>
+                    ${hint.example ? `<div class="hint-example">${hint.example}</div>` : ''}
+                `;
+                hintsContent.appendChild(hintItem);
+            });
+            
+            document.getElementById('hint-btn').textContent = '🙈 隐藏提示';
+        } else {
+            // 隐藏提示
+            hintsSection.style.display = 'none';
+            document.getElementById('hint-btn').textContent = '💡 获取提示';
+        }
+    }
+
+    // 生成智能提示
+    generateHints(levelId, currentConfig) {
+        const hints = [];
+        
+        switch (levelId) {
+            case 'level-01-basic':
+                if (!currentConfig.includes('entry')) {
+                    hints.push({
+                        message: '💡 entry 是 webpack 开始构建的入口点，通常指向你的主 JavaScript 文件。',
+                        example: "entry: './src/index.js'"
+                    });
+                }
+                if (!currentConfig.includes('output')) {
+                    hints.push({
+                        message: '📁 output 配置告诉 webpack 在哪里输出它所创建的 bundles。',
+                        example: "output: {\n  path: path.resolve(__dirname, 'dist'),\n  filename: 'bundle.js'\n}"
+                    });
+                }
+                if (!currentConfig.includes('mode')) {
+                    hints.push({
+                        message: '⚙️ mode 设置为 development 会启用有用的开发工具。',
+                        example: "mode: 'development'"
+                    });
+                }
+                break;
+                
+            case 'level-02-loaders':
+                if (!currentConfig.includes('css-loader')) {
+                    hints.push({
+                        message: '🎨 css-loader 解析 CSS 文件中的 @import 和 url()，需要配合 style-loader 使用。',
+                        example: "use: ['style-loader', 'css-loader']"
+                    });
+                }
+                if (!currentConfig.includes('file-loader')) {
+                    hints.push({
+                        message: '🖼️ file-loader 将文件输出到输出目录并返回 public URL。',
+                        example: "use: ['file-loader']"
+                    });
+                }
+                break;
+                
+            case 'level-03-plugins':
+                if (!currentConfig.includes('HtmlWebpackPlugin')) {
+                    hints.push({
+                        message: '📄 HtmlWebpackPlugin 自动生成 HTML 文件并注入所有生成的 bundle。',
+                        example: "new HtmlWebpackPlugin({\n  template: './src/template.html'\n})"
+                    });
+                }
+                if (!currentConfig.includes('CleanWebpackPlugin')) {
+                    hints.push({
+                        message: '🧹 CleanWebpackPlugin 在每次构建前清理输出目录。',
+                        example: "new CleanWebpackPlugin()"
+                    });
+                }
+                break;
+        }
+        
+        // 如果没有特定提示，提供通用建议
+        if (hints.length === 0) {
+            hints.push({
+                message: '💭 配置看起来不错！如果遇到问题，可以查看关卡说明或参考官方文档。',
+                example: '记住：webpack 配置是一个 JavaScript 对象，包含各种选项来告诉 webpack 如何工作。'
+            });
+        }
+        
+        return hints;
+    }
+
+    // 显示统计页面
+    showStats() {
+        document.getElementById('levels-grid').style.display = 'none';
+        document.getElementById('level-detail').style.display = 'none';
+        document.getElementById('stats-page').style.display = 'block';
+        document.getElementById('achievements-page').style.display = 'none';
+        document.querySelector('.resources-section').style.display = 'none';
+        
+        this.updateStatsDisplay();
+    }
+
+    // 更新统计显示
+    updateStatsDisplay() {
+        const stats = this.progress.stats || {};
+        
+        document.getElementById('completed-levels').textContent = stats.totalCompleted || 0;
+        document.getElementById('total-time').textContent = this.calculateTotalTime();
+        document.getElementById('success-rate').textContent = `${stats.completionRate || 0}%`;
+        
+        // 更新进度条
+        const progressBars = document.getElementById('progress-bars');
+        progressBars.innerHTML = `
+            <div class="progress-item">
+                <div class="progress-label">Webpack</div>
+                <div class="progress-track">
+                    <div class="progress-value" style="width: ${(stats.webpackProgress || 0) / 5 * 100}%"></div>
+                </div>
+                <div class="progress-percent">${stats.webpackProgress || 0}/5</div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-label">Vite</div>
+                <div class="progress-track">
+                    <div class="progress-value" style="width: ${(stats.viteProgress || 0) / 3 * 100}%"></div>
+                </div>
+                <div class="progress-percent">${stats.viteProgress || 0}/3</div>
+            </div>
+        `;
+    }
+
+    // 计算总学习时间
+    calculateTotalTime() {
+        const completed = this.progress.completed || {};
+        let totalMinutes = 0;
+        
+        // 估算每个关卡的时间
+        const timeEstimates = {
+            'level-01-basic': 10,
+            'level-02-loaders': 15,
+            'level-03-plugins': 20,
+            'level-04-optimization': 25,
+            'level-05-performance': 30
+        };
+        
+        Object.values(completed).forEach(typeCompleted => {
+            Object.keys(typeCompleted).forEach(levelId => {
+                totalMinutes += timeEstimates[levelId] || 15;
+            });
+        });
+        
+        return `${totalMinutes}分钟`;
+    }
+
+    // 显示成就页面
+    showAchievements() {
+        document.getElementById('levels-grid').style.display = 'none';
+        document.getElementById('level-detail').style.display = 'none';
+        document.getElementById('stats-page').style.display = 'none';
+        document.getElementById('achievements-page').style.display = 'block';
+        document.querySelector('.resources-section').style.display = 'none';
+        
+        this.updateAchievementsDisplay();
+    }
+
+    // 更新成就显示
+    updateAchievementsDisplay() {
+        const achievements = [
+            {
+                id: 'first-step',
+                icon: '🎯',
+                title: '初学者',
+                description: '完成第一个关卡',
+                unlocked: (this.progress.stats?.totalCompleted || 0) >= 1
+            },
+            {
+                id: 'webpack-master',
+                icon: '📦',
+                title: 'Webpack 大师',
+                description: '完成所有 Webpack 关卡',
+                unlocked: (this.progress.stats?.webpackProgress || 0) >= 5
+            },
+            {
+                id: 'vite-expert',
+                icon: '⚡',
+                title: 'Vite 专家',
+                description: '完成所有 Vite 关卡',
+                unlocked: (this.progress.stats?.viteProgress || 0) >= 3
+            },
+            {
+                id: 'perfectionist',
+                icon: '💯',
+                title: '完美主义者',
+                description: '完成所有关卡',
+                unlocked: (this.progress.stats?.completionRate || 0) >= 100
+            },
+            {
+                id: 'quick-learner',
+                icon: '🚀',
+                title: '快速学习者',
+                description: '在一天内完成 3 个关卡',
+                unlocked: false // 这需要更复杂的逻辑来跟踪
+            },
+            {
+                id: 'persistent',
+                icon: '💪',
+                title: '坚持不懈',
+                description: '尝试同一关卡超过 5 次并最终成功',
+                unlocked: false // 这需要跟踪尝试次数
+            }
+        ];
+        
+        const achievementsGrid = document.getElementById('achievements-grid');
+        achievementsGrid.innerHTML = '';
+        
+        achievements.forEach(achievement => {
+            const card = document.createElement('div');
+            card.className = `achievement-card ${achievement.unlocked ? 'unlocked' : ''}`;
+            card.innerHTML = `
+                <div class="achievement-icon">${achievement.icon}</div>
+                <div class="achievement-title">${achievement.title}</div>
+                <div class="achievement-description">${achievement.description}</div>
+            `;
+            achievementsGrid.appendChild(card);
+        });
+    }

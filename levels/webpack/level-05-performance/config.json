@@ -1,7 +1,31 @@
 {
   "title": "性能优化进阶",
   "description": "<h3>🎯 学习目标</h3><p>掌握 webpack 的高级性能优化技巧，提升构建速度和运行效率。</p><h3>📝 任务说明</h3><p>请完成以下优化配置：</p><ul><li>配置 <code>cache</code> 启用持久化缓存</li><li>使用 <code>resolve.alias</code> 优化模块解析</li><li>配置 <code>externals</code> 排除大型库</li><li>启用 <code>Tree Shaking</code></li></ul><h3>💡 提示</h3><p>性能优化是一个持续的过程，需要根据项目特点选择合适的策略。</p>",
-  "files": ["webpack.config.js", "src/index.js", "src/heavy-library.js"],
+  "files": ["webpack.config.js", "src/index.js"],
   "difficulty": "expert",
-  "estimatedTime": "30分钟"
+  "estimatedTime": "30分钟",
+  "validation": {
+    "required": [
+      {
+        "key": "cache:",
+        "message": "请配置 cache 启用持久化缓存",
+        "hints": ["cache: { type: 'filesystem' } 可以启用文件系统缓存"]
+      },
+      {
+        "key": "resolve:",
+        "message": "请添加 resolve 配置优化模块解析",
+        "hints": ["resolve.alias 可以创建模块别名，加快解析速度"]
+      },
+      {
+        "key": "externals:",
+        "message": "请配置 externals 排除外部依赖",
+        "hints": ["externals 可以防止某些包被打包，减小 bundle 大小"]
+      },
+      {
+        "key": "sideEffects: false",
+        "message": "请设置 sideEffects 启用 Tree Shaking",
+        "hints": ["sideEffects: false 告诉 webpack 代码没有副作用，可以安全地进行 Tree Shaking"]
+      }
+    ]
+  }
 }
