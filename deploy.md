@@ -21,7 +21,7 @@ npm start
 ```
 
 4. **访问应用**
-打开浏览器访问 `http://localhost:3001`
+打开浏览器访问 `http://localhost:3000`
 
 ### 生产环境部署
 
@@ -43,7 +43,7 @@ module.exports = {
     exec_mode: 'cluster',
     env: {
       NODE_ENV: 'development',
-      PORT: 3001
+      PORT: 3000
     },
     env_production: {
       NODE_ENV: 'production',
@@ -73,7 +73,7 @@ RUN npm ci --only=production
 
 COPY . .
 
-EXPOSE 3001
+EXPOSE 3000
 
 CMD ["npm", "start"]
 ```
@@ -81,7 +81,7 @@ CMD ["npm", "start"]
 2. **构建和运行**
 ```bash
 docker build -t elp .
-docker run -p 3001:3001 elp
+docker run -p 3000:3000 elp
 ```
 
 #### 使用 Nginx 反向代理
@@ -92,7 +92,7 @@ server {
     server_name your-domain.com;
 
     location / {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://localhost:3000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -111,7 +111,7 @@ server {
 
 ```env
 # 服务器配置
-PORT=3001
+PORT=3000
 NODE_ENV=production
 
 # 数据存储

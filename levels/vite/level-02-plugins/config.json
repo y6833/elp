@@ -1,7 +1,7 @@
 {
   "title": "Vite 插件生态",
   "description": "<h3>🎯 学习目标</h3><p>探索 Vite 丰富的插件生态，学会配置和使用各种插件。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>配置 <code>@vitejs/plugin-react</code> 支持 React</li><li>使用 <code>vite-plugin-eslint</code> 集成代码检查</li><li>配置 <code>rollup-plugin-visualizer</code> 分析打包</li></ul><h3>💡 提示</h3><p>Vite 插件基于 Rollup 插件系统，兼容性很好。大部分 Rollup 插件都可以直接使用。</p>",
-  "files": ["vite.config.js", "src/App.jsx", "src/main.jsx", "index.html"],
+  "files": ["vite.config.js", "src/main.jsx", "index.html"],
   "difficulty": "intermediate",
   "estimatedTime": "20分钟"
 }

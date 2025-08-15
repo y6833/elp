@@ -1,0 +1,53 @@
+{
+  "title": "Parcel 零配置构建",
+  "description": "学习使用 Parcel 进行零配置的快速构建，体验开箱即用的现代前端构建工具。",
+  "difficulty": "入门",
+  "estimatedTime": "15分钟",
+  "category": "build-tools",
+  "level": 2,
+  "objectives": [
+    "理解 Parcel 的零配置理念",
+    "配置 Parcel 构建 Web 应用",
+    "学习 Parcel 的插件和优化",
+    "对比 Parcel 与其他构建工具"
+  ],
+  "files": [
+    {
+      "name": "package.json",
+      "type": "config",
+      "description": "项目配置和构建脚本"
+    },
+    {
+      "name": ".parcelrc",
+      "type": "config",
+      "description": "Parcel 配置文件"
+    },
+    {
+      "name": "src/index.html",
+      "type": "source",
+      "description": "HTML 入口文件"
+    },
+    {
+      "name": "src/index.js",
+      "type": "source",
+      "description": "JavaScript 入口文件"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": ["npm run build"],
+    "checkFiles": ["dist/index.html", "dist/index.js"]
+  },
+  "hints": [
+    "Parcel 自动检测文件类型并应用相应的转换",
+    "使用 .parcelrc 文件进行高级配置",
+    "Parcel 内置支持 TypeScript、Sass、PostCSS 等",
+    "利用 Parcel 的热重载提升开发体验"
+  ],
+  "resources": [
+    {
+      "title": "Parcel 官方文档",
+      "url": "https://parceljs.org/"
+    }
+  ]
+}

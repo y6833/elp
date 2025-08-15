@@ -1,0 +1,51 @@
+{
+  "title": "Serverless 部署",
+  "description": "学习使用 Serverless 架构部署前端应用，掌握无服务器部署的最佳实践。",
+  "difficulty": "高级",
+  "estimatedTime": "35分钟",
+  "category": "deployment",
+  "level": 3,
+  "objectives": [
+    "理解 Serverless 架构概念",
+    "配置 AWS Lambda 函数",
+    "使用 Serverless Framework",
+    "实现边缘计算部署"
+  ],
+  "files": [
+    {
+      "name": "serverless.yml",
+      "type": "config",
+      "description": "Serverless Framework 配置"
+    },
+    {
+      "name": "lambda/handler.js",
+      "type": "source",
+      "description": "Lambda 函数代码"
+    },
+    {
+      "name": "next.config.js",
+      "type": "config",
+      "description": "Next.js Serverless 配置"
+    }
+  ],
+  "validation": {
+    "type": "deploy",
+    "commands": ["serverless deploy"]
+  },
+  "hints": [
+    "使用 Serverless Framework 简化部署",
+    "配置环境变量和权限",
+    "优化冷启动时间",
+    "监控函数性能和成本"
+  ],
+  "resources": [
+    {
+      "title": "Serverless Framework 文档",
+      "url": "https://www.serverless.com/framework/docs/"
+    },
+    {
+      "title": "AWS Lambda 文档",
+      "url": "https://docs.aws.amazon.com/lambda/"
+    }
+  ]
+}

@@ -310,6 +310,75 @@ class ConfigValidator {
       console.warn('清理临时文件失败:', error.message);
     }
   }
+
+  async validateGenericConfig(levelPath, userConfig, files) {
+    try {
+      // 对于非 webpack/vite 类型的关卡，提供基本的配置验证
+      console.log('验证通用配置:', levelPath);
+      
+      // 读取关卡配置
+      const configPath = path.join(levelPath, 'config.json');
+      if (!fs.existsSync(configPath)) {
+        return {
+          success: false,
+          message: '关卡配置文件不存在'
+        };
+      }
+      
+      const levelConfig = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+      
+      // 基本的语法检查
+      if (!userConfig || userConfig.trim() === '') {
+        return {
+          success: false,
+          message: '配置不能为空'
+        };
+      }
+      
+      // 尝试解析配置文件（如果是 JSON 格式）
+      if (userConfig.trim().startsWith('{')) {
+        try {
+          JSON.parse(userConfig);
+        } catch (error) {
+          return {
+            success: false,
+            message: `JSON 格式错误: ${error.message}`
+          };
+        }
+      }
+      
+      // 检查是否包含必要的关键词（如果配置中有定义）
+      if (levelConfig.validation && levelConfig.validation.required) {
+        const missingItems = [];
+        levelConfig.validation.required.forEach(item => {
+          if (!userConfig.includes(item.key)) {
+            missingItems.push(item.message || `缺少配置: ${item.key}`);
+          }
+        });
+        
+        if (missingItems.length > 0) {
+          return {
+            success: false,
+            message: '配置不完整',
+            details: missingItems
+          };
+        }
+      }
+      
+      return {
+        success: true,
+        message: '配置验证通过！',
+        details: ['基本配置检查通过']
+      };
+      
+    } catch (error) {
+      console.error('通用配置验证失败:', error);
+      return {
+        success: false,
+        message: `验证失败: ${error.message}`
+      };
+    }
+  }
 }
 
 module.exports = ConfigValidator;

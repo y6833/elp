@@ -1,0 +1,43 @@
+{
+  "extends": "@parcel/config-default",
+  "transformers": {
+    "*.{js,mjs,jsm,jsx,es6,cjs,ts,tsx}": [
+      "@parcel/transformer-js",
+      "@parcel/transformer-react-refresh-wrap"
+    ]
+  },
+  "resolvers": ["@parcel/resolver-default"],
+  "bundler": "@parcel/bundler-default",
+  "namers": ["@parcel/namer-default"],
+  "runtimes": {
+    "browser": [
+      "@parcel/runtime-react-refresh",
+      "@parcel/runtime-browser-hmr"
+    ]
+  },
+  "optimizers": {
+    "*.{js,mjs,jsm,jsx,es6,cjs,ts,tsx}": [
+      "@parcel/optimizer-swc"
+    ],
+    "*.{css,scss,sass,less,styl}": [
+      "@parcel/optimizer-css"
+    ],
+    "*.{html,xhtml,htm}": [
+      "@parcel/optimizer-htmlnano"
+    ],
+    "*.{png,jpg,jpeg,webp,gif,svg}": [
+      "@parcel/optimizer-imagemin"
+    ]
+  },
+  "packagers": {
+    "*.html": "@parcel/packager-html",
+    "*.{js,mjs,jsm,jsx,es6,cjs,ts,tsx}": "@parcel/packager-js",
+    "*.{css,scss,sass,less,styl}": "@parcel/packager-css",
+    "*.{png,jpg,jpeg,webp,gif,svg,ico}": "@parcel/packager-raw-url"
+  },
+  "compressors": {
+    "*.{html,css,js,svg,map}": [
+      "@parcel/compressor-gzip"
+    ]
+  }
+}

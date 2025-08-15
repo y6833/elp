@@ -1,0 +1,14 @@
+{
+  "name": "@workspace/shared",
+  "version": "1.0.0",
+  "description": "共享工具库",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "title": "CDN 加速优化",
+  "description": "学习使用 CDN 加速前端应用，掌握内容分发网络的配置和优化策略。",
+  "difficulty": "中级",
+  "estimatedTime": "25分钟",
+  "category": "deployment",
+  "level": 2,
+  "objectives": [
+    "理解 CDN 的工作原理",
+    "配置 CDN 资源分发",
+    "优化缓存策略",
+    "监控 CDN 性能"
+  ],
+  "files": [
+    {
+      "name": "webpack.config.js",
+      "type": "config",
+      "description": "CDN 资源配置"
+    },
+    {
+      "name": "cloudflare.json",
+      "type": "config",
+      "description": "Cloudflare 配置"
+    },
+    {
+      "name": "aws-cloudfront.json",
+      "type": "config",
+      "description": "AWS CloudFront 配置"
+    }
+  ],
+  "validation": {
+    "type": "config",
+    "checkFiles": ["webpack.config.js", "cloudflare.json"]
+  },
+  "hints": [
+    "配置合适的缓存头",
+    "使用 CDN 加载第三方库",
+    "设置资源的 publicPath",
+    "监控 CDN 命中率"
+  ],
+  "resources": [
+    {
+      "title": "Cloudflare 文档",
+      "url": "https://developers.cloudflare.com/"
+    },
+    {
+      "title": "AWS CloudFront 文档",
+      "url": "https://docs.aws.amazon.com/cloudfront/"
+    }
+  ]
+}

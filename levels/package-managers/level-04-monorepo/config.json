@@ -1,0 +1,33 @@
+{
+  "title": "Monorepo 架构设计",
+  "description": "<h3>🎯 学习目标</h3><p>掌握 Monorepo 架构的设计和管理，学习大型项目的组织方式。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>设计合理的 Monorepo 结构</li><li>配置 Lerna 管理工具</li><li>设置版本管理策略</li><li>配置 CI/CD 流水线</li></ul><h3>💡 提示</h3><p>Monorepo 适合管理多个相关项目，可以共享代码、统一工具链和简化依赖管理。</p>",
+  "files": ["lerna.json", "package.json", "nx.json", ".github/workflows/ci.yml"],
+  "difficulty": "advanced",
+  "estimatedTime": "30分钟",
+  "validation": {
+    "required": [
+      {
+        "key": "\"version\": \"independent\"",
+        "message": "请设置独立版本管理",
+        "hints": ["在 lerna.json 中设置 version 为 independent"]
+      },
+      {
+        "key": "\"npmClient\": \"pnpm\"",
+        "message": "请设置 npm 客户端为 pnpm",
+        "hints": ["配置 Lerna 使用 pnpm 作为包管理器"]
+      },
+      {
+        "key": "\"useWorkspaces\": true",
+        "message": "请启用工作空间",
+        "hints": ["启用 Lerna 的工作空间支持"]
+      }
+    ],
+    "patterns": [
+      {
+        "regex": "\"packages\":\\s*\\[",
+        "description": "配置包路径",
+        "hint": "在 lerna.json 中配置 packages 字段"
+      }
+    ]
+  }
+}

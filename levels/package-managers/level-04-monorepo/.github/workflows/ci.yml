@@ -1,0 +1,34 @@
+# TODO: 配置 Monorepo CI/CD 流水线
+# name: CI
+
+# on:
+#   push:
+#     branches: [ main, develop ]
+#   pull_request:
+#     branches: [ main ]
+
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+          
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '18'
+#           cache: 'pnpm'
+          
+#       - name: Install pnpm
+#         run: npm install -g pnpm
+          
+#       - name: Install dependencies
+#         run: pnpm install
+          
+#       - name: Run affected tests
+#         run: npx nx affected:test --base=origin/main
+          
+#       - name: Build affected projects
+#         run: npx nx affected:build --base=origin/main

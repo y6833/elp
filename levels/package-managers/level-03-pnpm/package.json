@@ -1,0 +1,16 @@
+{
+  "name": "pnpm-workspace-demo",
+  "version": "1.0.0",
+  "description": "pnpm 工作空间示例",
+  "private": true,
+  "scripts": {
+    // TODO: 配置 pnpm 脚本
+    // "build": "pnpm -r run build",
+    // "test": "pnpm -r run test",
+    // "build:filter": "pnpm --filter './packages/*' run build",
+    // "dev": "pnpm --parallel -r run dev"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

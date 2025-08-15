@@ -1,0 +1,33 @@
+{
+  "title": "PWA 应用开发",
+  "description": "<h3>🎯 学习目标</h3><p>学习 Progressive Web App 开发，实现离线功能和原生应用体验。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>配置 Web App Manifest</li><li>实现 Service Worker</li><li>添加离线缓存策略</li><li>配置 Workbox 插件</li></ul><h3>💡 提示</h3><p>PWA 可以提供接近原生应用的用户体验，支持离线使用和推送通知。</p>",
+  "files": ["webpack.config.js", "public/manifest.json", "src/sw.js", "src/index.js"],
+  "difficulty": "advanced",
+  "estimatedTime": "30分钟",
+  "validation": {
+    "required": [
+      {
+        "key": "GenerateSW",
+        "message": "请配置 Workbox GenerateSW 插件",
+        "hints": ["导入并使用 workbox-webpack-plugin 的 GenerateSW"]
+      },
+      {
+        "key": "\"display\": \"standalone\"",
+        "message": "请在 manifest.json 中设置独立显示模式",
+        "hints": ["设置 display 为 standalone 实现应用模式"]
+      },
+      {
+        "key": "navigator.serviceWorker.register",
+        "message": "请注册 Service Worker",
+        "hints": ["在主 JS 文件中注册 Service Worker"]
+      }
+    ],
+    "patterns": [
+      {
+        "regex": "runtimeCaching:",
+        "description": "配置运行时缓存",
+        "hint": "在 Workbox 配置中添加 runtimeCaching"
+      }
+    ]
+  }
+}

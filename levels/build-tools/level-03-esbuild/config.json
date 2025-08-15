@@ -1,0 +1,48 @@
+{
+  "title": "ESBuild 极速构建",
+  "description": "学习使用 ESBuild 进行极速构建，掌握 Go 语言编写的高性能构建工具。",
+  "difficulty": "中级",
+  "estimatedTime": "20分钟",
+  "category": "build-tools",
+  "level": 3,
+  "objectives": [
+    "理解 ESBuild 的性能优势",
+    "配置 ESBuild 构建流程",
+    "学习 ESBuild 的插件系统",
+    "对比构建速度和输出质量"
+  ],
+  "files": [
+    {
+      "name": "build.js",
+      "type": "config",
+      "description": "ESBuild 构建脚本"
+    },
+    {
+      "name": "esbuild.config.js",
+      "type": "config",
+      "description": "ESBuild 配置文件"
+    },
+    {
+      "name": "package.json",
+      "type": "config",
+      "description": "项目配置"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": ["npm run build"],
+    "checkFiles": ["dist/bundle.js"]
+  },
+  "hints": [
+    "ESBuild 构建速度比 Webpack 快 10-100 倍",
+    "使用 ESBuild API 进行编程式构建",
+    "配置插件处理 CSS、图片等资源",
+    "利用 ESBuild 的 Tree Shaking 优化"
+  ],
+  "resources": [
+    {
+      "title": "ESBuild 官方文档",
+      "url": "https://esbuild.github.io/"
+    }
+  ]
+}

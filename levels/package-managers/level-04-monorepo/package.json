@@ -1,0 +1,26 @@
+{
+  "name": "monorepo-demo",
+  "version": "1.0.0",
+  "description": "Monorepo 架构示例",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    // TODO: 配置 Monorepo 脚本
+    // "bootstrap": "lerna bootstrap",
+    // "clean": "lerna clean",
+    // "build": "lerna run build",
+    // "test": "lerna run test",
+    // "publish": "lerna publish",
+    // "version": "lerna version",
+    // "changed": "lerna changed",
+    // "diff": "lerna diff"
+  },
+  "devDependencies": {
+    "lerna": "^7.0.0",
+    "@nrwl/nx": "^16.0.0",
+    "typescript": "^5.0.0"
+  }
+}

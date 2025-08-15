@@ -1,0 +1,57 @@
+{
+  "title": "Docker 容器化",
+  "description": "学习使用 Docker 容器化前端应用，掌握容器化部署的最佳实践。",
+  "difficulty": "高级",
+  "estimatedTime": "45分钟",
+  "category": "ci-cd",
+  "level": 3,
+  "objectives": [
+    "编写高效的 Dockerfile",
+    "配置多阶段构建",
+    "使用 Docker Compose 编排服务",
+    "掌握容器化的最佳实践"
+  ],
+  "files": [
+    {
+      "name": "Dockerfile",
+      "type": "config",
+      "description": "Docker 镜像构建文件"
+    },
+    {
+      "name": "docker-compose.yml",
+      "type": "config",
+      "description": "Docker Compose 配置"
+    },
+    {
+      "name": ".dockerignore",
+      "type": "config",
+      "description": "Docker 忽略文件"
+    },
+    {
+      "name": "nginx.conf",
+      "type": "config",
+      "description": "Nginx 配置文件"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": ["docker build -t frontend-app ."],
+    "checkFiles": ["Dockerfile", "docker-compose.yml"]
+  },
+  "hints": [
+    "使用多阶段构建减少镜像大小",
+    "选择合适的基础镜像",
+    "配置 .dockerignore 排除不必要文件",
+    "使用 Nginx 作为静态文件服务器"
+  ],
+  "resources": [
+    {
+      "title": "Docker 官方文档",
+      "url": "https://docs.docker.com/"
+    },
+    {
+      "title": "Docker 最佳实践",
+      "url": "https://docs.docker.com/develop/dev-best-practices/"
+    }
+  ]
+}

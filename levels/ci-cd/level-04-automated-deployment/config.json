@@ -1,0 +1,56 @@
+{
+  "title": "自动化部署",
+  "description": "学习构建完整的自动化部署流程，实现从代码提交到生产环境的全自动化。",
+  "difficulty": "高级",
+  "estimatedTime": "50分钟",
+  "category": "ci-cd",
+  "level": 4,
+  "objectives": [
+    "设计完整的部署流水线",
+    "实现多环境自动化部署",
+    "配置部署策略和回滚机制",
+    "监控部署状态和性能"
+  ],
+  "files": [
+    {
+      "name": ".github/workflows/deploy.yml",
+      "type": "config",
+      "description": "GitHub Actions 部署流水线"
+    },
+    {
+      "name": "scripts/deploy.sh",
+      "type": "script",
+      "description": "部署脚本"
+    },
+    {
+      "name": "terraform/main.tf",
+      "type": "config",
+      "description": "基础设施即代码"
+    },
+    {
+      "name": "ansible/playbook.yml",
+      "type": "config",
+      "description": "Ansible 自动化配置"
+    }
+  ],
+  "validation": {
+    "type": "deploy",
+    "commands": ["./scripts/deploy.sh staging"]
+  },
+  "hints": [
+    "使用蓝绿部署减少停机时间",
+    "配置健康检查和自动回滚",
+    "实现基础设施即代码",
+    "监控部署指标和日志"
+  ],
+  "resources": [
+    {
+      "title": "部署策略指南",
+      "url": "https://martinfowler.com/bliki/BlueGreenDeployment.html"
+    },
+    {
+      "title": "Terraform 文档",
+      "url": "https://www.terraform.io/docs/"
+    }
+  ]
+}

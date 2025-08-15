@@ -1,0 +1,16 @@
+{
+  "name": "build-tools-comparison",
+  "version": "1.0.0",
+  "description": "构建工具对比分析",
+  "scripts": {
+    "benchmark": "node benchmark.js",
+    "test": "echo \"运行构建工具性能测试\""
+  },
+  "devDependencies": {
+    "webpack": "^5.88.0",
+    "vite": "^4.4.0",
+    "esbuild": "^0.19.0",
+    "rollup": "^3.0.0",
+    "parcel": "^2.9.0"
+  }
+}

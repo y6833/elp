@@ -1,0 +1,48 @@
+{
+  "name": "rollup-library-demo",
+  "version": "1.0.0",
+  "description": "使用 Rollup 构建的 JavaScript 库示例",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "rollup",
+    "javascript",
+    "library",
+    "es-modules"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@babel/preset-env": "^7.20.0",
+    "@rollup/plugin-babel": "^6.0.0",
+    "@rollup/plugin-commonjs": "^24.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-terser": "^0.4.0",
+    "rollup": "^3.20.0",
+    "rimraf": "^4.0.0"
+  },
+  "peerDependencies": {
+    "lodash": "^4.17.0",
+    "axios": "^1.0.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "modules": false
+        }
+      ]
+    ]
+  }
+}

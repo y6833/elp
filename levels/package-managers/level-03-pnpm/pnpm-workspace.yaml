@@ -1,0 +1,5 @@
+# TODO: 配置 pnpm 工作空间
+# packages:
+#   - 'packages/*'
+#   - 'apps/*'
+#   - '!**/test/**'

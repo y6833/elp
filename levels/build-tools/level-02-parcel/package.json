@@ -1,0 +1,13 @@
+{
+  "name": "parcel-demo",
+  "version": "1.0.0",
+  "description": "Parcel 零配置构建示例",
+  "scripts": {
+    // TODO: 配置开发和构建脚本
+    // "dev": "parcel src/index.html",
+    // "build": "parcel build src/index.html"
+  },
+  "devDependencies": {
+    "parcel": "^2.9.0"
+  }
+}

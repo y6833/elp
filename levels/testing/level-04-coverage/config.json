@@ -1,0 +1,53 @@
+{
+  "title": "测试覆盖率优化",
+  "description": "学习测试覆盖率的配置和优化，建立完善的代码质量保障体系。",
+  "difficulty": "高级",
+  "estimatedTime": "30分钟",
+  "category": "testing",
+  "level": 4,
+  "objectives": [
+    "配置测试覆盖率收集",
+    "设置覆盖率阈值和报告",
+    "优化测试覆盖率策略",
+    "集成覆盖率到 CI/CD"
+  ],
+  "files": [
+    {
+      "name": "jest.config.js",
+      "type": "config",
+      "description": "Jest 覆盖率配置"
+    },
+    {
+      "name": "nyc.config.js",
+      "type": "config",
+      "description": "NYC 覆盖率工具配置"
+    },
+    {
+      "name": ".github/workflows/coverage.yml",
+      "type": "config",
+      "description": "覆盖率 CI 配置"
+    }
+  ],
+  "validation": {
+    "type": "test",
+    "commands": ["npm run test:coverage"],
+    "checkCoverage": {
+      "statements": 90,
+      "branches": 85,
+      "functions": 90,
+      "lines": 90
+    }
+  },
+  "hints": [
+    "设置合理的覆盖率阈值",
+    "排除不需要测试的文件",
+    "使用覆盖率报告分析代码质量",
+    "结合静态分析工具"
+  ],
+  "resources": [
+    {
+      "title": "Jest 覆盖率文档",
+      "url": "https://jestjs.io/docs/code-coverage"
+    }
+  ]
+}

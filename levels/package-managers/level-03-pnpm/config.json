@@ -1,0 +1,47 @@
+{
+  "title": "pnpm 高效管理",
+  "description": "学习使用 pnpm 进行高效的包管理，掌握符号链接、内容寻址存储和严格依赖管理。",
+  "difficulty": "中级",
+  "estimatedTime": "25分钟",
+  "category": "package-managers",
+  "level": 3,
+  "objectives": [
+    "理解 pnpm 的存储机制",
+    "配置 pnpm 工作空间",
+    "掌握严格的依赖管理",
+    "优化磁盘空间和安装速度"
+  ],
+  "files": [
+    {
+      "name": "pnpm-workspace.yaml",
+      "type": "config",
+      "description": "pnpm 工作空间配置"
+    },
+    {
+      "name": ".npmrc",
+      "type": "config",
+      "description": "pnpm 配置文件"
+    },
+    {
+      "name": "package.json",
+      "type": "config",
+      "description": "项目配置"
+    }
+  ],
+  "validation": {
+    "type": "command",
+    "commands": ["pnpm install", "pnpm -r build"]
+  },
+  "hints": [
+    "pnpm 使用符号链接节省磁盘空间",
+    "配置 shamefully-hoist 解决兼容性问题",
+    "使用 pnpm -r 在所有工作空间执行命令",
+    "利用 .pnpmfile.cjs 自定义依赖解析"
+  ],
+  "resources": [
+    {
+      "title": "pnpm 官方文档",
+      "url": "https://pnpm.io/"
+    }
+  ]
+}

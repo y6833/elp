@@ -1,0 +1,60 @@
+{
+  "title": "GitHub Actions 自动化",
+  "description": "学习使用 GitHub Actions 构建 CI/CD 流水线，实现自动化测试、构建和部署。",
+  "difficulty": "中级",
+  "estimatedTime": "40分钟",
+  "category": "ci-cd",
+  "level": 1,
+  "objectives": [
+    "理解 GitHub Actions 的工作流程和概念",
+    "配置自动化测试和构建流水线",
+    "实现多环境部署策略",
+    "掌握 Actions 的安全和最佳实践"
+  ],
+  "files": [
+    {
+      "name": ".github/workflows/ci.yml",
+      "type": "config",
+      "description": "持续集成工作流"
+    },
+    {
+      "name": ".github/workflows/cd.yml",
+      "type": "config",
+      "description": "持续部署工作流"
+    },
+    {
+      "name": ".github/workflows/release.yml",
+      "type": "config",
+      "description": "发布工作流"
+    },
+    {
+      "name": "scripts/deploy.sh",
+      "type": "script",
+      "description": "部署脚本"
+    }
+  ],
+  "validation": {
+    "type": "config",
+    "checkFiles": [
+      ".github/workflows/ci.yml",
+      ".github/workflows/cd.yml",
+      ".github/workflows/release.yml"
+    ]
+  },
+  "hints": [
+    "使用 matrix 策略测试多个 Node.js 版本",
+    "合理使用缓存提高构建速度",
+    "使用 secrets 管理敏感信息",
+    "配置适当的触发条件和分支策略"
+  ],
+  "resources": [
+    {
+      "title": "GitHub Actions 文档",
+      "url": "https://docs.github.com/en/actions"
+    },
+    {
+      "title": "Actions Marketplace",
+      "url": "https://github.com/marketplace?type=actions"
+    }
+  ]
+}

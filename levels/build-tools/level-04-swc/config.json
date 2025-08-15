@@ -1,0 +1,38 @@
+{
+  "title": "SWC 编译器配置",
+  "description": "<h3>🎯 学习目标</h3><p>掌握 SWC 编译器的配置和使用，了解其高性能编译特性。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>配置 .swcrc 文件</li><li>设置 TypeScript 编译选项</li><li>配置 JSX 支持</li><li>设置代码压缩和优化</li></ul><h3>💡 提示</h3><p>SWC 是用 Rust 编写的超快 JavaScript/TypeScript 编译器，比 Babel 快 20 倍以上。</p>",
+  "files": [".swcrc", "src/App.tsx", "src/index.ts", "package.json"],
+  "difficulty": "intermediate",
+  "estimatedTime": "20分钟",
+  "validation": {
+    "required": [
+      {
+        "key": "\"syntax\": \"typescript\"",
+        "message": "请设置语法为 TypeScript",
+        "hints": ["在 jsc.parser 中设置 syntax 为 typescript"]
+      },
+      {
+        "key": "\"tsx\": true",
+        "message": "请启用 TSX 支持",
+        "hints": ["在 jsc.parser 中设置 tsx 为 true"]
+      },
+      {
+        "key": "\"target\": \"es2020\"",
+        "message": "请设置编译目标为 ES2020",
+        "hints": ["在 jsc 中设置 target 为 es2020"]
+      },
+      {
+        "key": "\"minify\": true",
+        "message": "请启用代码压缩",
+        "hints": ["在根级别设置 minify 为 true"]
+      }
+    ],
+    "patterns": [
+      {
+        "regex": "\"jsc\":\\s*\\{",
+        "description": "配置 JSC 编译选项",
+        "hint": "需要配置 jsc 字段"
+      }
+    ]
+  }
+}

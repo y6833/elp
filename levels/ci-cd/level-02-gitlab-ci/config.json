@@ -1,0 +1,47 @@
+{
+  "title": "GitLab CI 流水线",
+  "description": "学习使用 GitLab CI/CD 构建自动化流水线，掌握 GitLab 的持续集成和部署功能。",
+  "difficulty": "中级",
+  "estimatedTime": "35分钟",
+  "category": "ci-cd",
+  "level": 2,
+  "objectives": [
+    "理解 GitLab CI/CD 的工作原理",
+    "配置 .gitlab-ci.yml 文件",
+    "实现多阶段构建流水线",
+    "掌握 GitLab Runner 的使用"
+  ],
+  "files": [
+    {
+      "name": ".gitlab-ci.yml",
+      "type": "config",
+      "description": "GitLab CI 配置文件"
+    },
+    {
+      "name": "scripts/deploy.sh",
+      "type": "script",
+      "description": "部署脚本"
+    },
+    {
+      "name": "docker-compose.yml",
+      "type": "config",
+      "description": "Docker Compose 配置"
+    }
+  ],
+  "validation": {
+    "type": "config",
+    "checkFiles": [".gitlab-ci.yml"]
+  },
+  "hints": [
+    "使用 stages 定义流水线阶段",
+    "配置 cache 提高构建速度",
+    "使用 variables 管理环境变量",
+    "设置适当的 only/except 规则"
+  ],
+  "resources": [
+    {
+      "title": "GitLab CI/CD 文档",
+      "url": "https://docs.gitlab.com/ee/ci/"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "title": "懒加载策略",
+  "description": "<h3>🎯 学习目标</h3><p>掌握前端懒加载技术，优化应用启动性能。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>实现 React 组件懒加载</li><li>配置路由级别的代码分割</li><li>添加加载状态和错误边界</li><li>优化图片懒加载</li></ul><h3>💡 提示</h3><p>懒加载可以显著减少初始包大小，提升应用启动速度。</p>",
+  "files": ["src/App.js", "src/components/LazyComponent.js", "webpack.config.js", "package.json"],
+  "difficulty": "intermediate",
+  "estimatedTime": "25分钟",
+  "validation": {
+    "required": [
+      {
+        "key": "React.lazy(",
+        "message": "请使用 React.lazy 实现懒加载",
+        "hints": ["使用 React.lazy(() => import('./Component')) 语法"]
+      },
+      {
+        "key": "<Suspense",
+        "message": "请配置 Suspense 组件",
+        "hints": ["使用 Suspense 包装懒加载组件并提供 fallback"]
+      },
+      {
+        "key": "fallback=",
+        "message": "请设置加载状态",
+        "hints": ["在 Suspense 中设置 fallback 属性"]
+      }
+    ],
+    "patterns": [
+      {
+        "regex": "import\\(.*\\)",
+        "description": "使用动态导入",
+        "hint": "使用 import() 语法实现动态导入"
+      }
+    ]
+  }
+}

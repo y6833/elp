@@ -1,0 +1,47 @@
+{
+  "title": "Playwright 现代测试",
+  "description": "学习使用 Playwright 进行现代化的端到端测试，支持多浏览器和移动端测试。",
+  "difficulty": "高级",
+  "estimatedTime": "40分钟",
+  "category": "testing",
+  "level": 3,
+  "objectives": [
+    "配置 Playwright 测试环境",
+    "编写跨浏览器测试用例",
+    "使用 Playwright 的高级功能",
+    "集成视觉回归测试"
+  ],
+  "files": [
+    {
+      "name": "playwright.config.js",
+      "type": "config",
+      "description": "Playwright 配置文件"
+    },
+    {
+      "name": "tests/example.spec.js",
+      "type": "test",
+      "description": "测试用例文件"
+    },
+    {
+      "name": "tests/visual.spec.js",
+      "type": "test",
+      "description": "视觉回归测试"
+    }
+  ],
+  "validation": {
+    "type": "test",
+    "commands": ["npx playwright test"]
+  },
+  "hints": [
+    "Playwright 支持 Chrome、Firefox、Safari",
+    "使用 page.screenshot() 进行视觉测试",
+    "利用 page.waitForSelector() 等待元素",
+    "配置并行测试提高效率"
+  ],
+  "resources": [
+    {
+      "title": "Playwright 官方文档",
+      "url": "https://playwright.dev/"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "default": {
+    "completed": {
+      "webpack": {
+        "level-02-loaders": {
+          "completedAt": "2025-08-15T10:16:29.981Z",
+          "config": "const path = require('path');\n\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: 'bundle.js'\n  },\n  mode: 'development',\n  \n  // TODO: 配置模块规则\n  module: {\n    rules: [\n      // TODO: 添加 CSS 加载器规则\n      {\n        test: /\\.css$/,\n        use: ['style-loader','css-loader']\n      },\n      // TODO: 添加图片加载器规则\n      {\n        test: /\\.(png|jpg|gif)$/,\n        use: ['file-loader']\n      }\n    ]\n  }\n};",
+          "attempts": 3
+        }
+      }
+    },
+    "stats": {
+      "totalLevels": 8,
+      "totalCompleted": 1,
+      "completionRate": 13,
+      "webpackProgress": 1,
+      "viteProgress": 0
+    },
+    "startedAt": "2025-08-15T10:12:21.221Z",
+    "lastUpdated": "2025-08-15T10:16:29.982Z"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "title": "npm 高级特性",
+  "description": "深入学习 npm 的高级功能，包括脚本钩子、工作区、发布流程和安全最佳实践。",
+  "difficulty": "中级",
+  "estimatedTime": "30分钟",
+  "category": "package-managers",
+  "level": 1,
+  "objectives": [
+    "掌握 npm 脚本的高级用法和钩子",
+    "学习 npm 工作区(workspaces)管理",
+    "了解包发布和版本管理流程",
+    "掌握 npm 安全和性能优化"
+  ],
+  "files": [
+    {
+      "name": "package.json",
+      "type": "config",
+      "description": "项目配置和脚本定义"
+    },
+    {
+      "name": ".npmrc",
+      "type": "config",
+      "description": "npm 配置文件"
+    },
+    {
+      "name": ".npmignore",
+      "type": "config",
+      "description": "发布时忽略的文件"
+    },
+    {
+      "name": "scripts/build.js",
+      "type": "script",
+      "description": "自定义构建脚本"
+    }
+  ],
+  "validation": {
+    "type": "command",
+    "commands": [
+      "npm run validate",
+      "npm run security-check",
+      "npm run build"
+    ]
+  },
+  "hints": [
+    "使用 pre/post 钩子自动化任务流程",
+    "配置 .npmrc 优化包管理体验",
+    "使用 npm audit 检查安全漏洞",
+    "合理配置 .npmignore 减少包体积"
+  ],
+  "resources": [
+    {
+      "title": "npm 官方文档",
+      "url": "https://docs.npmjs.com/"
+    },
+    {
+      "title": "npm 脚本指南",
+      "url": "https://docs.npmjs.com/cli/v9/using-npm/scripts"
+    }
+  ]
+}

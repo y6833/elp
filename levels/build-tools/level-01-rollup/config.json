@@ -1,0 +1,61 @@
+{
+  "title": "Rollup 构建配置",
+  "description": "学习使用 Rollup 构建 JavaScript 库和应用，掌握 ES 模块打包和 Tree Shaking 优化。",
+  "difficulty": "中级",
+  "estimatedTime": "25分钟",
+  "category": "build-tools",
+  "level": 1,
+  "objectives": [
+    "理解 Rollup 的设计理念和适用场景",
+    "配置 Rollup 构建 JavaScript 库",
+    "掌握插件系统和代码分割",
+    "学习多格式输出配置"
+  ],
+  "files": [
+    {
+      "name": "rollup.config.js",
+      "type": "config",
+      "description": "Rollup 主配置文件"
+    },
+    {
+      "name": "package.json",
+      "type": "config", 
+      "description": "项目配置和构建脚本"
+    },
+    {
+      "name": "src/index.js",
+      "type": "source",
+      "description": "库的入口文件"
+    },
+    {
+      "name": "src/utils.js",
+      "type": "source",
+      "description": "工具函数模块"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": ["npm run build"],
+    "checkFiles": [
+      "dist/index.js",
+      "dist/index.esm.js",
+      "dist/index.umd.js"
+    ]
+  },
+  "hints": [
+    "Rollup 特别适合构建 JavaScript 库",
+    "使用 @rollup/plugin-node-resolve 处理 node_modules",
+    "配置多种输出格式: ES、CJS、UMD",
+    "利用 Tree Shaking 移除未使用的代码"
+  ],
+  "resources": [
+    {
+      "title": "Rollup 官方文档",
+      "url": "https://rollupjs.org/"
+    },
+    {
+      "title": "Rollup 插件列表",
+      "url": "https://github.com/rollup/awesome"
+    }
+  ]
+}

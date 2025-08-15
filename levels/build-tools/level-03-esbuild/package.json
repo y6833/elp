@@ -1,0 +1,13 @@
+{
+  "name": "esbuild-demo",
+  "version": "1.0.0",
+  "description": "ESBuild 极速构建示例",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node build.js --watch"
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.0",
+    "typescript": "^5.0.0"
+  }
+}

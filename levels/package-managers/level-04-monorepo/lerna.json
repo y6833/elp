@@ -1,0 +1,29 @@
+{
+  // TODO: 配置 Lerna
+  // 1. 设置版本管理策略
+  // "version": "independent",
+  
+  // 2. 配置包路径
+  // "packages": [
+  //   "packages/*",
+  //   "apps/*"
+  // ],
+  
+  // 3. 设置 npm 客户端
+  // "npmClient": "pnpm",
+  
+  // 4. 启用工作空间
+  // "useWorkspaces": true,
+  
+  // 5. 配置命令选项
+  // "command": {
+  //   "publish": {
+  //     "conventionalCommits": true,
+  //     "message": "chore(release): publish"
+  //   },
+  //   "bootstrap": {
+  //     "ignore": "component-*",
+  //     "npmClientArgs": ["--no-package-lock"]
+  //   }
+  // }
+}

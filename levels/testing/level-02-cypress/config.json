@@ -1,0 +1,47 @@
+{
+  "title": "Cypress E2E 测试",
+  "description": "学习使用 Cypress 进行端到端测试，掌握现代化的 Web 应用测试方法和最佳实践。",
+  "difficulty": "中级",
+  "estimatedTime": "35分钟",
+  "category": "testing",
+  "level": 2,
+  "objectives": [
+    "配置 Cypress 测试环境",
+    "编写端到端测试用例",
+    "使用 Cypress 的调试工具",
+    "集成 CI/CD 自动化测试"
+  ],
+  "files": [
+    {
+      "name": "cypress.config.js",
+      "type": "config",
+      "description": "Cypress 配置文件"
+    },
+    {
+      "name": "cypress/e2e/app.cy.js",
+      "type": "test",
+      "description": "端到端测试用例"
+    },
+    {
+      "name": "cypress/support/commands.js",
+      "type": "support",
+      "description": "自定义命令"
+    }
+  ],
+  "validation": {
+    "type": "test",
+    "commands": ["npm run cypress:run"]
+  },
+  "hints": [
+    "使用 cy.visit() 导航到页面",
+    "利用 cy.get() 选择元素",
+    "使用 cy.intercept() 模拟 API 响应",
+    "配置 baseUrl 简化测试编写"
+  ],
+  "resources": [
+    {
+      "title": "Cypress 官方文档",
+      "url": "https://docs.cypress.io/"
+    }
+  ]
+}

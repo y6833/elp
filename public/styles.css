@@ -31,19 +31,23 @@ body {
 .nav {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
     margin-bottom: 30px;
+    flex-wrap: wrap;
+    padding: 0 20px;
 }
 
 .nav-btn {
-    padding: 12px 24px;
+    padding: 10px 16px;
     border: none;
-    border-radius: 25px;
+    border-radius: 20px;
     background: rgba(255, 255, 255, 0.2);
     color: white;
-    font-size: 1rem;
+    font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: 100px;
 }
 
 .nav-btn:hover {
@@ -862,5 +866,125 @@ body {
     
     .progress-label, .progress-percent {
         text-align: center;
+    }
+}/*
+ 进度概览样式 */
+.progress-overview {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.progress-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.progress-bar {
+    width: 100%;
+    max-width: 400px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+/* 无关卡提示 */
+.no-levels {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    font-size: 1.2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 提示按钮样式 */
+.btn.info {
+    background: #17a2b8;
+    color: white;
+}
+
+.btn.info:hover {
+    background: #138496;
+}
+
+/* 提示区域样式 */
+.hints-section {
+    background: #e7f3ff;
+    border: 1px solid #b3d9ff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.hints-section h4 {
+    margin: 0 0 15px 0;
+    color: #0066cc;
+}
+
+.hint-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    background: white;
+    border-radius: 6px;
+    border-left: 4px solid #17a2b8;
+}
+
+.hint-message {
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.hint-example {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: #495057;
+    white-space: pre-wrap;
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+    .progress-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
     }
 }

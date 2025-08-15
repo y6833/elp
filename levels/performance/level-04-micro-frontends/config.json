@@ -1,0 +1,63 @@
+{
+  "title": "微前端架构",
+  "description": "学习使用 Module Federation 实现微前端架构，掌握大型应用的模块化拆分和独立部署策略。",
+  "difficulty": "专家",
+  "estimatedTime": "45分钟",
+  "category": "performance",
+  "level": 4,
+  "objectives": [
+    "理解微前端架构的核心概念",
+    "配置 Module Federation 插件",
+    "实现远程模块的暴露和消费",
+    "掌握微前端的路由和状态管理"
+  ],
+  "files": [
+    {
+      "name": "host/webpack.config.js",
+      "type": "config",
+      "description": "主应用的 webpack 配置"
+    },
+    {
+      "name": "remote/webpack.config.js", 
+      "type": "config",
+      "description": "远程应用的 webpack 配置"
+    },
+    {
+      "name": "host/src/index.js",
+      "type": "source",
+      "description": "主应用入口文件"
+    },
+    {
+      "name": "remote/src/Button.js",
+      "type": "source", 
+      "description": "远程组件"
+    }
+  ],
+  "validation": {
+    "type": "build",
+    "commands": [
+      "cd host && npm run build",
+      "cd remote && npm run build"
+    ],
+    "checkFiles": [
+      "host/dist/remoteEntry.js",
+      "remote/dist/remoteEntry.js"
+    ]
+  },
+  "hints": [
+    "Module Federation 允许多个独立的构建组成一个应用",
+    "使用 ModuleFederationPlugin 配置远程模块的暴露和消费",
+    "注意配置正确的 publicPath 和端口号",
+    "远程模块需要异步加载，使用 import() 语法"
+  ],
+  "resources": [
+    {
+      "title": "Module Federation 官方文档",
+      "url": "https://webpack.js.org/concepts/module-federation/"
+    },
+    {
+      "title": "微前端实践指南",
+      "url": "https://micro-frontends.org/"
+    }
+  ]
+}

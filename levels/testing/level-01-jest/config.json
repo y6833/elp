@@ -1,0 +1,70 @@
+{
+  "title": "Jest 单元测试配置",
+  "description": "学习使用 Jest 进行单元测试，掌握测试配置、模拟、覆盖率和最佳实践。",
+  "difficulty": "中级",
+  "estimatedTime": "35分钟",
+  "category": "testing",
+  "level": 1,
+  "objectives": [
+    "配置 Jest 测试环境和选项",
+    "编写单元测试和集成测试",
+    "使用 Mock 和 Spy 进行测试隔离",
+    "配置测试覆盖率和报告"
+  ],
+  "files": [
+    {
+      "name": "jest.config.js",
+      "type": "config",
+      "description": "Jest 配置文件"
+    },
+    {
+      "name": "src/utils.js",
+      "type": "source",
+      "description": "待测试的工具函数"
+    },
+    {
+      "name": "src/__tests__/utils.test.js",
+      "type": "test",
+      "description": "工具函数的单元测试"
+    },
+    {
+      "name": "src/api.js",
+      "type": "source",
+      "description": "API 客户端类"
+    },
+    {
+      "name": "src/__tests__/api.test.js",
+      "type": "test",
+      "description": "API 客户端的测试"
+    }
+  ],
+  "validation": {
+    "type": "test",
+    "commands": [
+      "npm test",
+      "npm run test:coverage"
+    ],
+    "checkCoverage": {
+      "statements": 80,
+      "branches": 80,
+      "functions": 80,
+      "lines": 80
+    }
+  },
+  "hints": [
+    "使用 describe 和 it 组织测试用例",
+    "利用 beforeEach/afterEach 设置测试环境",
+    "使用 jest.mock() 模拟外部依赖",
+    "配置合适的测试覆盖率阈值"
+  ],
+  "resources": [
+    {
+      "title": "Jest 官方文档",
+      "url": "https://jestjs.io/docs/getting-started"
+    },
+    {
+      "title": "Jest 最佳实践",
+      "url": "https://github.com/goldbergyoni/javascript-testing-best-practices"
+    }
+  ]
+}

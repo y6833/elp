@@ -4,27 +4,22 @@ const path = require('path');
 const LEVELS_DIR = path.join(__dirname, '../levels');
 
 function getLevels() {
-  const levels = {
-    webpack: [],
-    vite: []
-  };
+  const levels = {};
 
   try {
-    // 读取 webpack 关卡
-    const webpackDir = path.join(LEVELS_DIR, 'webpack');
-    if (fs.existsSync(webpackDir)) {
-      levels.webpack = fs.readdirSync(webpackDir)
-        .filter(dir => fs.statSync(path.join(webpackDir, dir)).isDirectory())
-        .sort();
-    }
+    // 读取所有关卡分类目录
+    const categories = fs.readdirSync(LEVELS_DIR)
+      .filter(dir => fs.statSync(path.join(LEVELS_DIR, dir)).isDirectory());
 
-    // 读取 vite 关卡
-    const viteDir = path.join(LEVELS_DIR, 'vite');
-    if (fs.existsSync(viteDir)) {
-      levels.vite = fs.readdirSync(viteDir)
-        .filter(dir => fs.statSync(path.join(viteDir, dir)).isDirectory())
+    categories.forEach(category => {
+      const categoryDir = path.join(LEVELS_DIR, category);
+      levels[category] = fs.readdirSync(categoryDir)
+        .filter(dir => fs.statSync(path.join(categoryDir, dir)).isDirectory())
         .sort();
-    }
+    });
+
+    console.log('已加载关卡分类:', Object.keys(levels));
+    console.log('关卡详情:', levels);
   } catch (error) {
     console.error('读取关卡目录失败:', error);
   }
@@ -46,10 +41,13 @@ function getLevelConfig(type, level) {
   const files = {};
   if (config.files) {
     config.files.forEach(file => {
-      const filePath = path.join(levelPath, file);
+      // 处理两种格式：字符串数组（旧格式）和对象数组（新格式）
+      const fileName = typeof file === 'string' ? file : file.name;
+      const filePath = path.join(levelPath, fileName);
       if (fs.existsSync(filePath)) {
-        files[file] = fs.readFileSync(filePath, 'utf8');
+        files[fileName] = fs.readFileSync(filePath, 'utf8');
       }
+      // 移除警告日志，减少控制台输出
     });
   }
 

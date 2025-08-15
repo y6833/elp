@@ -1,0 +1,65 @@
+{
+  "title": "静态网站托管",
+  "description": "学习将前端应用部署到各种静态托管平台，掌握现代前端应用的部署流程和最佳实践。",
+  "difficulty": "入门",
+  "estimatedTime": "20分钟",
+  "category": "deployment",
+  "level": 1,
+  "objectives": [
+    "了解静态网站托管的概念和优势",
+    "配置构建脚本和部署流程",
+    "掌握环境变量和配置管理",
+    "学习多平台部署策略"
+  ],
+  "files": [
+    {
+      "name": "package.json",
+      "type": "config",
+      "description": "项目配置和构建脚本"
+    },
+    {
+      "name": "netlify.toml",
+      "type": "config",
+      "description": "Netlify 部署配置"
+    },
+    {
+      "name": "vercel.json",
+      "type": "config",
+      "description": "Vercel 部署配置"
+    },
+    {
+      "name": ".github/workflows/deploy.yml",
+      "type": "config",
+      "description": "GitHub Pages 自动部署"
+    }
+  ],
+  "validation": {
+    "type": "config",
+    "checkFiles": [
+      "package.json",
+      "netlify.toml",
+      "vercel.json",
+      ".github/workflows/deploy.yml"
+    ]
+  },
+  "hints": [
+    "静态托管适合 SPA 和 JAMstack 应用",
+    "配置正确的构建命令和输出目录",
+    "使用环境变量管理不同环境的配置",
+    "设置重定向规则处理 SPA 路由"
+  ],
+  "resources": [
+    {
+      "title": "Netlify 文档",
+      "url": "https://docs.netlify.com/"
+    },
+    {
+      "title": "Vercel 文档", 
+      "url": "https://vercel.com/docs"
+    },
+    {
+      "title": "GitHub Pages 文档",
+      "url": "https://docs.github.com/en/pages"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+# npm 发布时忽略的文件和目录
+
+# 源代码 (只发布构建后的文件)
+src/
+tests/
+__tests__/
+*.test.js
+*.spec.js
+
+# 构建和开发工具
+.vscode/
+.idea/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 依赖目录
+node_modules/
+
+# 构建缓存
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+dist/coverage/
+
+# 环境配置
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# 编辑器配置
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git 相关
+.git/
+.gitignore
+
+# CI/CD 配置
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# 文档和示例 (可选)
+docs/
+examples/
+demo/
+
+# 配置文件
+.eslintrc*
+.prettierrc*
+.babelrc*
+rollup.config.js
+webpack.config.js
+vite.config.js
+jest.config.js
+tsconfig.json
+
+# 脚本文件
+scripts/
+tools/
+
+# 临时文件
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# 覆盖率报告
+coverage/
+.nyc_output/
+
+# 锁定文件 (可选，根据需要决定)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

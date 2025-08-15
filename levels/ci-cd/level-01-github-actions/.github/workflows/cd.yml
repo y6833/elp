@@ -1,0 +1,240 @@
+name: Continuous Deployment
+
+# 只在主分支推送时触发
+on:
+  push:
+    branches: [ main ]
+  workflow_run:
+    workflows: ["Continuous Integration"]
+    types: [completed]
+    branches: [ main ]
+
+# 确保同时只有一个部署在运行
+concurrency:
+  group: deployment
+  cancel-in-progress: false
+
+env:
+  NODE_ENV: production
+
+jobs:
+  # 检查 CI 是否通过
+  check-ci:
+    name: Check CI Status
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success' || github.event_name == 'push'
+    
+    steps:
+    - name: CI Status Check
+      run: echo "CI passed, proceeding with deployment"
+
+  # 部署到 Staging 环境
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: check-ci
+    environment:
+      name: staging
+      url: https://staging.example.com
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build for staging
+      run: npm run build
+      env:
+        VITE_API_URL: ${{ secrets.STAGING_API_URL }}
+        VITE_APP_ENV: staging
+        
+    - name: Deploy to Netlify (Staging)
+      uses: nwtgck/actions-netlify@v2.0
+      with:
+        publish-dir: './dist'
+        production-branch: main
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-message: "Deploy from GitHub Actions - Staging"
+        enable-pull-request-comment: false
+        enable-commit-comment: true
+        overwrites-pull-request-comment: true
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_STAGING_SITE_ID }}
+        
+    - name: Run smoke tests on staging
+      run: npm run test:smoke
+      env:
+        TEST_URL: https://staging.example.com
+
+  # 部署到 Production 环境
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    environment:
+      name: production
+      url: https://example.com
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build for production
+      run: npm run build
+      env:
+        VITE_API_URL: ${{ secrets.PRODUCTION_API_URL }}
+        VITE_APP_ENV: production
+        
+    - name: Deploy to Netlify (Production)
+      uses: nwtgck/actions-netlify@v2.0
+      with:
+        publish-dir: './dist'
+        production-deploy: true
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-message: "Deploy from GitHub Actions - Production"
+        enable-pull-request-comment: false
+        enable-commit-comment: true
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PRODUCTION_SITE_ID }}
+        
+    - name: Deploy to AWS S3
+      run: |
+        aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_NAME }} --delete
+        aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: us-east-1
+        
+    - name: Deploy to Vercel
+      uses: amondnet/vercel-action@v25
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        vercel-args: '--prod'
+        
+    - name: Update deployment status
+      run: |
+        curl -X POST \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/deployments \
+          -d '{
+            "ref": "${{ github.sha }}",
+            "environment": "production",
+            "description": "Deployed to production",
+            "auto_merge": false
+          }'
+
+  # 部署后测试
+  post-deploy-tests:
+    name: Post-deployment Tests
+    runs-on: ubuntu-latest
+    needs: deploy-production
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run E2E tests on production
+      run: npm run test:e2e
+      env:
+        TEST_URL: https://example.com
+        
+    - name: Run performance tests
+      run: npm run test:performance
+      env:
+        TEST_URL: https://example.com
+        
+    - name: Health check
+      run: |
+        curl -f https://example.com/health || exit 1
+        curl -f https://example.com/api/health || exit 1
+
+  # 回滚机制
+  rollback:
+    name: Rollback on Failure
+    runs-on: ubuntu-latest
+    needs: [deploy-production, post-deploy-tests]
+    if: failure()
+    
+    steps:
+    - name: Rollback Netlify deployment
+      run: |
+        # 获取上一个成功的部署 ID 并回滚
+        echo "Rolling back to previous deployment..."
+        # 这里需要实现具体的回滚逻辑
+        
+    - name: Rollback AWS S3 deployment
+      run: |
+        # 从备份恢复或部署上一个版本
+        echo "Rolling back AWS deployment..."
+        
+    - name: Notify team of rollback
+      uses: 8398a7/action-slack@v3
+      with:
+        status: failure
+        text: '🚨 Production deployment failed and was rolled back'
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  # 部署成功通知
+  notify-success:
+    name: Notify Deployment Success
+    runs-on: ubuntu-latest
+    needs: [deploy-production, post-deploy-tests]
+    if: success()
+    
+    steps:
+    - name: Notify Slack
+      uses: 8398a7/action-slack@v3
+      with:
+        status: success
+        text: '🚀 Successfully deployed to production: https://example.com'
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        
+    - name: Create GitHub release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ github.run_number }}
+        release_name: Release v${{ github.run_number }}
+        body: |
+          Automated release from commit ${{ github.sha }}
+          
+          Deployed to:
+          - Staging: https://staging.example.com
+          - Production: https://example.com
+        draft: false
+        prerelease: false

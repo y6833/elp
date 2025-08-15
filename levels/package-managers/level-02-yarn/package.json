@@ -1,0 +1,21 @@
+{
+  "name": "yarn-workspace-demo",
+  "version": "1.0.0",
+  "description": "Yarn 工作空间示例",
+  "private": true,
+  // TODO: 配置工作空间
+  // "workspaces": [
+  //   "packages/*"
+  // ],
+  "scripts": {
+    // TODO: 配置 Yarn 脚本
+    // "build": "yarn workspaces foreach run build",
+    // "test": "yarn workspaces foreach run test",
+    // "clean": "yarn workspaces foreach run clean"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^18.0.0"
+  },
+  "packageManager": "yarn@3.6.0"
+}

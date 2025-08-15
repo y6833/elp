@@ -6,7 +6,7 @@ const ConfigValidator = require('./configValidator');
 const ProgressManager = require('./progressManager');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 const validator = new ConfigValidator();
 const progressManager = new ProgressManager();
 
@@ -45,7 +45,8 @@ app.post('/api/validate/:type/:level', async (req, res) => {
     } else if (type === 'vite') {
       result = await validator.validateViteConfig(levelPath, config, files);
     } else {
-      return res.status(400).json({ error: '不支持的配置类型' });
+      // 对于其他类型的关卡，提供通用验证
+      result = await validator.validateGenericConfig(levelPath, config, files);
     }
 
     // 如果验证成功，保存进度

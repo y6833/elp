@@ -1,0 +1,56 @@
+{
+  "title": "Kubernetes 容器编排",
+  "description": "学习使用 Kubernetes 部署和管理前端应用，掌握容器编排的高级技术。",
+  "difficulty": "专家",
+  "estimatedTime": "50分钟",
+  "category": "deployment",
+  "level": 4,
+  "objectives": [
+    "理解 Kubernetes 核心概念",
+    "编写 K8s 部署配置",
+    "配置服务发现和负载均衡",
+    "实现滚动更新和回滚"
+  ],
+  "files": [
+    {
+      "name": "k8s/deployment.yaml",
+      "type": "config",
+      "description": "Kubernetes 部署配置"
+    },
+    {
+      "name": "k8s/service.yaml",
+      "type": "config",
+      "description": "Kubernetes 服务配置"
+    },
+    {
+      "name": "k8s/ingress.yaml",
+      "type": "config",
+      "description": "Kubernetes Ingress 配置"
+    },
+    {
+      "name": "helm/Chart.yaml",
+      "type": "config",
+      "description": "Helm Chart 配置"
+    }
+  ],
+  "validation": {
+    "type": "deploy",
+    "commands": ["kubectl apply -f k8s/"]
+  },
+  "hints": [
+    "使用 Deployment 管理应用副本",
+    "配置 Service 暴露应用",
+    "使用 Ingress 管理外部访问",
+    "利用 Helm 简化部署"
+  ],
+  "resources": [
+    {
+      "title": "Kubernetes 官方文档",
+      "url": "https://kubernetes.io/docs/"
+    },
+    {
+      "title": "Helm 文档",
+      "url": "https://helm.sh/docs/"
+    }
+  ]
+}

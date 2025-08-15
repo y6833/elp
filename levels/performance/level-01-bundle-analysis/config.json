@@ -1,0 +1,33 @@
+{
+  "title": "Bundle 分析优化",
+  "description": "<h3>🎯 学习目标</h3><p>学习如何分析和优化 JavaScript bundle，减少包体积。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>配置 webpack-bundle-analyzer</li><li>设置代码分割策略</li><li>配置性能预算</li><li>分析依赖关系</li></ul><h3>💡 提示</h3><p>Bundle 分析是性能优化的第一步，帮助识别大文件和重复依赖。</p>",
+  "files": ["webpack.config.js", "src/index.js", "analyze.js", "package.json"],
+  "difficulty": "intermediate",
+  "estimatedTime": "20分钟",
+  "validation": {
+    "required": [
+      {
+        "key": "BundleAnalyzerPlugin",
+        "message": "请配置 BundleAnalyzerPlugin",
+        "hints": ["导入并使用 webpack-bundle-analyzer 插件"]
+      },
+      {
+        "key": "splitChunks",
+        "message": "请配置代码分割",
+        "hints": ["在 optimization 中配置 splitChunks"]
+      },
+      {
+        "key": "performance:",
+        "message": "请配置性能预算",
+        "hints": ["设置 performance 选项限制文件大小"]
+      }
+    ],
+    "patterns": [
+      {
+        "regex": "maxAssetSize:",
+        "description": "设置资源大小限制",
+        "hint": "配置单个资源文件的最大大小"
+      }
+    ]
+  }
+}
