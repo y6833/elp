@@ -1,51 +1,129 @@
 {
-  "title": "多环境配置管理",
-  "description": "学习如何为不同环境（开发、测试、生产）配置不同的 Webpack 构建策略，掌握环境变量和配置合并技巧。",
+  "id": "webpack-multi-env",
+  "title": "🌍 Webpack 多环境配置 - 开发、测试、生产环境管理",
+  "description": "真实项目中，开发环境需要快速构建和热重载，生产环境需要代码压缩和优化。这一关将教你如何优雅地管理多环境配置，使用webpack-merge合并配置，通过环境变量控制不同的构建策略。",
   "difficulty": "中级",
   "estimatedTime": "35分钟",
   "category": "webpack",
-  "level": 6,
-  "objectives": [
-    "理解多环境配置的重要性",
-    "学会使用 webpack-merge 合并配置",
-    "掌握环境变量的使用",
-    "配置不同环境的优化策略"
+  "scenario": "你的项目需要部署到开发、测试、生产三个环境，每个环境的需求不同：开发环境要快速构建，生产环境要极致优化，测试环境要便于调试。你需要设计一套灵活的多环境配置方案。",
+  "learningObjectives": [
+    "🔧 理解不同环境的构建需求差异",
+    "🔀 使用webpack-merge优雅地合并配置",
+    "🌐 通过环境变量控制构建行为",
+    "⚡ 为不同环境配置最适合的优化策略"
   ],
-  "files": [
+  "tasks": [
     {
-      "name": "webpack.common.js",
-      "type": "config",
-      "description": "通用配置文件"
+      "id": "setup-common-config",
+      "title": "🔧 任务1：创建通用配置文件",
+      "description": "创建webpack.common.js文件，包含所有环境共用的配置项，如入口、输出、基础loader等。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "创建webpack.common.js文件",
+          "code": "const path = require('path');\nconst HtmlWebpackPlugin = require('html-webpack-plugin');\n\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    clean: true\n  },\n  plugins: [\n    new HtmlWebpackPlugin({\n      template: './src/index.html'\n    })\n  ],\n  module: {\n    rules: [\n      {\n        test: /\\.css$/i,\n        use: ['style-loader', 'css-loader']\n      }\n    ]\n  }\n};",
+          "explanation": "通用配置包含所有环境都需要的基础设置"
+        }
+      ],
+      "expectedResult": "创建了包含基础配置的通用文件",
+      "validation": {
+        "type": "file-exists",
+        "files": ["webpack.common.js"]
+      }
     },
     {
-      "name": "webpack.dev.js",
-      "type": "config",
-      "description": "开发环境配置"
+      "id": "setup-dev-config",
+      "title": "🚀 任务2：配置开发环境",
+      "description": "创建webpack.dev.js，配置开发环境特有的选项：快速构建、热重载、详细的source map。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "创建webpack.dev.js文件",
+          "code": "const { merge } = require('webpack-merge');\nconst common = require('./webpack.common.js');\nconst webpack = require('webpack');\n\nmodule.exports = merge(common, {\n  mode: 'development',\n  devtool: 'eval-source-map',\n  output: {\n    filename: '[name].js'\n  },\n  devServer: {\n    hot: true,\n    port: 3000,\n    open: true\n  },\n  plugins: [\n    new webpack.DefinePlugin({\n      'process.env.NODE_ENV': JSON.stringify('development'),\n      'process.env.API_URL': JSON.stringify('http://localhost:8080/api')\n    })\n  ]\n});",
+          "explanation": "开发环境优先考虑构建速度和调试体验"
+        }
+      ],
+      "devConfigFeatures": {
+        "eval-source-map": "最快的source map，适合开发调试",
+        "hot: true": "启用热模块替换，提升开发体验",
+        "DefinePlugin": "注入环境变量，区分不同环境"
+      },
+      "expectedResult": "开发环境配置文件，支持热重载和快速构建",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.dev.js",
+        "contains": "webpack-merge"
+      }
     },
     {
-      "name": "webpack.prod.js",
-      "type": "config",
-      "description": "生产环境配置"
+      "id": "setup-prod-config",
+      "title": "🏭 任务3：配置生产环境",
+      "description": "创建webpack.prod.js，配置生产环境的优化选项：代码压缩、文件名hash、性能优化。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "创建webpack.prod.js文件",
+          "code": "const { merge } = require('webpack-merge');\nconst common = require('./webpack.common.js');\nconst webpack = require('webpack');\n\nmodule.exports = merge(common, {\n  mode: 'production',\n  devtool: 'source-map',\n  output: {\n    filename: '[name].[contenthash].js'\n  },\n  optimization: {\n    splitChunks: {\n      chunks: 'all'\n    },\n    runtimeChunk: 'single'\n  },\n  plugins: [\n    new webpack.DefinePlugin({\n      'process.env.NODE_ENV': JSON.stringify('production'),\n      'process.env.API_URL': JSON.stringify('https://api.example.com')\n    })\n  ]\n});",
+          "explanation": "生产环境优先考虑性能优化和文件大小"
+        }
+      ],
+      "prodConfigFeatures": {
+        "contenthash": "文件内容变化时才更新hash，优化缓存",
+        "splitChunks": "代码分割，提升加载性能",
+        "mode: 'production'": "自动启用压缩和优化"
+      },
+      "expectedResult": "生产环境配置文件，包含完整的优化策略",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.prod.js",
+        "contains": "contenthash"
+      }
     },
     {
-      "name": "src/config.js",
-      "type": "source",
-      "description": "应用配置文件"
+      "id": "setup-package-scripts",
+      "title": "📦 任务4：配置构建脚本",
+      "description": "在package.json中添加不同环境的构建脚本，方便团队使用。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "更新package.json的scripts部分",
+          "code": "{\n  \"scripts\": {\n    \"dev\": \"webpack serve --config webpack.dev.js\",\n    \"build:dev\": \"webpack --config webpack.dev.js\",\n    \"build:prod\": \"webpack --config webpack.prod.js\",\n    \"build\": \"npm run build:prod\"\n  }\n}",
+          "explanation": "提供清晰的命令来构建不同环境"
+        }
+      ],
+      "scriptExplanation": {
+        "dev": "启动开发服务器",
+        "build:dev": "构建开发版本",
+        "build:prod": "构建生产版本",
+        "build": "默认构建生产版本"
+      },
+      "expectedResult": "团队可以使用npm run dev、npm run build等命令",
+      "validation": {
+        "type": "file-content",
+        "file": "package.json",
+        "contains": "webpack.dev.js"
+      }
     }
   ],
-  "validation": {
-    "type": "build",
-    "commands": [
-      "npm run build:dev",
-      "npm run build:prod"
-    ]
-  },
-  "hints": [
-    "使用 webpack-merge 来合并不同环境的配置",
-    "通过 DefinePlugin 注入环境变量",
-    "开发环境注重构建速度，生产环境注重优化",
-    "使用不同的 devtool 配置 source map"
+  "progressiveHints": [
+    {
+      "attempt": 1,
+      "hint": "🔧 **第一个提示**：多环境配置从分离开始。创建三个文件：\n\n```javascript\n// webpack.common.js - 通用配置\nmodule.exports = {\n  entry: './src/index.js',\n  // 共同的配置...\n};\n```"
+    },
+    {
+      "attempt": 2,
+      "hint": "🔀 **第二个提示**：使用webpack-merge合并配置：\n\n```javascript\n// webpack.dev.js\nconst { merge } = require('webpack-merge');\nconst common = require('./webpack.common.js');\n\nmodule.exports = merge(common, {\n  mode: 'development',\n  devtool: 'eval-source-map'\n});\n```"
+    },
+    {
+      "attempt": 3,
+      "hint": "🎯 **完整配置示例**：\n\n```javascript\n// webpack.common.js\nconst path = require('path');\nconst HtmlWebpackPlugin = require('html-webpack-plugin');\n\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    clean: true\n  },\n  plugins: [\n    new HtmlWebpackPlugin({ template: './src/index.html' })\n  ]\n};\n\n// webpack.dev.js\nconst { merge } = require('webpack-merge');\nconst common = require('./webpack.common.js');\n\nmodule.exports = merge(common, {\n  mode: 'development',\n  devtool: 'eval-source-map',\n  devServer: { hot: true, port: 3000 }\n});\n```"
+    }
   ],
+  "solution": {
+    "webpack.common.js": "const path = require('path');\nconst HtmlWebpackPlugin = require('html-webpack-plugin');\n\n// 通用配置 - 所有环境共享\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    clean: true // 构建前清理输出目录\n  },\n  plugins: [\n    new HtmlWebpackPlugin({\n      template: './src/index.html',\n      title: '多环境配置示例'\n    })\n  ],\n  module: {\n    rules: [\n      {\n        test: /\\.css$/i,\n        use: ['style-loader', 'css-loader']\n      },\n      {\n        test: /\\.(png|jpg|jpeg|gif|svg)$/i,\n        type: 'asset/resource'\n      }\n    ]\n  }\n};",
+    "webpack.dev.js": "const { merge } = require('webpack-merge');\nconst common = require('./webpack.common.js');\nconst webpack = require('webpack');\n\n// 开发环境配置 - 优先考虑构建速度和调试体验\nmodule.exports = merge(common, {\n  mode: 'development',\n  devtool: 'eval-source-map', // 最快的source map\n  output: {\n    filename: '[name].js' // 开发环境不需要hash\n  },\n  devServer: {\n    hot: true, // 热模块替换\n    port: 3000,\n    open: true,\n    historyApiFallback: true\n  },\n  plugins: [\n    new webpack.DefinePlugin({\n      'process.env.NODE_ENV': JSON.stringify('development'),\n      'process.env.API_URL': JSON.stringify('http://localhost:8080/api')\n    })\n  ]\n});",
+    "webpack.prod.js": "const { merge } = require('webpack-merge');\nconst common = require('./webpack.common.js');\nconst webpack = require('webpack');\n\n// 生产环境配置 - 优先考虑性能优化和文件大小\nmodule.exports = merge(common, {\n  mode: 'production', // 自动启用压缩和优化\n  devtool: 'source-map', // 生产环境用高质量source map\n  output: {\n    filename: '[name].[contenthash].js' // 内容hash优化缓存\n  },\n  optimization: {\n    splitChunks: {\n      chunks: 'all',\n      cacheGroups: {\n        vendor: {\n          test: /[\\\\/]node_modules[\\\\/]/,\n          name: 'vendors',\n          chunks: 'all'\n        }\n      }\n    },\n    runtimeChunk: 'single' // 运行时代码分离\n  },\n  plugins: [\n    new webpack.DefinePlugin({\n      'process.env.NODE_ENV': JSON.stringify('production'),\n      'process.env.API_URL': JSON.stringify('https://api.example.com')\n    })\n  ],\n  performance: {\n    hints: 'warning',\n    maxEntrypointSize: 250000,\n    maxAssetSize: 250000\n  }\n});"
+  },
   "resources": [
     {
       "title": "Webpack 环境配置",

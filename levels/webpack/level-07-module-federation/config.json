@@ -1,52 +1,138 @@
 {
-  "title": "模块联邦实战",
-  "description": "深入学习 Webpack 5 的模块联邦功能，构建真正的微前端架构，实现应用间的模块共享和独立部署。",
+  "id": "webpack-module-federation",
+  "title": "🏗️ Webpack 模块联邦 - 构建真正的微前端架构",
+  "description": "模块联邦是Webpack 5的革命性功能，让你可以在运行时动态加载其他应用的模块。想象一下，Header组件由A团队开发，Sidebar由B团队维护，它们可以独立部署，但在主应用中无缝集成。这就是微前端的魅力！",
   "difficulty": "高级",
   "estimatedTime": "50分钟",
   "category": "webpack",
-  "level": 7,
-  "objectives": [
-    "理解模块联邦的核心概念",
-    "配置 Host 和 Remote 应用",
-    "实现组件的跨应用共享",
-    "掌握依赖共享策略"
+  "scenario": "你的公司有多个前端团队，每个团队负责不同的业务模块。现在需要将这些模块整合到一个主应用中，但又要保持各团队的独立开发和部署能力。你需要使用模块联邦来实现这个微前端架构。",
+  "learningObjectives": [
+    "🏗️ 理解微前端架构和模块联邦的核心价值",
+    "🔗 配置Host应用来消费远程模块",
+    "📡 配置Remote应用来暴露可共享的模块",
+    "🤝 实现依赖共享，避免重复加载"
   ],
-  "files": [
+  "tasks": [
     {
-      "name": "shell/webpack.config.js",
-      "type": "config",
-      "description": "主应用（Shell）配置"
+      "id": "setup-shell-app",
+      "title": "🏠 任务1：配置主应用(Shell)",
+      "description": "创建主应用，它将作为Host来消费其他微应用的模块。主应用负责整体布局和路由管理。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在shell/webpack.config.js中配置ModuleFederationPlugin",
+          "code": "const ModuleFederationPlugin = require('@module-federation/webpack');\n\nmodule.exports = {\n  mode: 'development',\n  entry: './src/index.js',\n  devServer: {\n    port: 3000\n  },\n  plugins: [\n    new ModuleFederationPlugin({\n      name: 'shell',\n      remotes: {\n        header: 'header@http://localhost:3001/remoteEntry.js',\n        sidebar: 'sidebar@http://localhost:3002/remoteEntry.js'\n      },\n      shared: {\n        react: { singleton: true },\n        'react-dom': { singleton: true }\n      }\n    })\n  ]\n};",
+          "explanation": "Shell应用通过remotes配置来消费远程模块"
+        }
+      ],
+      "shellAppFeatures": {
+        "name": "当前应用的唯一标识符",
+        "remotes": "配置要消费的远程应用和它们的地址",
+        "shared": "配置共享的依赖，避免重复加载",
+        "singleton": "确保只有一个React实例"
+      },
+      "expectedResult": "主应用可以动态加载远程的Header和Sidebar组件",
+      "validation": {
+        "type": "file-content",
+        "file": "shell/webpack.config.js",
+        "contains": "ModuleFederationPlugin"
+      }
     },
     {
-      "name": "header/webpack.config.js",
-      "type": "config",
-      "description": "Header 微应用配置"
+      "id": "setup-header-remote",
+      "title": "📡 任务2：配置Header远程应用",
+      "description": "创建Header微应用，它将暴露Header组件供主应用使用。这个应用可以独立开发和部署。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在header/webpack.config.js中配置暴露模块",
+          "code": "const ModuleFederationPlugin = require('@module-federation/webpack');\n\nmodule.exports = {\n  mode: 'development',\n  entry: './src/index.js',\n  devServer: {\n    port: 3001\n  },\n  plugins: [\n    new ModuleFederationPlugin({\n      name: 'header',\n      filename: 'remoteEntry.js',\n      exposes: {\n        './Header': './src/Header.jsx'\n      },\n      shared: {\n        react: { singleton: true },\n        'react-dom': { singleton: true }\n      }\n    })\n  ]\n};",
+          "explanation": "Remote应用通过exposes配置来暴露可共享的模块"
+        },
+        {
+          "step": 2,
+          "action": "创建Header组件",
+          "code": "// header/src/Header.jsx\nimport React from 'react';\n\nconst Header = () => {\n  return (\n    <header style={{ background: '#1890ff', color: 'white', padding: '1rem' }}>\n      <h1>微前端 Header 组件</h1>\n      <nav>\n        <a href=\"/\" style={{ color: 'white', marginRight: '1rem' }}>首页</a>\n        <a href=\"/about\" style={{ color: 'white' }}>关于</a>\n      </nav>\n    </header>\n  );\n};\n\nexport default Header;",
+          "explanation": "这是一个独立的React组件，可以被其他应用使用"
+        }
+      ],
+      "remoteAppFeatures": {
+        "filename": "远程入口文件名，通常是remoteEntry.js",
+        "exposes": "暴露的模块映射，键是别名，值是实际文件路径",
+        "独立部署": "可以独立构建、测试、部署",
+        "版本控制": "可以独立更新版本"
+      },
+      "expectedResult": "Header应用在3001端口运行，暴露Header组件",
+      "validation": {
+        "type": "file-content",
+        "file": "header/webpack.config.js",
+        "contains": "exposes"
+      }
     },
     {
-      "name": "sidebar/webpack.config.js",
-      "type": "config",
-      "description": "Sidebar 微应用配置"
+      "id": "setup-sidebar-remote",
+      "title": "📋 任务3：配置Sidebar远程应用",
+      "description": "创建Sidebar微应用，展示如何同时运行多个远程应用。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "配置Sidebar应用的模块联邦",
+          "code": "const ModuleFederationPlugin = require('@module-federation/webpack');\n\nmodule.exports = {\n  mode: 'development',\n  entry: './src/index.js',\n  devServer: {\n    port: 3002\n  },\n  plugins: [\n    new ModuleFederationPlugin({\n      name: 'sidebar',\n      filename: 'remoteEntry.js',\n      exposes: {\n        './Sidebar': './src/Sidebar.jsx'\n      },\n      shared: {\n        react: { singleton: true },\n        'react-dom': { singleton: true }\n      }\n    })\n  ]\n};",
+          "explanation": "每个远程应用都有自己的端口和暴露的模块"
+        }
+      ],
+      "expectedResult": "Sidebar应用在3002端口运行，暴露Sidebar组件",
+      "validation": {
+        "type": "file-content",
+        "file": "sidebar/webpack.config.js",
+        "contains": "port: 3002"
+      }
     },
     {
-      "name": "shell/src/App.js",
-      "type": "source",
-      "description": "主应用组件"
+      "id": "integrate-remotes",
+      "title": "🔗 任务4：在主应用中集成远程模块",
+      "description": "在Shell应用中动态导入和使用远程模块，实现微前端的完整集成。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在Shell应用中使用远程组件",
+          "code": "// shell/src/App.jsx\nimport React, { Suspense } from 'react';\n\n// 动态导入远程组件\nconst Header = React.lazy(() => import('header/Header'));\nconst Sidebar = React.lazy(() => import('sidebar/Sidebar'));\n\nconst App = () => {\n  return (\n    <div>\n      <Suspense fallback={<div>Loading Header...</div>}>\n        <Header />\n      </Suspense>\n      \n      <div style={{ display: 'flex' }}>\n        <Suspense fallback={<div>Loading Sidebar...</div>}>\n          <Sidebar />\n        </Suspense>\n        \n        <main style={{ flex: 1, padding: '1rem' }}>\n          <h2>主应用内容</h2>\n          <p>这里是主应用的内容区域</p>\n        </main>\n      </div>\n    </div>\n  );\n};\n\nexport default App;",
+          "explanation": "使用React.lazy和Suspense来异步加载远程组件"
+        }
+      ],
+      "integrationBenefits": {
+        "独立开发": "各团队可以独立开发自己的模块",
+        "独立部署": "可以单独部署某个微应用而不影响其他",
+        "技术栈灵活": "不同微应用可以使用不同版本的依赖",
+        "团队自治": "每个团队对自己的模块有完全控制权"
+      },
+      "expectedResult": "主应用成功集成并显示远程的Header和Sidebar组件",
+      "validation": {
+        "type": "file-content",
+        "file": "shell/src/App.jsx",
+        "contains": "React.lazy"
+      }
     }
   ],
-  "validation": {
-    "type": "build",
-    "commands": [
-      "cd shell && npm run build",
-      "cd header && npm run build",
-      "cd sidebar && npm run build"
-    ]
-  },
-  "hints": [
-    "使用 ModuleFederationPlugin 配置模块联邦",
-    "Host 应用使用 remotes 配置消费远程模块",
-    "Remote 应用使用 exposes 配置暴露模块",
-    "注意共享依赖的版本兼容性"
+  "progressiveHints": [
+    {
+      "attempt": 1,
+      "hint": "🏗️ **第一个提示**：模块联邦从ModuleFederationPlugin开始：\n\n```javascript\nconst ModuleFederationPlugin = require('@module-federation/webpack');\n\n// Shell应用配置\nnew ModuleFederationPlugin({\n  name: 'shell',\n  remotes: {\n    header: 'header@http://localhost:3001/remoteEntry.js'\n  }\n})\n```"
+    },
+    {
+      "attempt": 2,
+      "hint": "📡 **第二个提示**：Remote应用需要暴露模块：\n\n```javascript\n// Header应用配置\nnew ModuleFederationPlugin({\n  name: 'header',\n  filename: 'remoteEntry.js',\n  exposes: {\n    './Header': './src/Header.jsx'\n  },\n  shared: {\n    react: { singleton: true }\n  }\n})\n```"
+    },
+    {
+      "attempt": 3,
+      "hint": "🎯 **完整的微前端架构**：\n\n```javascript\n// 1. Shell应用 (Host) - 消费远程模块\nnew ModuleFederationPlugin({\n  name: 'shell',\n  remotes: {\n    header: 'header@http://localhost:3001/remoteEntry.js',\n    sidebar: 'sidebar@http://localhost:3002/remoteEntry.js'\n  },\n  shared: { react: { singleton: true } }\n})\n\n// 2. Header应用 (Remote) - 暴露Header组件\nnew ModuleFederationPlugin({\n  name: 'header',\n  filename: 'remoteEntry.js',\n  exposes: { './Header': './src/Header.jsx' },\n  shared: { react: { singleton: true } }\n})\n\n// 3. 在Shell中使用\nconst Header = React.lazy(() => import('header/Header'));\n```"
+    }
   ],
+  "solution": {
+    "shell/webpack.config.js": "const ModuleFederationPlugin = require('@module-federation/webpack');\nconst HtmlWebpackPlugin = require('html-webpack-plugin');\n\n// Shell应用配置 - 作为Host消费远程模块\nmodule.exports = {\n  mode: 'development',\n  entry: './src/index.js',\n  devServer: {\n    port: 3000,\n    hot: true,\n    historyApiFallback: true\n  },\n  plugins: [\n    new ModuleFederationPlugin({\n      name: 'shell', // 应用名称\n      remotes: {\n        // 配置远程应用\n        header: 'header@http://localhost:3001/remoteEntry.js',\n        sidebar: 'sidebar@http://localhost:3002/remoteEntry.js'\n      },\n      shared: {\n        // 共享依赖，避免重复加载\n        react: { singleton: true, eager: true },\n        'react-dom': { singleton: true, eager: true }\n      }\n    }),\n    new HtmlWebpackPlugin({\n      template: './public/index.html'\n    })\n  ],\n  module: {\n    rules: [\n      {\n        test: /\\.jsx?$/,\n        exclude: /node_modules/,\n        use: {\n          loader: 'babel-loader',\n          options: {\n            presets: ['@babel/preset-react']\n          }\n        }\n      }\n    ]\n  }\n};",
+    "header/webpack.config.js": "const ModuleFederationPlugin = require('@module-federation/webpack');\nconst HtmlWebpackPlugin = require('html-webpack-plugin');\n\n// Header应用配置 - 作为Remote暴露组件\nmodule.exports = {\n  mode: 'development',\n  entry: './src/index.js',\n  devServer: {\n    port: 3001,\n    hot: true\n  },\n  plugins: [\n    new ModuleFederationPlugin({\n      name: 'header', // 应用名称\n      filename: 'remoteEntry.js', // 远程入口文件\n      exposes: {\n        // 暴露的模块\n        './Header': './src/Header.jsx'\n      },\n      shared: {\n        // 与Shell应用共享依赖\n        react: { singleton: true },\n        'react-dom': { singleton: true }\n      }\n    }),\n    new HtmlWebpackPlugin({\n      template: './public/index.html'\n    })\n  ],\n  module: {\n    rules: [\n      {\n        test: /\\.jsx?$/,\n        exclude: /node_modules/,\n        use: {\n          loader: 'babel-loader',\n          options: {\n            presets: ['@babel/preset-react']\n          }\n        }\n      }\n    ]\n  }\n};",
+    "shell/src/App.jsx": "import React, { Suspense } from 'react';\n\n// 动态导入远程组件\nconst Header = React.lazy(() => import('header/Header'));\nconst Sidebar = React.lazy(() => import('sidebar/Sidebar'));\n\nconst App = () => {\n  return (\n    <div className=\"app\">\n      {/* 远程Header组件 */}\n      <Suspense fallback={<div>Loading Header...</div>}>\n        <Header />\n      </Suspense>\n      \n      <div style={{ display: 'flex', minHeight: 'calc(100vh - 80px)' }}>\n        {/* 远程Sidebar组件 */}\n        <Suspense fallback={<div>Loading Sidebar...</div>}>\n          <Sidebar />\n        </Suspense>\n        \n        {/* 主应用内容 */}\n        <main style={{ flex: 1, padding: '2rem' }}>\n          <h2>🏠 主应用内容区域</h2>\n          <p>这里是Shell应用的主要内容。</p>\n          <p>Header和Sidebar组件来自不同的微应用，它们可以：</p>\n          <ul>\n            <li>✅ 独立开发和部署</li>\n            <li>✅ 使用不同的技术栈版本</li>\n            <li>✅ 由不同团队维护</li>\n            <li>✅ 在运行时动态加载</li>\n          </ul>\n        </main>\n      </div>\n    </div>\n  );\n};\n\nexport default App;"
+  },
   "resources": [
     {
       "title": "Module Federation 官方文档",

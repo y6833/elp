@@ -1,9 +1,117 @@
 {
-  "title": "Webpack 插件系统",
-  "description": "<h3>🎯 学习目标</h3><p>掌握 webpack 插件的使用，学会配置常用插件来增强构建功能。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>使用 <code>HtmlWebpackPlugin</code> 自动生成 HTML 文件</li><li>使用 <code>CleanWebpackPlugin</code> 清理输出目录</li><li>配置插件的选项参数</li></ul><h3>💡 提示</h3><p>插件通过 plugins 数组配置，每个插件都是一个类的实例。HtmlWebpackPlugin 可以自动注入打包后的资源。</p>",
-  "files": ["webpack.config.js", "src/index.js", "src/template.html"],
-  "difficulty": "intermediate",
-  "estimatedTime": "20分钟",
+  "id": "webpack-plugins",
+  "title": "🔌 Webpack 插件系统 - 让构建更智能",
+  "description": "插件是Webpack的核心功能扩展机制。如果说Loader是文件转换器，那么Plugin就是功能增强器。这一关将教你使用最重要的两个插件：自动生成HTML文件和清理输出目录。",
+  "difficulty": "中级",
+  "estimatedTime": "25分钟",
+  "category": "webpack",
+  "scenario": "你的项目需要自动生成HTML文件，并且每次构建前要清理旧文件。手动管理这些很麻烦，你需要配置插件来自动化这些任务。",
+  "learningObjectives": [
+    "🔌 理解Plugin与Loader的区别和作用",
+    "📄 使用HtmlWebpackPlugin自动生成HTML文件",
+    "🧹 使用CleanWebpackPlugin清理输出目录",
+    "⚙️ 掌握插件的配置选项和参数"
+  ],
+  "tasks": [
+    {
+      "id": "setup-html-plugin",
+      "title": "📄 任务1：配置HTML自动生成插件",
+      "description": "配置HtmlWebpackPlugin来自动生成HTML文件，并自动注入打包后的JS和CSS文件。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在文件顶部导入HtmlWebpackPlugin",
+          "code": "const HtmlWebpackPlugin = require('html-webpack-plugin');",
+          "explanation": "这个插件可以自动生成HTML文件并注入资源"
+        },
+        {
+          "step": 2,
+          "action": "在配置对象中添加plugins数组",
+          "code": "plugins: [\n  new HtmlWebpackPlugin({\n    title: '我的Webpack应用',\n    template: './src/template.html',\n    filename: 'index.html'\n  })\n],",
+          "explanation": "配置插件选项：标题、模板文件、输出文件名"
+        }
+      ],
+      "pluginOptions": {
+        "title": "设置生成的HTML文件的标题",
+        "template": "指定HTML模板文件路径",
+        "filename": "设置输出的HTML文件名",
+        "inject": "控制资源注入位置（head/body/true/false）"
+      },
+      "expectedResult": "构建后会在dist目录生成index.html，自动包含打包后的JS文件",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "HtmlWebpackPlugin"
+      }
+    },
+    {
+      "id": "setup-clean-plugin",
+      "title": "🧹 任务2：配置目录清理插件",
+      "description": "配置CleanWebpackPlugin来在每次构建前自动清理输出目录，避免旧文件堆积。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "导入CleanWebpackPlugin",
+          "code": "const { CleanWebpackPlugin } = require('clean-webpack-plugin');",
+          "explanation": "使用解构赋值导入插件"
+        },
+        {
+          "step": 2,
+          "action": "在plugins数组中添加CleanWebpackPlugin",
+          "code": "new CleanWebpackPlugin(),",
+          "explanation": "默认会清理output.path指定的目录"
+        }
+      ],
+      "cleanOptions": {
+        "默认行为": "清理output.path指定的整个目录",
+        "cleanOnceBeforeBuildPatterns": "指定要清理的文件模式",
+        "dry": "设置为true时只显示要删除的文件，不实际删除",
+        "verbose": "显示详细的清理日志"
+      },
+      "expectedResult": "每次构建前dist目录会被自动清空",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "CleanWebpackPlugin"
+      }
+    },
+    {
+      "id": "test-plugins",
+      "title": "🧪 任务3：测试插件功能",
+      "description": "运行构建命令，验证插件是否正常工作。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "确保plugins数组配置完整",
+          "code": "plugins: [\n  new CleanWebpackPlugin(),\n  new HtmlWebpackPlugin({\n    title: '我的Webpack应用',\n    template: './src/template.html',\n    filename: 'index.html',\n    inject: 'body'\n  })\n],",
+          "explanation": "两个插件都正确配置"
+        }
+      ],
+      "testMethod": "运行npm run build，检查dist目录是否生成了HTML文件",
+      "expectedResult": "构建成功，生成的HTML文件包含正确的标题和脚本引用",
+      "validation": {
+        "type": "build-success",
+        "command": "npm run build"
+      }
+    }
+  ],
+  "progressiveHints": [
+    {
+      "attempt": 1,
+      "hint": "🔌 **第一个提示**：插件配置在plugins数组中。先导入插件：\n\n```javascript\nconst HtmlWebpackPlugin = require('html-webpack-plugin');\n\n// 然后在配置中添加\nplugins: [\n  new HtmlWebpackPlugin()\n]\n```"
+    },
+    {
+      "attempt": 2,
+      "hint": "🧹 **第二个提示**：别忘了清理插件！完整的插件配置：\n\n```javascript\nconst HtmlWebpackPlugin = require('html-webpack-plugin');\nconst { CleanWebpackPlugin } = require('clean-webpack-plugin');\n\nplugins: [\n  new CleanWebpackPlugin(),\n  new HtmlWebpackPlugin({\n    title: '我的Webpack应用',\n    template: './src/template.html'\n  })\n]\n```"
+    },
+    {
+      "attempt": 3,
+      "hint": "🎯 **完整配置模板**：\n\n```javascript\nconst path = require('path');\nconst HtmlWebpackPlugin = require('html-webpack-plugin');\nconst { CleanWebpackPlugin } = require('clean-webpack-plugin');\n\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: 'bundle.js'\n  },\n  mode: 'development',\n  \n  plugins: [\n    // 清理输出目录\n    new CleanWebpackPlugin(),\n    \n    // 自动生成HTML文件\n    new HtmlWebpackPlugin({\n      title: '我的Webpack应用',\n      template: './src/template.html',\n      filename: 'index.html',\n      inject: 'body'\n    })\n  ]\n};\n```"
+    }
+  ],
+  "solution": {
+    "webpack.config.js": "const path = require('path');\nconst HtmlWebpackPlugin = require('html-webpack-plugin');\nconst { CleanWebpackPlugin } = require('clean-webpack-plugin');\n\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: 'bundle.js'\n  },\n  mode: 'development',\n  \n  // 插件配置\n  plugins: [\n    // 清理输出目录 - 每次构建前删除dist文件夹内容\n    new CleanWebpackPlugin(),\n    \n    // HTML文件生成 - 自动创建HTML文件并注入资源\n    new HtmlWebpackPlugin({\n      title: '我的Webpack应用', // HTML文件标题\n      template: './src/template.html', // HTML模板文件\n      filename: 'index.html', // 输出的HTML文件名\n      inject: 'body' // 将脚本注入到body底部\n    })\n  ]\n};"
+  },
   "validation": {
     "required": [
       {

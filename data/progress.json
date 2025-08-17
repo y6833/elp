@@ -3,20 +3,25 @@
     "completed": {
       "webpack": {
         "level-02-loaders": {
-          "completedAt": "2025-08-15T10:16:29.981Z",
+          "completedAt": "2025-08-17T02:45:33.549Z",
           "config": "const path = require('path');\n\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: 'bundle.js'\n  },\n  mode: 'development',\n  \n  // TODO: 配置模块规则\n  module: {\n    rules: [\n      // TODO: 添加 CSS 加载器规则\n      {\n        test: /\\.css$/,\n        use: ['style-loader','css-loader']\n      },\n      // TODO: 添加图片加载器规则\n      {\n        test: /\\.(png|jpg|gif)$/,\n        use: ['file-loader']\n      }\n    ]\n  }\n};",
-          "attempts": 3
+          "attempts": 4
+        },
+        "level-03-plugins": {
+          "completedAt": "2025-08-17T02:52:39.950Z",
+          "config": "const path = require('path');\n// TODO: 导入需要的插件\nconst HtmlWebpackPlugin = require('html-webpack-plugin');\nconst { CleanWebpackPlugin } = require('clean-webpack-plugin');\n\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: '[name].[contenthash].js'\n  },\n  mode: 'development',\n  \n  // TODO: 配置插件\n  plugins: [\n    // TODO: 添加 CleanWebpackPlugin\n    new CleanWebpackPlugin(),\n    // TODO: 添加 HtmlWebpackPlugin\n    new HtmlWebpackPlugin()\n// 提示：可以指定 template 选项使用自定义模板\n  ]\n};",
+          "attempts": 1
         }
       }
     },
     "stats": {
       "totalLevels": 8,
-      "totalCompleted": 1,
-      "completionRate": 13,
-      "webpackProgress": 1,
+      "totalCompleted": 2,
+      "completionRate": 25,
+      "webpackProgress": 2,
       "viteProgress": 0
     },
     "startedAt": "2025-08-15T10:12:21.221Z",
-    "lastUpdated": "2025-08-15T10:16:29.982Z"
+    "lastUpdated": "2025-08-17T02:52:39.951Z"
   }
 }

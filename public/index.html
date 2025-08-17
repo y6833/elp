@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>前端工程化学习平台</title>
+    <title>前端工程化学习平台 - 从零到专家的完整学习路径</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- 代码编辑器样式 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
@@ -12,50 +15,337 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>🚀 前端工程化学习平台</h1>
-            <p>通过实战关卡掌握 Webpack 和 Vite</p>
-            
-            <div class="progress-overview" id="progress-overview">
-                <div class="progress-stats">
-                    <div class="stat-item">
-                        <span class="stat-number" id="completed-count">0</span>
-                        <span class="stat-label">已完成</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="total-count">8</span>
-                        <span class="stat-label">总关卡</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="completion-rate">0%</span>
-                        <span class="stat-label">完成率</span>
-                    </div>
+    <div id="app">
+        <!-- 导航栏 -->
+        <header class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-brand">
+                    <span class="brand-icon">⚡</span>
+                    <span class="brand-text">前端工程化</span>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill"></div>
+                <nav class="navbar-nav">
+                    <a href="#guide" class="nav-item">学习指南</a>
+                    <a href="#levels" class="nav-item">关卡挑战</a>
+                    <a href="#progress" class="nav-item">学习进度</a>
+                    <a href="#achievements" class="nav-item">成就系统</a>
+                </nav>
+                <div class="navbar-actions">
+                    <a href="https://github.com/y6833/elp" target="_blank" class="btn-github">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <button class="btn-outline" onclick="showProgress()">查看进度</button>
+                    <button class="btn-primary" onclick="startLearning()">开始学习</button>
                 </div>
             </div>
         </header>
 
-        <nav class="nav">
-            <button class="nav-btn active" data-type="webpack">Webpack 关卡</button>
-            <button class="nav-btn" data-type="vite">Vite 关卡</button>
-            <button class="nav-btn" data-type="build-tools">🔧 构建工具</button>
-            <button class="nav-btn" data-type="package-managers">📦 包管理器</button>
-            <button class="nav-btn" data-type="ci-cd">🚀 CI/CD</button>
-            <button class="nav-btn" data-type="testing">🧪 测试</button>
-            <button class="nav-btn" data-type="performance">⚡ 性能优化</button>
-            <button class="nav-btn" data-type="deployment">🌐 部署</button>
-        </nav>
-
-        <main class="main">
-            <div class="levels-grid" id="levels-grid">
-                <!-- 关卡列表将在这里动态生成 -->
+        <!-- 英雄区域 -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-highlight">渐进式</span>
+                        <br>前端工程化学习平台
+                    </h1>
+                    <p class="hero-description">
+                        通过 <strong>50+ 实战关卡</strong> 掌握现代前端工程化技能。
+                        从基础配置到企业级架构，让你成为前端工程化专家。
+                    </p>
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">🎯</span>
+                            <span>实战导向</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">📈</span>
+                            <span>渐进式学习</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🏆</span>
+                            <span>成就系统</span>
+                        </div>
+                    </div>
+                    <div class="hero-actions">
+                        <button class="btn-hero-primary" onclick="startLearning()">
+                            开始学习之旅
+                            <span class="btn-arrow">→</span>
+                        </button>
+                        <button class="btn-hero-secondary" onclick="document.getElementById('guide').scrollIntoView({behavior: 'smooth'})">
+                            了解更多
+                        </button>
+                    </div>
+                    
+                    <!-- 进度概览 -->
+                    <div class="progress-overview" id="progress-overview">
+                        <div class="progress-stats">
+                            <div class="stat-item">
+                                <span class="stat-number" id="completed-count">0</span>
+                                <span class="stat-label">已完成</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" id="total-count">50+</span>
+                                <span class="stat-label">总关卡</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" id="completion-rate">0%</span>
+                                <span class="stat-label">完成率</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="visual-card">
+                        <div class="card-header">
+                            <div class="card-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <span class="card-title">webpack.config.js</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="code-line">
+                                <span class="code-keyword">module</span>.<span class="code-property">exports</span> = {
+                            </div>
+                            <div class="code-line indent">
+                                <span class="code-property">entry</span>: <span class="code-string">'./src/index.js'</span>,
+                            </div>
+                            <div class="code-line indent">
+                                <span class="code-property">output</span>: {
+                            </div>
+                            <div class="code-line indent2">
+                                <span class="code-property">path</span>: <span class="code-function">path</span>.<span class="code-method">resolve</span>(<span class="code-string">'dist'</span>)
+                            </div>
+                            <div class="code-line indent">
+                                }
+                            </div>
+                            <div class="code-line">
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="resources-section">
-                <h2>📚 官方文档</h2>
+        <!-- 学习指南 -->
+        <section id="guide" class="guide-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">为什么选择我们？</h2>
+                    <p class="section-subtitle">专为前端开发者设计的渐进式学习体验</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon-large">🎯</div>
+                        <h3>实战导向</h3>
+                        <p>每个关卡都基于真实项目场景，学完即可应用到工作中</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-large">📚</div>
+                        <h3>系统化学习</h3>
+                        <p>从基础到高级，涵盖 Webpack、Vite、构建工具等完整技术栈</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-large">⚡</div>
+                        <h3>即时反馈</h3>
+                        <p>智能验证系统，实时检查你的代码和配置是否正确</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-large">🏆</div>
+                        <h3>成就激励</h3>
+                        <p>完善的成就系统和进度追踪，让学习更有动力</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学习路径 -->
+        <section class="learning-path">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">学习路径</h2>
+                    <p class="section-subtitle">循序渐进，从新手到专家</p>
+                </div>
+                <div class="path-timeline">
+                    <div class="path-item">
+                        <div class="path-icon">🌱</div>
+                        <div class="path-content">
+                            <h3>基础入门</h3>
+                            <p>学习构建工具的基本概念和配置</p>
+                            <div class="path-skills">
+                                <span class="skill-tag">Webpack 基础</span>
+                                <span class="skill-tag">Vite 入门</span>
+                                <span class="skill-tag">包管理器</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="path-item">
+                        <div class="path-icon">🚀</div>
+                        <div class="path-content">
+                            <h3>进阶实战</h3>
+                            <p>掌握高级配置和性能优化技巧</p>
+                            <div class="path-skills">
+                                <span class="skill-tag">代码分割</span>
+                                <span class="skill-tag">热重载</span>
+                                <span class="skill-tag">TypeScript</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="path-item">
+                        <div class="path-icon">🏗️</div>
+                        <div class="path-content">
+                            <h3>架构设计</h3>
+                            <p>学习企业级项目的工程化架构</p>
+                            <div class="path-skills">
+                                <span class="skill-tag">微前端</span>
+                                <span class="skill-tag">Monorepo</span>
+                                <span class="skill-tag">CI/CD</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="path-item">
+                        <div class="path-icon">🎓</div>
+                        <div class="path-content">
+                            <h3>专家级别</h3>
+                            <p>开发自定义工具和插件</p>
+                            <div class="path-skills">
+                                <span class="skill-tag">自定义 Loader</span>
+                                <span class="skill-tag">插件开发</span>
+                                <span class="skill-tag">工具链设计</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关卡展示 -->
+        <section id="levels" class="levels-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">开始挑战</h2>
+                    <p class="section-subtitle">选择你感兴趣的技术栈开始学习</p>
+                </div>
+                <div class="levels-tabs">
+                    <button class="tab-btn active" data-category="all">全部</button>
+                    <button class="tab-btn" data-category="webpack">Webpack</button>
+                    <button class="tab-btn" data-category="vite">Vite</button>
+                    <button class="tab-btn" data-category="build-tools">构建工具</button>
+                    <button class="tab-btn" data-category="testing">测试</button>
+                    <button class="tab-btn" data-category="ci-cd">CI/CD</button>
+                </div>
+                <div class="levels-grid" id="levels-grid">
+                    <!-- 关卡列表将在这里动态生成 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 关卡详情页面 -->
+        <div class="level-detail" id="level-detail" style="display: none;">
+            <div class="level-header">
+                <button class="back-btn" id="back-btn">← 返回关卡列表</button>
+                <h2 id="level-title"></h2>
+            </div>
+            
+            <div class="level-content">
+                <div class="description" id="level-description"></div>
+                
+                <div class="editor-section">
+                    <h3>配置文件</h3>
+                    <div class="file-tabs" id="file-tabs"></div>
+                    <textarea id="code-editor" placeholder="在这里编写配置..."></textarea>
+                </div>
+                
+                <div class="actions">
+                    <button class="btn primary" id="run-btn">运行配置</button>
+                    <button class="btn secondary" id="reset-btn">重置</button>
+                    <button class="btn info" id="hint-btn">💡 获取提示</button>
+                    <button class="btn solution" id="solution-btn" style="display: none;">📖 查看参考答案</button>
+                    <button class="btn success" id="next-btn" style="display: none;">下一关</button>
+                </div>
+                
+                <div class="hints-section" id="hints-section" style="display: none;">
+                    <h4>💡 智能提示</h4>
+                    <div class="hints-content" id="hints-content"></div>
+                </div>
+                
+                <div class="output" id="output"></div>
+            </div>
+        </div>
+
+        <!-- 学习进度 -->
+        <section id="progress" class="progress-section" style="display: none;">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">学习进度</h2>
+                    <p class="section-subtitle">追踪你的学习成果</p>
+                </div>
+                <div class="progress-dashboard">
+                    <div class="progress-overview-detailed">
+                        <div class="progress-card">
+                            <h3>总体进度</h3>
+                            <div class="circular-progress" id="overall-progress">
+                                <div class="progress-value">0%</div>
+                            </div>
+                            <div class="progress-stats-detailed">
+                                <div class="stat">
+                                    <span class="stat-label">已完成</span>
+                                    <span class="stat-value" id="completed-levels">0</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">总关卡</span>
+                                    <span class="stat-value" id="total-levels">50+</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="category-progress" id="category-progress">
+                            <!-- 分类进度将动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <div class="recent-activity" id="recent-activity">
+                        <h3>最近活动</h3>
+                        <div class="activity-list" id="activity-list">
+                            <!-- 活动记录将动态生成 -->
+                        </div>
+                        <!-- 测试按钮（开发时使用） -->
+                        <div style="margin-top: 20px; text-align: center;">
+                            <button onclick="window.learningPlatform?.addTestProgress()" style="padding: 8px 16px; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
+                                🧪 添加测试数据
+                            </button>
+                            <button onclick="window.learningPlatform?.forceUpdateCircularProgress()" style="padding: 8px 16px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                🔄 强制更新进度条
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 成就系统 -->
+        <section id="achievements" class="achievements-section" style="display: none;">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">成就系统</h2>
+                    <p class="section-subtitle">解锁你的学习成就</p>
+                </div>
+                <div class="achievements-grid" id="achievementsGrid">
+                    <!-- 成就将通过 JavaScript 动态加载 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 资源推荐 -->
+        <section class="resources-section">
+            <div class="container">
+                <h2 class="section-title">📚 官方文档</h2>
                 <div class="resources-grid">
                     <div class="resource-card">
                         <div class="resource-icon">
@@ -80,73 +370,49 @@
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="level-detail" id="level-detail" style="display: none;">
-                <div class="level-header">
-                    <button class="back-btn" id="back-btn">← 返回关卡列表</button>
-                    <h2 id="level-title"></h2>
-                </div>
-                
-                <div class="level-content">
-                    <div class="description" id="level-description"></div>
-                    
-                    <div class="editor-section">
-                        <h3>配置文件</h3>
-                        <div class="file-tabs" id="file-tabs"></div>
-                        <textarea id="code-editor" placeholder="在这里编写配置..."></textarea>
-                    </div>
-                    
-                    <div class="actions">
-                        <button class="btn primary" id="run-btn">运行配置</button>
-                        <button class="btn secondary" id="reset-btn">重置</button>
-                        <button class="btn info" id="hint-btn">💡 获取提示</button>
-                        <button class="btn success" id="next-btn" style="display: none;">下一关</button>
-                    </div>
-                    
-                    <div class="hints-section" id="hints-section" style="display: none;">
-                        <h4>💡 智能提示</h4>
-                        <div class="hints-content" id="hints-content"></div>
-                    </div>
-                    
-                    <div class="output" id="output"></div>
-                </div>
-            </div>
-
-
-        </main>
-
+        <!-- 页脚 -->
         <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>🎯 学习资源</h4>
-                    <ul>
-                        <li><a href="https://webpack.docschina.org/guides/" target="_blank">Webpack 指南</a></li>
-                        <li><a href="https://vite.dev/guide/" target="_blank">Vite 指南</a></li>
-                        <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript" target="_blank">MDN JavaScript</a></li>
-                    </ul>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <span class="brand-icon">⚡</span>
+                        <span class="brand-text">前端工程化学习平台</span>
+                    </div>
+                    <div class="footer-links">
+                        <div class="footer-section">
+                            <h4>🎯 学习资源</h4>
+                            <ul>
+                                <li><a href="https://webpack.docschina.org/guides/" target="_blank">Webpack 指南</a></li>
+                                <li><a href="https://vite.dev/guide/" target="_blank">Vite 指南</a></li>
+                                <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript" target="_blank">MDN JavaScript</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-section">
+                            <h4>🛠️ 工具推荐</h4>
+                            <ul>
+                                <li><a href="https://nodejs.org/" target="_blank">Node.js</a></li>
+                                <li><a href="https://www.npmjs.com/" target="_blank">NPM</a></li>
+                                <li><a href="https://code.visualstudio.com/" target="_blank">VS Code</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-section">
+                            <h4>📖 社区</h4>
+                            <ul>
+                                <li><a href="https://github.com/y6833/elp" target="_blank">🌟 项目源码</a></li>
+                                <li><a href="https://github.com/webpack/webpack" target="_blank">Webpack GitHub</a></li>
+                                <li><a href="https://github.com/vitejs/vite" target="_blank">Vite GitHub</a></li>
+                                <li><a href="https://stackoverflow.com/questions/tagged/webpack" target="_blank">Stack Overflow</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="footer-section">
-                    <h4>🛠️ 工具推荐</h4>
-                    <ul>
-                        <li><a href="https://nodejs.org/" target="_blank">Node.js</a></li>
-                        <li><a href="https://www.npmjs.com/" target="_blank">NPM</a></li>
-                        <li><a href="https://code.visualstudio.com/" target="_blank">VS Code</a></li>
-                    </ul>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 前端工程化学习平台. 让学习更有趣，让成长更有意义！</p>
                 </div>
-                
-                <div class="footer-section">
-                    <h4>📖 社区</h4>
-                    <ul>
-                        <li><a href="https://github.com/webpack/webpack" target="_blank">Webpack GitHub</a></li>
-                        <li><a href="https://github.com/vitejs/vite" target="_blank">Vite GitHub</a></li>
-                        <li><a href="https://stackoverflow.com/questions/tagged/webpack" target="_blank">Stack Overflow</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>© 2025 前端工程化学习平台 | 让学习更简单，让配置更清晰</p>
             </div>
         </footer>
     </div>

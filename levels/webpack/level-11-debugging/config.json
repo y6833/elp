@@ -1,0 +1,126 @@
+{
+  "id": "webpack-debugging",
+  "title": "🔍 Webpack 调试大师 - 错误排查与性能分析",
+  "description": "作为一名前端工程师，你经常遇到webpack构建失败或打包文件过大的问题。这一关将教你成为webpack调试专家，学会快速定位问题、分析包大小、优化构建性能。掌握这些技能后，你将能够轻松解决99%的webpack问题！",
+  "difficulty": "初级",
+  "estimatedTime": "25分钟",
+  "category": "webpack",
+  "prerequisites": ["webpack-basic"],
+  "scenario": "你的团队反馈说项目构建时间太长，而且打包后的文件很大，影响了页面加载速度。作为负责构建优化的工程师，你需要配置调试工具来分析和解决这些问题。",
+  "learningObjectives": [
+    "🎯 掌握source map的不同类型，学会为开发和生产环境选择合适的调试方案",
+    "📊 学会使用webpack-bundle-analyzer分析打包结果，找出体积过大的模块",
+    "🔧 配置详细的构建统计信息，快速定位构建过程中的问题",
+    "⚡ 理解如何通过配置优化来提升构建性能和调试体验"
+  ],
+  "tasks": [
+    {
+      "id": "setup-source-maps",
+      "title": "🗺️ 任务1：配置Source Map调试工具",
+      "description": "你需要让webpack生成source map文件，这样在浏览器中调试时就能看到原始的源代码，而不是压缩后的代码。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "修改webpack.config.js的导出方式",
+          "code": "module.exports = (env, argv) => {\n  const isProduction = argv.mode === 'production';\n  \n  return {\n    // 配置内容\n  };\n};",
+          "explanation": "使用函数形式可以根据构建模式动态配置"
+        },
+        {
+          "step": 2,
+          "action": "在配置对象中添加devtool字段",
+          "code": "devtool: isProduction ? 'source-map' : 'eval-source-map',",
+          "explanation": "生产环境用source-map（文件小），开发环境用eval-source-map（构建快）"
+        }
+      ],
+      "expectedResult": "配置完成后，构建时会生成.map文件，浏览器调试时能看到原始代码",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "devtool"
+      }
+    },
+    {
+      "id": "configure-stats",
+      "title": "📊 任务2：配置详细的构建信息输出",
+      "description": "当构建出错时，你需要看到详细的错误信息。当构建很慢时，你需要知道哪个步骤最耗时。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在配置对象中添加stats字段",
+          "code": "stats: {\n  colors: true,\n  modules: false,\n  children: false,\n  chunks: false,\n  chunkModules: false,\n  timings: true,\n  errors: true,\n  errorDetails: true,\n  warnings: true\n},",
+          "explanation": "这个配置让输出信息既详细又不冗余"
+        }
+      ],
+      "whatEachOptionDoes": {
+        "colors: true": "让终端输出有颜色，错误是红色，成功是绿色",
+        "modules: false": "不显示每个模块的详情（太多了会很乱）",
+        "timings: true": "显示每个构建步骤花了多少时间",
+        "errors: true": "显示错误信息",
+        "errorDetails: true": "显示错误的详细堆栈信息",
+        "warnings: true": "显示警告信息"
+      },
+      "expectedResult": "运行npm run build时会看到彩色的、结构化的构建信息",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "stats"
+      }
+    },
+    {
+      "id": "setup-bundle-analyzer",
+      "title": "🔍 任务3：添加打包分析工具",
+      "description": "你需要一个可视化工具来分析打包后的文件大小，找出哪些库占用空间最大，是否有重复打包的问题。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在文件顶部引入BundleAnalyzerPlugin",
+          "code": "const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');",
+          "explanation": "这个插件可以生成交互式的打包分析报告"
+        },
+        {
+          "step": 2,
+          "action": "在配置对象中添加plugins数组",
+          "code": "plugins: [\n  // 只在分析模式下启用bundle analyzer\n  ...(process.env.ANALYZE ? [new BundleAnalyzerPlugin()] : [])\n],",
+          "explanation": "使用展开运算符条件性地添加插件，避免每次构建都打开分析页面"
+        },
+        {
+          "step": 3,
+          "action": "在package.json的scripts中添加analyze命令",
+          "code": "\"analyze\": \"ANALYZE=true webpack --mode production\"",
+          "explanation": "运行npm run analyze时会构建并自动打开分析页面"
+        }
+      ],
+      "howToUse": "完成配置后，运行 npm run analyze，会自动打开浏览器显示打包分析图表",
+      "expectedResult": "能够看到每个模块的大小占比，找出体积最大的依赖库",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "BundleAnalyzerPlugin"
+      }
+    }
+  ],
+  "progressiveHints": [
+    {
+      "attempt": 1,
+      "hint": "💡 **第一次提示**：webpack的devtool选项控制如何生成source map。试试在配置中添加 `devtool: 'eval-source-map'` 开始。"
+    },
+    {
+      "attempt": 2,
+      "hint": "🔧 **第二次提示**：你需要根据环境选择不同的source map类型。可以使用 `(env, argv) => {}` 函数形式的配置，通过 `argv.mode` 判断是开发还是生产环境。"
+    },
+    {
+      "attempt": 3,
+      "hint": "📋 **第三次提示**：完整的调试配置需要三个部分：\n1. devtool: 根据环境选择source map类型\n2. stats: 配置构建输出信息\n3. plugins: 条件性添加BundleAnalyzerPlugin\n\n记住要先 `const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');`"
+    }
+  ],
+  "resources": [
+    {
+      "title": "Webpack 调试指南",
+      "url": "https://webpack.js.org/guides/development/#using-source-maps"
+    }
+  ],
+  "solution": {
+    "webpack.config.js": "const path = require('path');\nconst { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');\n\nmodule.exports = (env, argv) => {\n  const isProduction = argv.mode === 'production';\n  \n  return {\n    entry: './src/index.js',\n    output: {\n      path: path.resolve(__dirname, 'dist'),\n      filename: isProduction ? '[name].[contenthash].js' : '[name].js',\n      clean: true\n    },\n    \n    // 配置source map用于调试\n    devtool: isProduction ? 'source-map' : 'eval-source-map',\n    \n    // 统计信息配置\n    stats: {\n      colors: true,\n      modules: false,\n      children: false,\n      chunks: false,\n      chunkModules: false,\n      timings: true,\n      errors: true,\n      errorDetails: true,\n      warnings: true\n    },\n    \n    plugins: [\n      // 只在分析模式下启用bundle analyzer\n      ...(process.env.ANALYZE ? [new BundleAnalyzerPlugin()] : [])\n    ],\n    \n    // 优化配置\n    optimization: {\n      splitChunks: {\n        chunks: 'all',\n        cacheGroups: {\n          vendor: {\n            test: /[\\\/]node_modules[\\\/]/,\n            name: 'vendors',\n            chunks: 'all',\n          }\n        }\n      }\n    },\n    \n    // 性能提示\n    performance: {\n      hints: isProduction ? 'warning' : false,\n      maxEntrypointSize: 250000,\n      maxAssetSize: 250000\n    }\n  };\n};",
+    "package.json": "{\n  \"name\": \"webpack-debugging-level\",\n  \"version\": \"1.0.0\",\n  \"description\": \"学习webpack调试与错误排查\",\n  \"scripts\": {\n    \"build\": \"webpack --mode production\",\n    \"dev\": \"webpack --mode development\",\n    \"analyze\": \"ANALYZE=true webpack --mode production\",\n    \"stats\": \"webpack --json > stats.json\"\n  },\n  \"devDependencies\": {\n    \"webpack\": \"^5.88.0\",\n    \"webpack-cli\": \"^5.1.0\",\n    \"webpack-bundle-analyzer\": \"^4.9.0\"\n  }\n}"
+  }
+}

@@ -1,15 +1,16 @@
 {
-  "title": "自定义 Plugin 开发",
-  "description": "学习开发自定义的 Webpack Plugin，深入理解 Webpack 的插件系统和编译生命周期，创建功能强大的插件。",
+  "id": "webpack-custom-plugin",
+  "title": "🔌 自定义Plugin开发 - 掌握Webpack插件系统",
+  "description": "Plugin是Webpack的灵魂，它们可以在构建过程的任何阶段执行自定义逻辑。从生成构建信息到资源清单，从代码分析到自动部署，Plugin让Webpack拥有无限可能。这一关将教你开发两个实用的Plugin。",
   "difficulty": "专家",
   "estimatedTime": "50分钟",
   "category": "webpack",
-  "level": 9,
-  "objectives": [
-    "理解 Webpack 插件系统架构",
-    "掌握编译器和编译生命周期",
-    "开发同步和异步插件",
-    "学习插件的测试和发布"
+  "scenario": "你的团队需要在每次构建时生成详细的构建信息文件，还需要生成资源清单供后端使用。现有的Plugin都不能完全满足需求，你需要开发自定义Plugin来实现这些功能。",
+  "learningObjectives": [
+    "🏗️ 深入理解Webpack插件系统和编译生命周期",
+    "📊 开发构建信息Plugin，记录构建详情",
+    "📋 开发资源清单Plugin，生成资源映射文件",
+    "🔄 掌握同步和异步Plugin的开发模式"
   ],
   "files": [
     {

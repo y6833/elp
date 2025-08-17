@@ -1,0 +1,91 @@
+{
+  "id": "vite-pwa",
+  "title": "📱 PWA应用开发 - 让网页像原生应用一样强大",
+  "description": "PWA（渐进式Web应用）是现代Web开发的趋势！这一关将教你使用Vite构建PWA应用，包括离线缓存、桌面安装、推送通知等功能。让你的Web应用拥有接近原生应用的用户体验。",
+  "difficulty": "高级",
+  "estimatedTime": "40分钟",
+  "category": "vite",
+  "prerequisites": ["vite-build"],
+  "scenario": "你的公司要求将现有的Web应用升级为PWA，以提供更好的用户体验。用户希望能够离线使用应用、将应用安装到桌面，并且在网络不稳定时也能正常工作。你需要配置完整的PWA功能来满足这些需求。",
+  "learningObjectives": [
+    "🔧 配置vite-plugin-pwa插件，快速构建PWA应用",
+    "📋 生成Web App Manifest，支持应用安装和主题定制",
+    "💾 实现Service Worker缓存策略，提供离线功能",
+    "🚀 优化PWA性能，提升用户体验"
+  ],
+  "tasks": [
+    {
+      "id": "setup-pwa-plugin",
+      "title": "🔌 第一步：配置PWA插件",
+      "description": "首先安装并配置vite-plugin-pwa插件。这个插件会自动生成Service Worker、Web App Manifest等PWA必需的文件。",
+      "detailedInstructions": [
+        "在vite.config.js中导入VitePWA插件",
+        "在plugins数组中添加VitePWA()实例",
+        "设置registerType: 'autoUpdate'（自动更新Service Worker）",
+        "配置includeAssets包含favicon和图标文件",
+        "这是PWA配置的基础，后续会添加更多选项"
+      ],
+      "validation": {
+        "type": "file-content",
+        "file": "vite.config.js",
+        "contains": "VitePWA"
+      }
+    },
+    {
+      "id": "configure-manifest",
+      "title": "📋 第二步：配置应用清单",
+      "description": "配置Web App Manifest，定义应用的名称、图标、主题色等信息。这些信息决定了用户安装应用到桌面时的外观和行为。",
+      "detailedInstructions": [
+        "在VitePWA配置中添加manifest对象",
+        "设置name和short_name（应用的完整名称和简短名称）",
+        "配置description描述应用功能",
+        "设置theme_color和background_color（主题色和背景色）",
+        "配置display: 'standalone'（独立应用模式）",
+        "添加icons数组，包含不同尺寸的应用图标"
+      ],
+      "validation": {
+        "type": "file-content",
+        "file": "vite.config.js",
+        "contains": "manifest"
+      }
+    },
+    {
+      "id": "configure-workbox",
+      "title": "💾 第三步：配置缓存策略",
+      "description": "配置Workbox缓存策略，实现离线功能和性能优化。通过智能缓存，让应用在离线状态下也能正常工作。",
+      "detailedInstructions": [
+        "在VitePWA配置中添加workbox对象",
+        "设置globPatterns匹配需要缓存的文件",
+        "配置runtimeCaching数组，设置API请求的缓存策略",
+        "为API请求设置CacheFirst策略和过期时间",
+        "配置cacheKeyWillBeUsed自定义缓存键",
+        "启用devOptions.enabled在开发环境测试PWA功能"
+      ],
+      "validation": {
+        "type": "file-content",
+        "file": "vite.config.js",
+        "contains": "workbox"
+      }
+    }
+  ],
+  "progressiveHints": [
+    {
+      "attempt": 1,
+      "hint": "📱 **第一次提示**：PWA配置从导入VitePWA插件开始：`import { VitePWA } from 'vite-plugin-pwa'`，然后在plugins中添加 `VitePWA({ registerType: 'autoUpdate' })`"
+    },
+    {
+      "attempt": 2,
+      "hint": "🎨 **第二次提示**：Web App Manifest是PWA的核心。在VitePWA配置中添加manifest对象：\n```js\nmanifest: {\n  name: '你的应用名称',\n  short_name: '简短名称',\n  theme_color: '#ffffff',\n  icons: [{ src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' }]\n}\n```"
+    },
+    {
+      "attempt": 3,
+      "hint": "⚡ **第三次提示**：完整的PWA配置包括三个部分：\n1. 基础配置：registerType, includeAssets\n2. 应用清单：manifest对象（名称、图标、主题等）\n3. 缓存策略：workbox对象（globPatterns、runtimeCaching）\n\n记住要配置devOptions.enabled: true来在开发环境测试PWA功能！"
+    }
+  ],
+  "resources": [
+    {
+      "title": "Vite PWA 插件文档",
+      "url": "https://vite-pwa-org.netlify.app/"
+    }
+  ]
+}

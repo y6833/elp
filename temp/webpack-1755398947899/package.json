@@ -1,0 +1,7 @@
+{
+  "name": "temp-webpack-project",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "webpack --mode=development"
+  }
+}

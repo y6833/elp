@@ -1,9 +1,140 @@
 {
-  "title": "性能优化进阶",
-  "description": "<h3>🎯 学习目标</h3><p>掌握 webpack 的高级性能优化技巧，提升构建速度和运行效率。</p><h3>📝 任务说明</h3><p>请完成以下优化配置：</p><ul><li>配置 <code>cache</code> 启用持久化缓存</li><li>使用 <code>resolve.alias</code> 优化模块解析</li><li>配置 <code>externals</code> 排除大型库</li><li>启用 <code>Tree Shaking</code></li></ul><h3>💡 提示</h3><p>性能优化是一个持续的过程，需要根据项目特点选择合适的策略。</p>",
-  "files": ["webpack.config.js", "src/index.js"],
-  "difficulty": "expert",
-  "estimatedTime": "30分钟",
+  "id": "webpack-performance",
+  "title": "⚡ Webpack 性能优化 - 让构建飞起来",
+  "description": "构建速度慢？包体积大？用户加载慢？这一关将教你Webpack的终极性能优化技巧！从持久化缓存到Tree Shaking，从模块别名到外部依赖，让你的构建速度提升10倍，包体积减少50%。",
+  "difficulty": "专家",
+  "estimatedTime": "35分钟",
+  "category": "webpack",
+  "scenario": "你的项目构建时间越来越长，每次修改代码都要等很久。同时打包后的文件很大，用户加载慢。你需要使用各种性能优化技巧来解决这些问题。",
+  "learningObjectives": [
+    "🚀 启用持久化缓存，大幅提升重复构建速度",
+    "🎯 配置模块别名，优化模块解析性能",
+    "📦 使用externals排除大型库，减小包体积",
+    "🌳 启用Tree Shaking，自动删除未使用代码"
+  ],
+  "tasks": [
+    {
+      "id": "setup-persistent-cache",
+      "title": "💾 任务1：启用持久化缓存",
+      "description": "配置Webpack 5的持久化缓存功能，让第二次构建速度提升10倍以上。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在webpack.config.js中添加cache配置",
+          "code": "cache: {\n  type: 'filesystem',\n  buildDependencies: {\n    config: [__filename]\n  }\n},",
+          "explanation": "启用文件系统缓存，配置文件变化时自动失效缓存"
+        }
+      ],
+      "cacheOptions": {
+        "type: 'filesystem'": "使用文件系统存储缓存（比内存缓存更持久）",
+        "buildDependencies": "指定构建依赖，依赖变化时缓存失效",
+        "config: [__filename]": "配置文件变化时自动清除缓存"
+      },
+      "performanceGain": "首次构建后，后续构建速度可提升80-90%",
+      "expectedResult": "第二次构建时会看到明显的速度提升",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "cache:"
+      }
+    },
+    {
+      "id": "setup-resolve-optimization",
+      "title": "🎯 任务2：优化模块解析",
+      "description": "配置模块别名和解析优化，减少文件查找时间。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "添加resolve配置",
+          "code": "resolve: {\n  alias: {\n    '@': path.resolve(__dirname, 'src'),\n    '@components': path.resolve(__dirname, 'src/components'),\n    '@utils': path.resolve(__dirname, 'src/utils')\n  },\n  extensions: ['.js', '.jsx', '.ts', '.tsx'],\n  modules: ['node_modules']\n},",
+          "explanation": "设置路径别名和优化模块查找"
+        }
+      ],
+      "resolveOptimizations": {
+        "alias": "创建路径别名，避免复杂的相对路径",
+        "extensions": "指定文件扩展名，减少查找次数",
+        "modules": "指定模块查找目录，避免向上查找"
+      },
+      "expectedResult": "可以使用@/components/Button代替../../components/Button",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "resolve:"
+      }
+    },
+    {
+      "id": "setup-externals",
+      "title": "📦 任务3：配置外部依赖",
+      "description": "将大型库（如React、Lodash）配置为外部依赖，通过CDN加载，减小包体积。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "添加externals配置",
+          "code": "externals: {\n  'react': 'React',\n  'react-dom': 'ReactDOM',\n  'lodash': '_'\n},",
+          "explanation": "这些库将通过全局变量访问，不会被打包"
+        }
+      ],
+      "externalsStrategy": {
+        "CDN加载": "大型库通过CDN加载，利用浏览器缓存",
+        "减小包体积": "主bundle不包含这些库，体积大幅减小",
+        "并行加载": "主bundle和外部库可以并行下载"
+      },
+      "expectedResult": "打包后的bundle不包含React等大型库",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "externals:"
+      }
+    },
+    {
+      "id": "enable-tree-shaking",
+      "title": "🌳 任务4：启用Tree Shaking",
+      "description": "配置Tree Shaking来自动删除未使用的代码，进一步减小包体积。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在package.json中设置sideEffects",
+          "code": "\"sideEffects\": false,",
+          "explanation": "告诉Webpack代码没有副作用，可以安全删除未使用部分"
+        },
+        {
+          "step": 2,
+          "action": "确保使用ES6模块语法",
+          "code": "// 使用ES6 import/export\nimport { debounce } from 'lodash-es';\nexport { myFunction };",
+          "explanation": "Tree Shaking只对ES6模块有效"
+        }
+      ],
+      "treeShakingBenefits": {
+        "自动优化": "自动删除未使用的函数、变量、类",
+        "包体积减小": "可以减小20-50%的包体积",
+        "零配置": "生产模式下自动启用"
+      },
+      "expectedResult": "未使用的代码不会出现在最终bundle中",
+      "validation": {
+        "type": "file-content",
+        "file": "package.json",
+        "contains": "sideEffects"
+      }
+    }
+  ],
+  "progressiveHints": [
+    {
+      "attempt": 1,
+      "hint": "💾 **第一个提示**：性能优化从缓存开始：\n\n```javascript\ncache: {\n  type: 'filesystem'\n}\n```\n\n这会启用持久化缓存，大幅提升重复构建速度。"
+    },
+    {
+      "attempt": 2,
+      "hint": "🎯 **第二个提示**：添加模块解析优化：\n\n```javascript\nresolve: {\n  alias: {\n    '@': path.resolve(__dirname, 'src')\n  },\n  extensions: ['.js', '.jsx']\n}\n```\n\n这会加快模块查找速度。"
+    },
+    {
+      "attempt": 3,
+      "hint": "🚀 **完整性能优化配置**：\n\n```javascript\nconst path = require('path');\n\nmodule.exports = {\n  mode: 'production',\n  \n  // 持久化缓存\n  cache: {\n    type: 'filesystem',\n    buildDependencies: {\n      config: [__filename]\n    }\n  },\n  \n  // 模块解析优化\n  resolve: {\n    alias: {\n      '@': path.resolve(__dirname, 'src')\n    },\n    extensions: ['.js', '.jsx'],\n    modules: ['node_modules']\n  },\n  \n  // 外部依赖\n  externals: {\n    'react': 'React',\n    'lodash': '_'\n  },\n  \n  // 优化配置\n  optimization: {\n    usedExports: true, // 启用Tree Shaking\n    sideEffects: false\n  }\n};\n```"
+    }
+  ],
+  "solution": {
+    "webpack.config.js": "const path = require('path');\n\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: '[name].[contenthash].js',\n    clean: true\n  },\n  mode: 'production',\n  \n  // 持久化缓存 - 大幅提升重复构建速度\n  cache: {\n    type: 'filesystem', // 使用文件系统缓存\n    buildDependencies: {\n      config: [__filename] // 配置文件变化时清除缓存\n    }\n  },\n  \n  // 模块解析优化\n  resolve: {\n    // 路径别名 - 简化导入路径\n    alias: {\n      '@': path.resolve(__dirname, 'src'),\n      '@components': path.resolve(__dirname, 'src/components'),\n      '@utils': path.resolve(__dirname, 'src/utils')\n    },\n    // 文件扩展名 - 减少查找次数\n    extensions: ['.js', '.jsx', '.ts', '.tsx'],\n    // 模块查找目录\n    modules: ['node_modules']\n  },\n  \n  // 外部依赖 - 通过CDN加载，减小包体积\n  externals: {\n    'react': 'React',\n    'react-dom': 'ReactDOM',\n    'lodash': '_'\n  },\n  \n  // 优化配置\n  optimization: {\n    usedExports: true, // 标记未使用的导出\n    sideEffects: false, // 启用Tree Shaking\n    splitChunks: {\n      chunks: 'all'\n    }\n  },\n  \n  // 性能提示\n  performance: {\n    hints: 'warning',\n    maxEntrypointSize: 250000,\n    maxAssetSize: 250000\n  }\n};",
+    "package.json": "{\n  \"name\": \"webpack-performance-optimization\",\n  \"version\": \"1.0.0\",\n  \"sideEffects\": false,\n  \"scripts\": {\n    \"build\": \"webpack --mode production\",\n    \"dev\": \"webpack --mode development\"\n  },\n  \"devDependencies\": {\n    \"webpack\": \"^5.88.0\",\n    \"webpack-cli\": \"^5.1.0\"\n  }\n}"
+  },
   "validation": {
     "required": [
       {

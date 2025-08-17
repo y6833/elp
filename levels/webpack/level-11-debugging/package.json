@@ -1,0 +1,16 @@
+{
+  "name": "webpack-debugging-level",
+  "version": "1.0.0",
+  "description": "学习webpack调试与错误排查",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development",
+    "analyze": "webpack-bundle-analyzer dist/bundle.js",
+    "stats": "webpack --json > stats.json"
+  },
+  "devDependencies": {
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.0",
+    "webpack-bundle-analyzer": "^4.9.0"
+  }
+}

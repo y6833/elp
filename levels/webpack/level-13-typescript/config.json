@@ -1,0 +1,91 @@
+{
+  "id": "webpack-typescript",
+  "title": "📘 TypeScript + Webpack 完美融合",
+  "description": "TypeScript已经成为现代前端开发的标配！这一关将教你如何在webpack项目中完美集成TypeScript，包括配置编译器、设置路径别名、启用类型检查等。掌握这些技能后，你就能享受TypeScript带来的类型安全和开发体验提升。",
+  "difficulty": "中级",
+  "estimatedTime": "35分钟",
+  "category": "webpack",
+  "prerequisites": ["webpack-loaders"],
+  "scenario": "你的团队决定将现有的JavaScript项目迁移到TypeScript，以提高代码质量和开发效率。作为负责构建配置的工程师，你需要配置webpack来支持TypeScript编译、类型检查，并设置便捷的路径别名来简化import语句。",
+  "learningObjectives": [
+    "🔧 配置ts-loader处理TypeScript文件，实现无缝编译",
+    "⚙️ 设置tsconfig.json，优化TypeScript编译选项",
+    "🗂️ 配置路径别名，让import语句更简洁易读",
+    "✅ 集成类型检查到构建流程，确保代码质量"
+  ],
+  "tasks": [
+    {
+      "id": "configure-ts-loader",
+      "title": "📝 第一步：配置TypeScript加载器",
+      "description": "首先需要配置ts-loader来处理.ts和.tsx文件。ts-loader会调用TypeScript编译器将TypeScript代码转换为JavaScript代码。",
+      "detailedInstructions": [
+        "在webpack.config.js的module.rules中添加TypeScript规则",
+        "设置test: /\\.tsx?$/ 匹配.ts和.tsx文件",
+        "使用ts-loader处理这些文件",
+        "设置exclude: /node_modules/ 排除第三方库",
+        "在ts-loader选项中设置transpileOnly: true（开发环境提速）"
+      ],
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "ts-loader"
+      }
+    },
+    {
+      "id": "setup-resolve",
+      "title": "🔗 第二步：配置模块解析",
+      "description": "配置webpack的resolve选项，让它能够正确解析TypeScript文件，并设置便捷的路径别名。这样你就可以使用@/components这样的简洁导入路径了。",
+      "detailedInstructions": [
+        "在webpack.config.js中添加resolve配置",
+        "设置extensions: ['.ts', '.tsx', '.js', '.jsx'] 支持这些文件扩展名",
+        "配置alias别名：@指向src目录，@components指向src/components等",
+        "确保路径使用path.resolve()来获取绝对路径"
+      ],
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "resolve"
+      }
+    },
+    {
+      "id": "integrate-type-checking",
+      "title": "✅ 第三步：集成类型检查",
+      "description": "为了在构建过程中进行类型检查，需要添加ForkTsCheckerWebpackPlugin插件。这个插件会在单独的进程中运行TypeScript类型检查，不会阻塞构建过程。",
+      "detailedInstructions": [
+        "引入ForkTsCheckerWebpackPlugin插件",
+        "在plugins数组中添加该插件实例",
+        "配置typescript.configFile指向tsconfig.json",
+        "这样可以在构建时进行类型检查，而不影响构建速度"
+      ],
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "ForkTsCheckerWebpackPlugin"
+      }
+    }
+  ],
+  "progressiveHints": [
+    {
+      "attempt": 1,
+      "hint": "📝 **第一个提示 - 配置TypeScript加载器**：\n\n你需要告诉webpack如何处理.ts和.tsx文件。在module.rules中添加：\n\n```javascript\nmodule: {\n  rules: [\n    {\n      test: /\\.tsx?$/,\n      use: 'ts-loader',\n      exclude: /node_modules/\n    }\n  ]\n}\n```\n\n这会让webpack使用ts-loader来编译TypeScript文件。"
+    },
+    {
+      "attempt": 2,
+      "hint": "🔗 **第二个提示 - 添加模块解析配置**：\n\n除了ts-loader，你还需要配置resolve选项：\n\n```javascript\nresolve: {\n  extensions: ['.ts', '.tsx', '.js', '.jsx'],\n  alias: {\n    '@': path.resolve(__dirname, 'src')\n  }\n}\n```\n\n这样你就可以写 `import Button from '@/components/Button'` 这样的简洁导入了。\n\n别忘了在顶部添加：`const path = require('path');`"
+    },
+    {
+      "attempt": 3,
+      "hint": "⚡ **第三个提示 - 完整的TypeScript配置**：\n\n```javascript\nconst path = require('path');\nconst ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');\n\nmodule.exports = {\n  entry: './src/index.ts',\n  \n  resolve: {\n    extensions: ['.ts', '.tsx', '.js', '.jsx'],\n    alias: {\n      '@': path.resolve(__dirname, 'src'),\n      '@components': path.resolve(__dirname, 'src/components'),\n      '@utils': path.resolve(__dirname, 'src/utils')\n    }\n  },\n  \n  module: {\n    rules: [\n      {\n        test: /\\.tsx?$/,\n        use: {\n          loader: 'ts-loader',\n          options: {\n            transpileOnly: true\n          }\n        },\n        exclude: /node_modules/\n      }\n    ]\n  },\n  \n  plugins: [\n    new ForkTsCheckerWebpackPlugin({\n      typescript: {\n        configFile: path.resolve(__dirname, 'tsconfig.json')\n      }\n    })\n  ]\n};\n```"
+    }
+  ],
+  "resources": [
+    {
+      "title": "TypeScript Webpack 指南",
+      "url": "https://webpack.js.org/guides/typescript/"
+    }
+  ],
+  "solution": {
+    "webpack.config.js": "const path = require('path');\nconst ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');\n\nmodule.exports = {\n  entry: './src/index.ts',\n  \n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: '[name].[contenthash].js',\n    clean: true\n  },\n  \n  resolve: {\n    extensions: ['.ts', '.tsx', '.js', '.jsx'],\n    alias: {\n      '@': path.resolve(__dirname, 'src'),\n      '@components': path.resolve(__dirname, 'src/components'),\n      '@utils': path.resolve(__dirname, 'src/utils')\n    }\n  },\n  \n  module: {\n    rules: [\n      {\n        test: /\\.tsx?$/,\n        use: {\n          loader: 'ts-loader',\n          options: {\n            transpileOnly: true, // 提高构建速度\n            configFile: 'tsconfig.json'\n          }\n        },\n        exclude: /node_modules/\n      },\n      {\n        test: /\\.css$/i,\n        use: ['style-loader', 'css-loader']\n      }\n    ]\n  },\n  \n  plugins: [\n    // 在单独进程中进行类型检查\n    new ForkTsCheckerWebpackPlugin({\n      typescript: {\n        configFile: path.resolve(__dirname, 'tsconfig.json')\n      }\n    })\n  ],\n  \n  devtool: 'source-map',\n  \n  optimization: {\n    splitChunks: {\n      chunks: 'all'\n    }\n  }\n};",
+    "tsconfig.json": "{\n  \"compilerOptions\": {\n    \"target\": \"ES2020\",\n    \"module\": \"ESNext\",\n    \"moduleResolution\": \"node\",\n    \"lib\": [\"ES2020\", \"DOM\", \"DOM.Iterable\"],\n    \"allowJs\": true,\n    \"skipLibCheck\": true,\n    \"esModuleInterop\": true,\n    \"allowSyntheticDefaultImports\": true,\n    \"strict\": true,\n    \"forceConsistentCasingInFileNames\": true,\n    \"resolveJsonModule\": true,\n    \"isolatedModules\": true,\n    \"noEmit\": false,\n    \"jsx\": \"react-jsx\",\n    \"declaration\": true,\n    \"outDir\": \"./dist\",\n    \"rootDir\": \"./src\",\n    \"baseUrl\": \".\",\n    \"paths\": {\n      \"@/*\": [\"src/*\"],\n      \"@components/*\": [\"src/components/*\"],\n      \"@utils/*\": [\"src/utils/*\"]\n    }\n  },\n  \"include\": [\n    \"src/**/*\"\n  ],\n  \"exclude\": [\n    \"node_modules\",\n    \"dist\"\n  ]\n}"
+  }
+}

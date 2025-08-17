@@ -1,9 +1,110 @@
 {
-  "title": "代码分割与优化",
-  "description": "<h3>🎯 学习目标</h3><p>学习 webpack 的代码分割技术，优化打包策略和加载性能。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>配置 <code>splitChunks</code> 提取公共代码</li><li>设置 <code>runtimeChunk</code> 分离运行时代码</li><li>使用动态导入实现懒加载</li></ul><h3>💡 提示</h3><p>代码分割可以减少初始加载时间，提升用户体验。合理的分割策略很重要。</p>",
-  "files": ["webpack.config.js", "src/index.js", "src/utils.js", "src/components/LazyComponent.js"],
-  "difficulty": "advanced",
-  "estimatedTime": "25分钟",
+  "id": "webpack-code-splitting",
+  "title": "✂️ Webpack 代码分割 - 让应用加载更快",
+  "description": "想象一下，用户访问你的网站时不需要下载整个应用的代码，而是按需加载。代码分割就是这样的魔法！它可以将大的bundle拆分成小块，实现懒加载，大幅提升首屏加载速度。",
+  "difficulty": "高级",
+  "estimatedTime": "30分钟",
+  "category": "webpack",
+  "scenario": "你的单页应用越来越大，用户反馈首次加载很慢。你需要使用代码分割技术，将第三方库、公共代码和页面代码分别打包，实现按需加载。",
+  "learningObjectives": [
+    "✂️ 理解代码分割的原理和价值",
+    "📦 配置splitChunks提取公共代码和第三方库",
+    "🔄 设置runtimeChunk分离运行时代码",
+    "🚀 实现动态导入和懒加载"
+  ],
+  "tasks": [
+    {
+      "id": "setup-split-chunks",
+      "title": "📦 任务1：配置代码分割策略",
+      "description": "配置splitChunks来自动分离第三方库和公共代码，减少重复打包。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在webpack.config.js中添加optimization配置",
+          "code": "optimization: {\n  splitChunks: {\n    chunks: 'all',\n    cacheGroups: {\n      vendor: {\n        test: /[\\\\/]node_modules[\\\\/]/,\n        name: 'vendors',\n        chunks: 'all'\n      }\n    }\n  }\n},",
+          "explanation": "将第三方库分离到vendors.js文件中"
+        }
+      ],
+      "splitChunksOptions": {
+        "chunks: 'all'": "分割所有类型的chunk（同步和异步）",
+        "cacheGroups.vendor": "将node_modules中的代码分离到vendors文件",
+        "test": "正则表达式，匹配要分离的模块路径",
+        "name": "分离后的chunk名称"
+      },
+      "expectedResult": "构建后会生成vendors.js文件，包含所有第三方库代码",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "splitChunks"
+      }
+    },
+    {
+      "id": "setup-runtime-chunk",
+      "title": "🔄 任务2：分离运行时代码",
+      "description": "将Webpack的运行时代码分离到单独文件，提高缓存效率。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在optimization中添加runtimeChunk配置",
+          "code": "runtimeChunk: 'single',",
+          "explanation": "将运行时代码分离到runtime.js文件"
+        }
+      ],
+      "runtimeChunkBenefits": {
+        "缓存优化": "运行时代码变化频率低，可以长期缓存",
+        "并行加载": "运行时和业务代码可以并行下载",
+        "版本控制": "业务代码更新时，运行时代码不需要重新下载"
+      },
+      "expectedResult": "构建后会生成runtime.js文件，包含Webpack运行时代码",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "runtimeChunk"
+      }
+    },
+    {
+      "id": "implement-dynamic-import",
+      "title": "🚀 任务3：实现动态导入",
+      "description": "在代码中使用动态导入语法，实现组件的懒加载。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在src/index.js中添加动态导入示例",
+          "code": "// 动态导入示例\nconst loadComponent = async () => {\n  const { default: LazyComponent } = await import('./components/LazyComponent');\n  return LazyComponent;\n};\n\n// 按需加载\ndocument.getElementById('load-btn').addEventListener('click', async () => {\n  const Component = await loadComponent();\n  Component.render();\n});",
+          "explanation": "使用import()函数实现动态导入"
+        }
+      ],
+      "dynamicImportBenefits": {
+        "按需加载": "只有用户需要时才下载对应代码",
+        "首屏优化": "减少初始bundle大小，提升首屏加载速度",
+        "用户体验": "核心功能快速可用，次要功能按需加载"
+      },
+      "expectedResult": "点击按钮时才会加载LazyComponent相关代码",
+      "validation": {
+        "type": "file-content",
+        "file": "src/index.js",
+        "contains": "import("
+      }
+    }
+  ],
+  "progressiveHints": [
+    {
+      "attempt": 1,
+      "hint": "✂️ **第一个提示**：代码分割从optimization配置开始：\n\n```javascript\noptimization: {\n  splitChunks: {\n    chunks: 'all'\n  }\n}\n```\n\n这会自动分离公共代码。"
+    },
+    {
+      "attempt": 2,
+      "hint": "📦 **第二个提示**：添加更详细的分割策略：\n\n```javascript\noptimization: {\n  splitChunks: {\n    chunks: 'all',\n    cacheGroups: {\n      vendor: {\n        test: /[\\\\/]node_modules[\\\\/]/,\n        name: 'vendors',\n        chunks: 'all'\n      }\n    }\n  },\n  runtimeChunk: 'single'\n}\n```"
+    },
+    {
+      "attempt": 3,
+      "hint": "🎯 **完整配置模板**：\n\n```javascript\nconst path = require('path');\n\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: '[name].[contenthash].js'\n  },\n  mode: 'production',\n  \n  optimization: {\n    // 代码分割配置\n    splitChunks: {\n      chunks: 'all',\n      cacheGroups: {\n        // 第三方库分离\n        vendor: {\n          test: /[\\\\/]node_modules[\\\\/]/,\n          name: 'vendors',\n          chunks: 'all'\n        },\n        // 公共代码分离\n        common: {\n          name: 'common',\n          minChunks: 2,\n          chunks: 'all',\n          enforce: true\n        }\n      }\n    },\n    // 运行时代码分离\n    runtimeChunk: 'single'\n  }\n};\n```"
+    }
+  ],
+  "solution": {
+    "webpack.config.js": "const path = require('path');\n\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: '[name].[contenthash].js', // 使用contenthash优化缓存\n    clean: true\n  },\n  mode: 'production',\n  \n  // 优化配置\n  optimization: {\n    // 代码分割配置\n    splitChunks: {\n      chunks: 'all', // 分割所有类型的chunk\n      cacheGroups: {\n        // 第三方库分离到vendors文件\n        vendor: {\n          test: /[\\\\/]node_modules[\\\\/]/, // 匹配node_modules中的模块\n          name: 'vendors',\n          chunks: 'all'\n        },\n        // 公共代码分离\n        common: {\n          name: 'common',\n          minChunks: 2, // 至少被2个chunk引用才分离\n          chunks: 'all',\n          enforce: true\n        }\n      }\n    },\n    // 运行时代码分离到单独文件\n    runtimeChunk: 'single'\n  }\n};",
+    "src/index.js": "// 主入口文件\nimport './styles.css';\n\nconsole.log('应用启动');\n\n// 动态导入示例 - 实现懒加载\nconst loadLazyComponent = async () => {\n  try {\n    const { default: LazyComponent } = await import('./components/LazyComponent');\n    return LazyComponent;\n  } catch (error) {\n    console.error('加载组件失败:', error);\n  }\n};\n\n// 按需加载组件\nconst loadBtn = document.getElementById('load-btn');\nif (loadBtn) {\n  loadBtn.addEventListener('click', async () => {\n    const LazyComponent = await loadLazyComponent();\n    if (LazyComponent) {\n      LazyComponent.render();\n    }\n  });\n}"
+  },
   "validation": {
     "required": [
       {

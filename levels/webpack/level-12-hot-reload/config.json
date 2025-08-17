@@ -1,0 +1,127 @@
+{
+  "id": "webpack-hot-reload",
+  "title": "🔥 开发体验升级 - 热重载与开发服务器配置",
+  "description": "还在每次修改代码后手动刷新浏览器吗？作为现代前端开发者，你需要掌握热重载技术！这一关将教你配置webpack-dev-server，实现代码修改后的即时更新，让开发效率提升10倍。同时学会配置API代理，解决开发环境的跨域问题。",
+  "difficulty": "初级",
+  "estimatedTime": "30分钟",
+  "category": "webpack",
+  "prerequisites": ["webpack-basic"],
+  "scenario": "你正在开发一个React应用，每次修改CSS或JS代码后都需要手动刷新浏览器，而且还要重新填写表单数据。更糟糕的是，前端需要调用后端API，但存在跨域问题。你需要配置一个完善的开发环境来解决这些问题。",
+  "learningObjectives": [
+    "🚀 配置webpack-dev-server，创建高效的开发环境",
+    "🔥 启用热模块替换(HMR)，实现代码修改后的即时更新",
+    "🌐 配置API代理，解决开发环境的跨域问题",
+    "⚡ 优化开发服务器性能，提升开发体验"
+  ],
+  "tasks": [
+    {
+      "id": "basic-dev-server",
+      "title": "🏗️ 任务1：配置基础开发服务器",
+      "description": "你需要启动一个本地开发服务器，让你的网页能在浏览器中运行，并且能够自动刷新。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在webpack.config.js中添加devServer配置",
+          "code": "devServer: {\n  static: {\n    directory: path.join(__dirname, 'public'),\n  },\n  port: 3000,\n  open: true,\n  compress: true,\n},",
+          "explanation": "这是开发服务器的基础配置"
+        }
+      ],
+      "configExplanation": {
+        "static.directory": "告诉服务器从哪个文件夹提供静态文件（如index.html、图片等）",
+        "port: 3000": "开发服务器运行在3000端口，访问地址是http://localhost:3000",
+        "open: true": "启动服务器后自动打开浏览器",
+        "compress: true": "启用gzip压缩，让文件传输更快"
+      },
+      "testMethod": "配置完成后运行npm run dev，应该会自动打开浏览器并显示你的页面",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "devServer"
+      }
+    },
+    {
+      "id": "enable-hot-reload",
+      "title": "🔥 任务2：启用热模块替换(HMR)",
+      "description": "现在要让代码修改后不刷新页面就能看到效果。比如修改CSS颜色，页面会立即变色但不会丢失表单数据。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在devServer中添加热重载相关配置",
+          "code": "hot: true, // 启用热模块替换\nhistoryApiFallback: true, // 支持单页应用路由",
+          "explanation": "hot: true是HMR的核心开关"
+        },
+        {
+          "step": 2,
+          "action": "添加客户端配置和文件监听",
+          "code": "// 客户端日志级别\nclient: {\n  logging: 'info',\n  overlay: {\n    errors: true,\n    warnings: false,\n  },\n},\n\n// 监听文件变化\nwatchFiles: ['src/**/*', 'public/**/*'],",
+          "explanation": "overlay会在页面上显示错误信息，watchFiles监听文件变化"
+        }
+      ],
+      "whatIsHMR": "热模块替换(HMR)可以在不刷新页面的情况下更新代码。CSS修改会立即生效，JS修改会尽量保持页面状态。",
+      "howItWorks": {
+        "CSS修改": "修改样式后，页面样式立即更新，不会刷新页面",
+        "JS修改": "修改JS代码后，webpack会尝试热更新模块",
+        "错误处理": "如果热更新失败，会自动回退到页面刷新"
+      },
+      "testMethod": "修改src/styles.css中的颜色，保存后页面应该立即变色而不刷新",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "hot: true"
+      }
+    },
+    {
+      "id": "configure-proxy",
+      "title": "🌐 任务3：配置API代理解决跨域问题",
+      "description": "前端运行在localhost:3000，后端API运行在localhost:8080。直接调用会有跨域错误，需要配置代理转发请求。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在devServer中添加proxy配置",
+          "code": "// API代理配置\nproxy: {\n  '/api': {\n    target: 'http://localhost:8080',\n    changeOrigin: true,\n    pathRewrite: {\n      '^/api': ''\n    }\n  }\n},",
+          "explanation": "将所有/api开头的请求转发到后端服务器"
+        }
+      ],
+      "proxyExplanation": {
+        "'/api'": "匹配所有以/api开头的请求路径",
+        "target": "后端服务器的地址，请求会被转发到这里",
+        "changeOrigin: true": "修改请求头的origin，让后端认为请求来自同一域名",
+        "pathRewrite": "重写请求路径，'^/api': '' 表示去掉/api前缀"
+      },
+      "example": {
+        "前端请求": "fetch('/api/users') -> http://localhost:3000/api/users",
+        "代理转发": "http://localhost:8080/users (去掉了/api前缀)",
+        "实际效果": "前端可以正常调用后端API，没有跨域问题"
+      },
+      "testMethod": "在浏览器控制台执行 fetch('/api/test')，应该不会出现跨域错误",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "proxy"
+      }
+    }
+  ],
+  "progressiveHints": [
+    {
+      "attempt": 1,
+      "hint": "💡 **第一个提示 - 从基础配置开始**：\n\n你需要在webpack.config.js中添加devServer配置。先试试这个基础结构：\n\n```javascript\ndevServer: {\n  port: 3000,\n  open: true\n}\n```\n\n这会让开发服务器运行在3000端口并自动打开浏览器。"
+    },
+    {
+      "attempt": 2,
+      "hint": "🔥 **第二个提示 - 添加更多配置**：\n\n基础配置不够，你还需要：\n\n```javascript\ndevServer: {\n  static: {\n    directory: path.join(__dirname, 'public')\n  },\n  port: 3000,\n  open: true,\n  hot: true,  // 这是热重载的关键！\n  compress: true\n}\n```\n\n别忘了在文件顶部添加：`const path = require('path');`"
+    },
+    {
+      "attempt": 3,
+      "hint": "🎯 **第三个提示 - 完整配置模板**：\n\n看起来你需要完整的配置。复制这个模板并根据任务要求调整：\n\n```javascript\nconst path = require('path');\n\nmodule.exports = {\n  mode: 'development',\n  entry: './src/index.js',\n  \n  devServer: {\n    static: {\n      directory: path.join(__dirname, 'public'),\n    },\n    port: 3000,\n    open: true,\n    hot: true,\n    compress: true,\n    historyApiFallback: true,\n    \n    proxy: {\n      '/api': {\n        target: 'http://localhost:8080',\n        changeOrigin: true,\n        pathRewrite: { '^/api': '' }\n      }\n    },\n    \n    client: {\n      logging: 'info',\n      overlay: { errors: true, warnings: false }\n    },\n    \n    watchFiles: ['src/**/*', 'public/**/*']\n  }\n};\n```"
+    }
+  ],
+  "resources": [
+    {
+      "title": "Webpack Dev Server 文档",
+      "url": "https://webpack.js.org/configuration/dev-server/"
+    }
+  ],
+  "solution": {
+    "webpack.config.js": "const path = require('path');\nconst HtmlWebpackPlugin = require('html-webpack-plugin');\n\nmodule.exports = {\n  mode: 'development',\n  entry: './src/index.js',\n  \n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: '[name].js',\n    clean: true\n  },\n  \n  // 开发服务器配置\n  devServer: {\n    static: {\n      directory: path.join(__dirname, 'public'),\n    },\n    port: 3000,\n    open: true,\n    hot: true, // 启用热模块替换\n    compress: true,\n    historyApiFallback: true,\n    \n    // API代理配置\n    proxy: {\n      '/api': {\n        target: 'http://localhost:8080',\n        changeOrigin: true,\n        pathRewrite: {\n          '^/api': ''\n        }\n      }\n    },\n    \n    // 客户端日志级别\n    client: {\n      logging: 'info',\n      overlay: {\n        errors: true,\n        warnings: false,\n      },\n    },\n    \n    // 监听文件变化\n    watchFiles: ['src/**/*', 'public/**/*'],\n  },\n  \n  module: {\n    rules: [\n      {\n        test: /\\.css$/i,\n        use: ['style-loader', 'css-loader'],\n      },\n      {\n        test: /\\.js$/,\n        exclude: /node_modules/,\n        use: {\n          loader: 'babel-loader',\n          options: {\n            presets: ['@babel/preset-env']\n          }\n        }\n      }\n    ],\n  },\n  \n  plugins: [\n    new HtmlWebpackPlugin({\n      template: './public/index.html',\n      filename: 'index.html'\n    })\n  ],\n  \n  // 开发工具\n  devtool: 'eval-source-map',\n  \n  // 优化配置\n  optimization: {\n    runtimeChunk: 'single',\n  },\n};"
+  }
+}

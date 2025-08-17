@@ -1,9 +1,93 @@
 {
-  "title": "Vite 基础配置",
-  "description": "<h3>🎯 学习目标</h3><p>了解 Vite 的基本配置和快速开发体验。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>设置开发服务器端口为 3000</li><li>配置构建输出目录为 'build'</li><li>设置公共基础路径为 './'</li></ul><h3>💡 提示</h3><p>Vite 配置相比 webpack 更简洁，很多功能开箱即用。</p>",
-  "files": ["vite.config.js", "src/main.js", "index.html"],
-  "difficulty": "beginner",
-  "estimatedTime": "8分钟",
+  "id": "vite-basic",
+  "title": "⚡ Vite 基础配置 - 体验极速构建工具",
+  "description": "Vite是新一代的前端构建工具，以其极快的冷启动和热更新而闻名。与Webpack相比，Vite在开发环境使用原生ES模块，构建时使用Rollup打包，提供了更快的开发体验。",
+  "difficulty": "初级",
+  "estimatedTime": "15分钟",
+  "category": "vite",
+  "scenario": "你的团队想要从Webpack迁移到Vite来提升开发效率。你需要创建一个基本的Vite配置文件，设置开发服务器和构建选项。",
+  "learningObjectives": [
+    "⚡ 理解Vite的核心优势：快速冷启动和热更新",
+    "🔧 学会配置Vite的开发服务器",
+    "📦 掌握Vite的构建配置选项",
+    "🚀 体验Vite相比传统构建工具的速度提升"
+  ],
+  "tasks": [
+    {
+      "id": "setup-dev-server",
+      "title": "🌐 任务1：配置开发服务器",
+      "description": "设置Vite开发服务器的基本选项，包括端口号和自动打开浏览器。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在vite.config.js中配置server选项",
+          "code": "server: {\n  port: 3000,\n  open: true\n},",
+          "explanation": "设置开发服务器运行在3000端口，启动时自动打开浏览器"
+        }
+      ],
+      "expectedResult": "运行npm run dev时，开发服务器在3000端口启动并自动打开浏览器",
+      "validation": {
+        "type": "file-content",
+        "file": "vite.config.js",
+        "contains": "port: 3000"
+      }
+    },
+    {
+      "id": "setup-build-options",
+      "title": "📦 任务2：配置构建选项",
+      "description": "设置生产环境构建的输出目录和其他构建选项。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "配置build选项",
+          "code": "build: {\n  outDir: 'dist',\n  sourcemap: true\n},",
+          "explanation": "设置构建输出目录为dist，启用sourcemap便于调试"
+        }
+      ],
+      "expectedResult": "运行npm run build时，文件会输出到dist目录",
+      "validation": {
+        "type": "file-content",
+        "file": "vite.config.js",
+        "contains": "outDir"
+      }
+    },
+    {
+      "id": "setup-base-path",
+      "title": "🔗 任务3：配置基础路径",
+      "description": "设置应用的公共基础路径，这在部署到子目录时很有用。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "设置base选项",
+          "code": "base: './',",
+          "explanation": "使用相对路径，适合部署到任何目录"
+        }
+      ],
+      "expectedResult": "构建后的文件使用相对路径引用资源",
+      "validation": {
+        "type": "file-content",
+        "file": "vite.config.js",
+        "contains": "base:"
+      }
+    }
+  ],
+  "progressiveHints": [
+    {
+      "attempt": 1,
+      "hint": "⚡ **第一个提示**：Vite配置使用ES模块语法。从这个基础结构开始：\n\n```javascript\nimport { defineConfig } from 'vite'\n\nexport default defineConfig({\n  server: {\n    port: 3000\n  }\n})\n```"
+    },
+    {
+      "attempt": 2,
+      "hint": "📦 **第二个提示**：别忘了配置构建选项！添加build配置：\n\n```javascript\nexport default defineConfig({\n  server: {\n    port: 3000,\n    open: true\n  },\n  build: {\n    outDir: 'dist',\n    sourcemap: true\n  }\n})\n```"
+    },
+    {
+      "attempt": 3,
+      "hint": "🎯 **完整配置模板**：\n\n```javascript\nimport { defineConfig } from 'vite'\n\nexport default defineConfig({\n  // 基础路径\n  base: './',\n  \n  // 开发服务器配置\n  server: {\n    port: 3000,\n    open: true\n  },\n  \n  // 构建配置\n  build: {\n    outDir: 'dist',\n    sourcemap: true\n  }\n})\n```"
+    }
+  ],
+  "solution": {
+    "vite.config.js": "import { defineConfig } from 'vite'\n\n// Vite配置文件\nexport default defineConfig({\n  // 公共基础路径\n  base: './',\n  \n  // 开发服务器配置\n  server: {\n    port: 3000, // 开发服务器端口\n    open: true  // 自动打开浏览器\n  },\n  \n  // 构建配置\n  build: {\n    outDir: 'dist',   // 构建输出目录\n    sourcemap: true   // 生成sourcemap文件\n  }\n})"
+  },
   "validation": {
     "required": [
       {

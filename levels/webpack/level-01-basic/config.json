@@ -1,9 +1,104 @@
 {
-  "title": "Webpack 基础配置",
-  "description": "<h3>🎯 学习目标</h3><p>掌握 webpack 的基本配置，包括入口文件、输出配置和模式设置。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>设置入口文件为 <code>./src/index.js</code></li><li>设置输出目录为 <code>dist</code>，文件名为 <code>bundle.js</code></li><li>设置模式为开发模式</li></ul><h3>💡 提示</h3><p>webpack 配置文件导出一个配置对象，包含 entry、output 和 mode 三个基本属性。</p>",
-  "files": ["webpack.config.js", "src/index.js"],
-  "difficulty": "beginner",
-  "estimatedTime": "10分钟",
+  "id": "webpack-basic",
+  "title": "🚀 Webpack 基础配置 - 你的第一个构建工具",
+  "description": "欢迎来到Webpack的世界！作为现代前端开发的核心工具，Webpack可以将你的多个JS文件、CSS文件、图片等资源打包成浏览器可以直接使用的文件。这一关将教你创建最基本的Webpack配置。",
+  "difficulty": "初级",
+  "estimatedTime": "15分钟",
+  "category": "webpack",
+  "scenario": "你刚加入一个前端团队，项目使用多个JS文件，但浏览器需要一个打包后的文件。你需要配置Webpack来自动完成这个打包过程。",
+  "learningObjectives": [
+    "🎯 理解Webpack的基本概念：入口、输出、模式",
+    "📁 学会配置项目的入口文件和输出目录",
+    "⚙️ 掌握开发模式和生产模式的区别",
+    "🔧 创建你的第一个webpack.config.js文件"
+  ],
+  "tasks": [
+    {
+      "id": "setup-entry",
+      "title": "📍 任务1：设置项目入口文件",
+      "description": "告诉Webpack从哪个文件开始分析你的项目依赖关系。就像告诉快递员从哪个门进入你的小区一样。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在webpack.config.js中设置entry字段",
+          "code": "entry: './src/index.js',",
+          "explanation": "这告诉Webpack从src/index.js文件开始构建"
+        }
+      ],
+      "expectedResult": "Webpack知道从./src/index.js开始分析项目",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "entry: './src/index.js'"
+      }
+    },
+    {
+      "id": "setup-output",
+      "title": "📦 任务2：配置输出文件",
+      "description": "设置打包后的文件放在哪里，叫什么名字。就像告诉工厂生产的产品要放在哪个仓库，贴什么标签。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在文件顶部引入path模块",
+          "code": "const path = require('path');",
+          "explanation": "path模块用于处理文件路径，确保跨平台兼容"
+        },
+        {
+          "step": 2,
+          "action": "配置output对象",
+          "code": "output: {\n  path: path.resolve(__dirname, 'dist'),\n  filename: 'bundle.js'\n},",
+          "explanation": "打包后的文件会放在dist文件夹，命名为bundle.js"
+        }
+      ],
+      "expectedResult": "构建后会在dist文件夹生成bundle.js文件",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "output"
+      }
+    },
+    {
+      "id": "setup-mode",
+      "title": "🔧 任务3：设置构建模式",
+      "description": "告诉Webpack这是开发环境还是生产环境，它会自动应用对应的优化策略。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "添加mode字段",
+          "code": "mode: 'development',",
+          "explanation": "开发模式会保留代码的可读性，方便调试"
+        }
+      ],
+      "modeExplanation": {
+        "development": "开发模式 - 代码不压缩，构建快，便于调试",
+        "production": "生产模式 - 代码压缩优化，文件小，适合上线",
+        "none": "无模式 - 不应用任何默认优化"
+      },
+      "expectedResult": "Webpack会以开发模式进行构建",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "mode: 'development'"
+      }
+    }
+  ],
+  "progressiveHints": [
+    {
+      "attempt": 1,
+      "hint": "🌟 **第一个提示**：Webpack配置是一个JavaScript对象。从这个基础结构开始：\n\n```javascript\nmodule.exports = {\n  entry: './src/index.js',\n  // 继续添加其他配置...\n};\n```"
+    },
+    {
+      "attempt": 2,
+      "hint": "📁 **第二个提示**：别忘了配置输出！你需要：\n\n```javascript\nconst path = require('path');\n\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: 'bundle.js'\n  },\n  mode: 'development'\n};\n```"
+    },
+    {
+      "attempt": 3,
+      "hint": "🎯 **完整配置模板**：\n\n```javascript\nconst path = require('path');\n\nmodule.exports = {\n  // 入口文件\n  entry: './src/index.js',\n  \n  // 输出配置\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: 'bundle.js'\n  },\n  \n  // 构建模式\n  mode: 'development'\n};\n```"
+    }
+  ],
+  "solution": {
+    "webpack.config.js": "const path = require('path');\n\nmodule.exports = {\n  // 入口文件 - Webpack从这里开始分析依赖\n  entry: './src/index.js',\n  \n  // 输出配置 - 打包后的文件放在哪里\n  output: {\n    path: path.resolve(__dirname, 'dist'), // 输出目录的绝对路径\n    filename: 'bundle.js' // 输出文件名\n  },\n  \n  // 构建模式 - 开发模式不压缩代码，便于调试\n  mode: 'development'\n};"
+  },
   "validation": {
     "required": [
       {

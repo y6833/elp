@@ -1,9 +1,110 @@
 {
-  "title": "Webpack 加载器配置",
-  "description": "<h3>🎯 学习目标</h3><p>学会配置各种加载器来处理不同类型的文件。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>为 CSS 文件配置 <code>style-loader</code> 和 <code>css-loader</code></li><li>为图片文件配置 <code>file-loader</code></li></ul><h3>💡 提示</h3><p>加载器的执行顺序是从右到左，从下到上。CSS 需要先用 css-loader 处理，再用 style-loader 注入到页面。</p>",
-  "files": ["webpack.config.js", "src/index.js", "src/styles.css"],
-  "difficulty": "beginner",
-  "estimatedTime": "15分钟",
+  "id": "webpack-loaders",
+  "title": "🎨 Webpack 加载器 - 让Webpack理解各种文件类型",
+  "description": "Webpack默认只能理解JavaScript文件，但现代前端项目包含CSS、图片、字体等各种资源。Loader就像翻译官，帮助Webpack理解和处理这些不同类型的文件。这一关将教你配置最常用的加载器。",
+  "difficulty": "初级",
+  "estimatedTime": "20分钟",
+  "category": "webpack",
+  "scenario": "你的项目需要使用CSS样式和图片资源，但是直接在JS中import这些文件会报错。你需要配置相应的loader来让Webpack能够处理这些资源。",
+  "learningObjectives": [
+    "🎯 理解Loader的作用：让Webpack能处理非JS文件",
+    "🎨 配置CSS加载器：style-loader和css-loader的组合使用",
+    "🖼️ 配置图片加载器：处理项目中的图片资源",
+    "⚙️ 掌握Loader的执行顺序和配置方法"
+  ],
+  "tasks": [
+    {
+      "id": "setup-css-loaders",
+      "title": "🎨 任务1：配置CSS加载器",
+      "description": "让Webpack能够处理CSS文件。需要两个loader：css-loader解析CSS文件，style-loader将CSS注入到页面中。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在webpack.config.js中添加module配置",
+          "code": "module: {\n  rules: [\n    // CSS文件处理规则\n  ]\n},",
+          "explanation": "module.rules数组包含所有的文件处理规则"
+        },
+        {
+          "step": 2,
+          "action": "添加CSS文件的处理规则",
+          "code": "{\n  test: /\\.css$/i,\n  use: ['style-loader', 'css-loader']\n}",
+          "explanation": "test匹配.css文件，use指定使用的loader"
+        }
+      ],
+      "loaderExplanation": {
+        "css-loader": "解析CSS文件中的@import和url()，将CSS转换为JS模块",
+        "style-loader": "将CSS注入到DOM中，创建<style>标签",
+        "执行顺序": "从右到左：css-loader → style-loader"
+      },
+      "expectedResult": "可以在JS文件中import CSS文件，样式会自动应用到页面",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "css-loader"
+      }
+    },
+    {
+      "id": "setup-image-loaders",
+      "title": "🖼️ 任务2：配置图片加载器",
+      "description": "让Webpack能够处理图片文件，包括PNG、JPG、GIF等格式。现代Webpack使用asset modules来处理静态资源。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "在rules数组中添加图片处理规则",
+          "code": "{\n  test: /\\.(png|jpg|jpeg|gif|svg)$/i,\n  type: 'asset/resource'\n}",
+          "explanation": "使用Webpack 5的asset modules处理图片"
+        }
+      ],
+      "assetModulesExplanation": {
+        "asset/resource": "将文件输出到输出目录，返回文件URL（替代file-loader）",
+        "asset/inline": "将文件内联为data URI（替代url-loader）",
+        "asset": "自动选择inline或resource（小文件内联，大文件输出）"
+      },
+      "expectedResult": "可以在JS中import图片，获得图片的URL路径",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "asset/resource"
+      }
+    },
+    {
+      "id": "test-loaders",
+      "title": "🧪 任务3：测试加载器配置",
+      "description": "验证配置是否正确，确保CSS和图片都能正常加载。",
+      "specificSteps": [
+        {
+          "step": 1,
+          "action": "确保配置完整性",
+          "code": "// 完整的module配置应该包含：\nmodule: {\n  rules: [\n    // CSS规则\n    {\n      test: /\\.css$/i,\n      use: ['style-loader', 'css-loader']\n    },\n    // 图片规则\n    {\n      test: /\\.(png|jpg|jpeg|gif|svg)$/i,\n      type: 'asset/resource'\n    }\n  ]\n}",
+          "explanation": "两个规则都配置正确才能正常工作"
+        }
+      ],
+      "testMethod": "运行npm run build，检查是否有CSS和图片相关的错误",
+      "expectedResult": "构建成功，没有关于CSS或图片的错误信息",
+      "validation": {
+        "type": "file-content",
+        "file": "webpack.config.js",
+        "contains": "module"
+      }
+    }
+  ],
+  "progressiveHints": [
+    {
+      "attempt": 1,
+      "hint": "🎨 **第一个提示**：Loader配置在module.rules数组中。从这个结构开始：\n\n```javascript\nmodule: {\n  rules: [\n    {\n      test: /\\.css$/i,\n      use: ['style-loader', 'css-loader']\n    }\n  ]\n}\n```"
+    },
+    {
+      "attempt": 2,
+      "hint": "🖼️ **第二个提示**：别忘了图片处理！在rules数组中再添加一个规则：\n\n```javascript\n{\n  test: /\\.(png|jpg|jpeg|gif|svg)$/i,\n  type: 'asset/resource'\n}\n```\n\nWebpack 5使用asset modules替代了file-loader。"
+    },
+    {
+      "attempt": 3,
+      "hint": "🎯 **完整配置模板**：\n\n```javascript\nconst path = require('path');\n\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: 'bundle.js'\n  },\n  mode: 'development',\n  \n  module: {\n    rules: [\n      // CSS文件处理\n      {\n        test: /\\.css$/i,\n        use: ['style-loader', 'css-loader']\n      },\n      // 图片文件处理\n      {\n        test: /\\.(png|jpg|jpeg|gif|svg)$/i,\n        type: 'asset/resource'\n      }\n    ]\n  }\n};\n```"
+    }
+  ],
+  "solution": {
+    "webpack.config.js": "const path = require('path');\n\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    path: path.resolve(__dirname, 'dist'),\n    filename: 'bundle.js'\n  },\n  mode: 'development',\n  \n  // 模块处理规则\n  module: {\n    rules: [\n      // CSS文件处理规则\n      {\n        test: /\\.css$/i, // 匹配所有.css文件\n        use: ['style-loader', 'css-loader'] // 使用的loader，从右到左执行\n      },\n      // 图片文件处理规则\n      {\n        test: /\\.(png|jpg|jpeg|gif|svg)$/i, // 匹配图片文件\n        type: 'asset/resource' // 使用Webpack 5的asset modules\n      }\n    ]\n  }\n};"
+  },
   "validation": {
     "required": [
       {

@@ -1,7 +1,18 @@
 {
-  "title": "Vite 插件生态",
-  "description": "<h3>🎯 学习目标</h3><p>探索 Vite 丰富的插件生态，学会配置和使用各种插件。</p><h3>📝 任务说明</h3><p>请完成以下配置：</p><ul><li>配置 <code>@vitejs/plugin-react</code> 支持 React</li><li>使用 <code>vite-plugin-eslint</code> 集成代码检查</li><li>配置 <code>rollup-plugin-visualizer</code> 分析打包</li></ul><h3>💡 提示</h3><p>Vite 插件基于 Rollup 插件系统，兼容性很好。大部分 Rollup 插件都可以直接使用。</p>",
-  "files": ["vite.config.js", "src/main.jsx", "index.html"],
-  "difficulty": "intermediate",
-  "estimatedTime": "20分钟"
+  "id": "vite-plugins",
+  "title": "🔌 Vite 插件生态 - 扩展Vite的强大功能",
+  "description": "Vite的插件系统基于Rollup，拥有丰富的生态。通过插件，你可以轻松添加React支持、代码检查、打包分析等功能。这一关将教你如何配置和使用常用的Vite插件。",
+  "difficulty": "中级",
+  "estimatedTime": "25分钟",
+  "category": "vite",
+  "scenario": "你的React项目需要添加代码检查和打包分析功能。你需要配置相应的Vite插件来增强开发体验和代码质量。",
+  "learningObjectives": [
+    "🔌 理解Vite插件系统的工作原理",
+    "⚛️ 配置React支持插件",
+    "🔍 集成ESLint代码检查",
+    "📊 添加打包分析工具"
+  ],
+  "solution": {
+    "vite.config.js": "import { defineConfig } from 'vite'\nimport react from '@vitejs/plugin-react'\nimport eslint from 'vite-plugin-eslint'\nimport { visualizer } from 'rollup-plugin-visualizer'\n\nexport default defineConfig({\n  plugins: [\n    // React支持\n    react(),\n    \n    // ESLint代码检查\n    eslint({\n      include: ['src/**/*.js', 'src/**/*.jsx'],\n      exclude: ['node_modules']\n    }),\n    \n    // 打包分析（仅在构建时启用）\n    process.env.ANALYZE && visualizer({\n      filename: 'dist/stats.html',\n      open: true\n    })\n  ].filter(Boolean),\n  \n  server: {\n    port: 3000,\n    open: true\n  }\n})"
+  }
 }
