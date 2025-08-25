@@ -1,0 +1,296 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "warning": "警告",
+    "info": "信息",
+    "confirm": "确认",
+    "cancel": "取消",
+    "save": "保存",
+    "edit": "编辑",
+    "delete": "删除",
+    "add": "添加",
+    "search": "搜索",
+    "filter": "筛选",
+    "sort": "排序",
+    "reset": "重置",
+    "submit": "提交",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "continue": "继续",
+    "finish": "完成",
+    "close": "关闭"
+  },
+  "nav": {
+    "home": "首页",
+    "levels": "关卡",
+    "progress": "进度",
+    "achievements": "成就",
+    "community": "社区",
+    "profile": "个人资料",
+    "settings": "设置",
+    "help": "帮助",
+    "logout": "退出登录"
+  },
+  "auth": {
+    "login": "登录",
+    "register": "注册",
+    "username": "用户名",
+    "email": "邮箱",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "forgotPassword": "忘记密码？",
+    "rememberMe": "记住我",
+    "loginSuccess": "登录成功",
+    "registerSuccess": "注册成功",
+    "invalidCredentials": "用户名或密码错误",
+    "passwordMismatch": "两次输入的密码不一致",
+    "emailRequired": "请输入邮箱地址",
+    "passwordRequired": "请输入密码",
+    "usernameRequired": "请输入用户名"
+  },
+  "home": {
+    "title": "掌握现代前端工程化",
+    "subtitle": "从这里开始",
+    "description": "通过关卡式学习，循序渐进地掌握 Webpack、Vite、Rollup 等现代前端构建工具。从基础配置到高级优化，从理论到实践，打造完整的前端工程化技能体系。",
+    "startLearning": "开始学习",
+    "viewLevels": "浏览关卡",
+    "whyChoose": "为什么选择 ELP？",
+    "learningPath": "学习路径",
+    "readyToStart": "准备好开始你的前端工程化之旅了吗？",
+    "joinDevelopers": "加入数千名开发者的行列，通过实践学习现代前端工程化技能",
+    "features": {
+      "handsOn": {
+        "title": "实战导向",
+        "description": "每个关卡都基于真实的工程化场景，让你在实践中掌握技能"
+      },
+      "progressive": {
+        "title": "循序渐进",
+        "description": "从基础概念到高级技巧，科学的学习路径帮你稳步提升"
+      },
+      "instantFeedback": {
+        "title": "即时反馈",
+        "description": "实时的配置验证和智能提示，让学习更高效"
+      },
+      "comprehensive": {
+        "title": "内容全面",
+        "description": "覆盖现代前端工程化的各个方面，从构建到部署一应俱全"
+      },
+      "community": {
+        "title": "社区支持",
+        "description": "活跃的学习社区，与其他开发者交流经验，共同成长"
+      },
+      "upToDate": {
+        "title": "与时俱进",
+        "description": "紧跟前端技术发展，及时更新最新的工具和最佳实践"
+      }
+    },
+    "stats": {
+      "levels": "学习关卡",
+      "techStack": "技术栈",
+      "learners": "学习者",
+      "completionRate": "完成率"
+    }
+  },
+  "levels": {
+    "title": "学习关卡",
+    "categories": {
+      "all": "全部",
+      "webpack": "Webpack",
+      "vite": "Vite",
+      "buildTools": "构建工具",
+      "packageManagers": "包管理器",
+      "cicd": "CI/CD",
+      "testing": "测试",
+      "performance": "性能优化",
+      "deployment": "部署"
+    },
+    "difficulty": {
+      "beginner": "初级",
+      "intermediate": "中级",
+      "advanced": "高级"
+    },
+    "status": {
+      "notStarted": "未开始",
+      "inProgress": "进行中",
+      "completed": "已完成",
+      "locked": "未解锁"
+    },
+    "estimatedTime": "预计时长",
+    "prerequisites": "前置条件",
+    "objectives": "学习目标",
+    "startLevel": "开始关卡",
+    "continueLevel": "继续学习",
+    "reviewLevel": "复习关卡"
+  },
+  "learning": {
+    "instructions": "说明",
+    "objectives": "目标",
+    "hints": "提示",
+    "solution": "参考答案",
+    "submit": "提交代码",
+    "reset": "重置代码",
+    "format": "格式化",
+    "run": "运行",
+    "test": "测试",
+    "validate": "验证",
+    "nextLevel": "下一关",
+    "backToLevels": "返回关卡列表",
+    "codeEditor": "代码编辑器",
+    "console": "控制台",
+    "preview": "预览",
+    "validation": {
+      "success": "验证成功！",
+      "failed": "验证失败",
+      "running": "验证中...",
+      "error": "验证出错",
+      "timeout": "验证超时"
+    },
+    "attempt": "尝试次数",
+    "timeSpent": "用时",
+    "score": "得分"
+  },
+  "progress": {
+    "title": "学习进度",
+    "overview": "总览",
+    "byCategory": "分类进度",
+    "recentActivity": "最近活动",
+    "overall": "整体进度",
+    "completed": "已完成",
+    "inProgress": "进行中",
+    "remaining": "剩余",
+    "totalTime": "总学习时间",
+    "averageScore": "平均得分",
+    "streak": "连续学习天数",
+    "levelDetails": "关卡详情",
+    "completedAt": "完成时间",
+    "attempts": "尝试次数",
+    "bestScore": "最佳得分"
+  },
+  "achievements": {
+    "title": "成就系统",
+    "unlocked": "已解锁",
+    "locked": "未解锁",
+    "progress": "进度",
+    "unlockedAt": "解锁时间",
+    "categories": {
+      "completion": "完成成就",
+      "streak": "连续学习",
+      "performance": "表现优异",
+      "exploration": "探索精神",
+      "social": "社交互动"
+    },
+    "rarity": {
+      "common": "普通",
+      "rare": "稀有",
+      "epic": "史诗",
+      "legendary": "传说"
+    }
+  },
+  "community": {
+    "title": "学习社区",
+    "discussions": "讨论区",
+    "codeSharing": "代码分享",
+    "leaderboard": "排行榜",
+    "studyGroups": "学习小组",
+    "mentors": "导师",
+    "events": "活动",
+    "newPost": "发布新帖",
+    "reply": "回复",
+    "like": "点赞",
+    "share": "分享",
+    "follow": "关注",
+    "unfollow": "取消关注",
+    "joinGroup": "加入小组",
+    "createGroup": "创建小组",
+    "requestHelp": "寻求帮助",
+    "offerHelp": "提供帮助"
+  },
+  "profile": {
+    "title": "个人资料",
+    "basicInfo": "基本信息",
+    "avatar": "头像",
+    "username": "用户名",
+    "email": "邮箱",
+    "bio": "个人简介",
+    "location": "位置",
+    "website": "网站",
+    "skills": "技能",
+    "experience": "经验",
+    "education": "教育背景",
+    "certificates": "证书",
+    "editProfile": "编辑资料",
+    "changePassword": "修改密码",
+    "privacy": "隐私设置",
+    "notifications": "通知设置"
+  },
+  "settings": {
+    "title": "设置",
+    "general": "通用",
+    "appearance": "外观",
+    "language": "语言",
+    "theme": "主题",
+    "fontSize": "字体大小",
+    "notifications": "通知",
+    "privacy": "隐私",
+    "account": "账户",
+    "advanced": "高级",
+    "export": "导出数据",
+    "import": "导入数据",
+    "reset": "重置设置",
+    "deleteAccount": "删除账户"
+  },
+  "editor": {
+    "language": "语言",
+    "theme": "主题",
+    "fontSize": "字体大小",
+    "tabSize": "Tab 大小",
+    "wordWrap": "自动换行",
+    "lineNumbers": "行号",
+    "minimap": "小地图",
+    "find": "查找",
+    "replace": "替换",
+    "format": "格式化",
+    "fullscreen": "全屏",
+    "settings": "设置"
+  },
+  "errors": {
+    "networkError": "网络连接失败",
+    "serverError": "服务器错误",
+    "notFound": "页面不存在",
+    "unauthorized": "未授权访问",
+    "forbidden": "权限不足",
+    "validationFailed": "验证失败",
+    "unknownError": "未知错误",
+    "retry": "重试",
+    "contactSupport": "联系客服"
+  },
+  "tips": {
+    "welcomeBack": "欢迎回来！",
+    "firstTime": "第一次使用？从基础关卡开始吧！",
+    "dailyChallenge": "每日挑战已刷新",
+    "streakBonus": "连续学习获得额外奖励",
+    "shareProgress": "分享你的学习成果",
+    "askForHelp": "遇到困难？向社区求助",
+    "exploreMore": "探索更多关卡",
+    "practiceMore": "多练习才能熟练掌握"
+  },
+  "time": {
+    "seconds": "秒",
+    "minutes": "分钟",
+    "hours": "小时",
+    "days": "天",
+    "weeks": "周",
+    "months": "月",
+    "years": "年",
+    "ago": "前",
+    "justNow": "刚刚",
+    "today": "今天",
+    "yesterday": "昨天",
+    "thisWeek": "本周",
+    "thisMonth": "本月",
+    "thisYear": "今年"
+  }
+}

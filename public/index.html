@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
 </head>
+
 <body>
     <div id="app">
         <!-- 导航栏 -->
@@ -32,7 +34,8 @@
                 <div class="navbar-actions">
                     <a href="https://github.com/y6833/elp" target="_blank" class="btn-github">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                         </svg>
                     </a>
                     <button class="btn-outline" onclick="showProgress()">查看进度</button>
@@ -72,11 +75,12 @@
                             开始学习之旅
                             <span class="btn-arrow">→</span>
                         </button>
-                        <button class="btn-hero-secondary" onclick="document.getElementById('guide').scrollIntoView({behavior: 'smooth'})">
+                        <button class="btn-hero-secondary"
+                            onclick="document.getElementById('guide').scrollIntoView({behavior: 'smooth'})">
                             了解更多
                         </button>
                     </div>
-                    
+
                     <!-- 进度概览 -->
                     <div class="progress-overview" id="progress-overview">
                         <div class="progress-stats">
@@ -113,13 +117,15 @@
                                 <span class="code-keyword">module</span>.<span class="code-property">exports</span> = {
                             </div>
                             <div class="code-line indent">
-                                <span class="code-property">entry</span>: <span class="code-string">'./src/index.js'</span>,
+                                <span class="code-property">entry</span>: <span
+                                    class="code-string">'./src/index.js'</span>,
                             </div>
                             <div class="code-line indent">
                                 <span class="code-property">output</span>: {
                             </div>
                             <div class="code-line indent2">
-                                <span class="code-property">path</span>: <span class="code-function">path</span>.<span class="code-method">resolve</span>(<span class="code-string">'dist'</span>)
+                                <span class="code-property">path</span>: <span class="code-function">path</span>.<span
+                                    class="code-method">resolve</span>(<span class="code-string">'dist'</span>)
                             </div>
                             <div class="code-line indent">
                                 }
@@ -252,16 +258,16 @@
                 <button class="back-btn" id="back-btn">← 返回关卡列表</button>
                 <h2 id="level-title"></h2>
             </div>
-            
+
             <div class="level-content">
                 <div class="description" id="level-description"></div>
-                
+
                 <div class="editor-section">
                     <h3>配置文件</h3>
                     <div class="file-tabs" id="file-tabs"></div>
                     <textarea id="code-editor" placeholder="在这里编写配置..."></textarea>
                 </div>
-                
+
                 <div class="actions">
                     <button class="btn primary" id="run-btn">运行配置</button>
                     <button class="btn secondary" id="reset-btn">重置</button>
@@ -269,12 +275,12 @@
                     <button class="btn solution" id="solution-btn" style="display: none;">📖 查看参考答案</button>
                     <button class="btn success" id="next-btn" style="display: none;">下一关</button>
                 </div>
-                
+
                 <div class="hints-section" id="hints-section" style="display: none;">
                     <h4>💡 智能提示</h4>
                     <div class="hints-content" id="hints-content"></div>
                 </div>
-                
+
                 <div class="output" id="output"></div>
             </div>
         </div>
@@ -304,12 +310,12 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="category-progress" id="category-progress">
                             <!-- 分类进度将动态生成 -->
                         </div>
                     </div>
-                    
+
                     <div class="recent-activity" id="recent-activity">
                         <h3>最近活动</h3>
                         <div class="activity-list" id="activity-list">
@@ -317,10 +323,12 @@
                         </div>
                         <!-- 测试按钮（开发时使用） -->
                         <div style="margin-top: 20px; text-align: center;">
-                            <button onclick="window.learningPlatform?.addTestProgress()" style="padding: 8px 16px; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
+                            <button onclick="window.learningPlatform?.addTestProgress()"
+                                style="padding: 8px 16px; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
                                 🧪 添加测试数据
                             </button>
-                            <button onclick="window.learningPlatform?.forceUpdateCircularProgress()" style="padding: 8px 16px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                            <button onclick="window.learningPlatform?.forceUpdateCircularProgress()"
+                                style="padding: 8px 16px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer;">
                                 🔄 强制更新进度条
                             </button>
                         </div>
@@ -349,7 +357,8 @@
                 <div class="resources-grid">
                     <div class="resource-card">
                         <div class="resource-icon">
-                            <img src="https://webpack.js.org/icon-square-small.svg" alt="Webpack" onerror="this.style.display='none'">
+                            <img src="https://webpack.js.org/icon-square-small.svg" alt="Webpack"
+                                onerror="this.style.display='none'">
                         </div>
                         <h3>Webpack 官方文档</h3>
                         <p>深入学习 Webpack 的完整指南，包含所有配置选项和最佳实践。</p>
@@ -357,7 +366,7 @@
                             访问文档 →
                         </a>
                     </div>
-                    
+
                     <div class="resource-card">
                         <div class="resource-icon">
                             <img src="https://vite.dev/logo.svg" alt="Vite" onerror="this.style.display='none'">
@@ -386,10 +395,11 @@
                             <ul>
                                 <li><a href="https://webpack.docschina.org/guides/" target="_blank">Webpack 指南</a></li>
                                 <li><a href="https://vite.dev/guide/" target="_blank">Vite 指南</a></li>
-                                <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript" target="_blank">MDN JavaScript</a></li>
+                                <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript"
+                                        target="_blank">MDN JavaScript</a></li>
                             </ul>
                         </div>
-                        
+
                         <div class="footer-section">
                             <h4>🛠️ 工具推荐</h4>
                             <ul>
@@ -398,14 +408,15 @@
                                 <li><a href="https://code.visualstudio.com/" target="_blank">VS Code</a></li>
                             </ul>
                         </div>
-                        
+
                         <div class="footer-section">
                             <h4>📖 社区</h4>
                             <ul>
                                 <li><a href="https://github.com/y6833/elp" target="_blank">🌟 项目源码</a></li>
                                 <li><a href="https://github.com/webpack/webpack" target="_blank">Webpack GitHub</a></li>
                                 <li><a href="https://github.com/vitejs/vite" target="_blank">Vite GitHub</a></li>
-                                <li><a href="https://stackoverflow.com/questions/tagged/webpack" target="_blank">Stack Overflow</a></li>
+                                <li><a href="https://stackoverflow.com/questions/tagged/webpack" target="_blank">Stack
+                                        Overflow</a></li>
                             </ul>
                         </div>
                     </div>
@@ -419,4 +430,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>

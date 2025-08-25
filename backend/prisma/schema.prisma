@@ -1,0 +1,439 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 用户表
+model User {
+  id            String    @id @default(cuid())
+  username      String    @unique
+  email         String    @unique
+  passwordHash  String
+  avatar        String?
+  bio           String?
+  location      String?
+  website       String?
+  role          UserRole  @default(STUDENT)
+  isEmailVerified Boolean @default(false)
+  isActive      Boolean   @default(true)
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // 关联关系
+  progress      LearningProgress[]
+  achievements  UserAchievement[]
+  posts         CommunityPost[]
+  comments      Comment[]
+  likes         Like[]
+  follows       Follow[] @relation("UserFollows")
+  followers     Follow[] @relation("UserFollowers")
+  studyGroups   StudyGroupMember[]
+  mentorSessions MentorSession[] @relation("MentorSessions")
+  menteeSessions MentorSession[] @relation("MenteeSessions")
+  aiConversations AIConversation[]
+  aiRecommendations AIRecommendation[]
+  
+  @@map("users")
+}
+
+// 用户角色枚举
+enum UserRole {
+  STUDENT
+  MENTOR
+  ADMIN
+}
+
+// 关卡表
+model Level {
+  id            String        @id @default(cuid())
+  title         String
+  description   String
+  category      LevelCategory
+  difficulty    Difficulty
+  estimatedTime Int           // 预计完成时间（分钟）
+  prerequisites String[]      // 前置关卡ID数组
+  objectives    String[]      // 学习目标数组
+  tags          String[]      // 标签数组
+  content       Json          // 关卡内容（Markdown等）
+  hints         Json          // 提示内容
+  solution      String?       // 参考答案
+  validation    Json          // 验证配置
+  resources     Json          // 学习资源
+  isActive      Boolean       @default(true)
+  order         Int           @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  // 关联关系
+  progress      LearningProgress[]
+  
+  @@map("levels")
+}
+
+// 关卡分类枚举
+enum LevelCategory {
+  WEBPACK
+  VITE
+  BUILD_TOOLS
+  PACKAGE_MANAGERS
+  CI_CD
+  TESTING
+  PERFORMANCE
+  DEPLOYMENT
+}
+
+// 难度等级枚举
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+// 学习进度表
+model LearningProgress {
+  id            String          @id @default(cuid())
+  userId        String
+  levelId       String
+  status        ProgressStatus  @default(NOT_STARTED)
+  attempts      Int             @default(0)
+  timeSpent     Int             @default(0) // 花费时间（秒）
+  score         Float           @default(0)
+  bestScore     Float           @default(0)
+  code          String?         // 用户提交的代码
+  feedback      Json?           // 反馈信息
+  completedAt   DateTime?
+  lastAttemptAt DateTime        @default(now())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  // 关联关系
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  level         Level           @relation(fields: [levelId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, levelId])
+  @@map("learning_progress")
+}
+
+// 进度状态枚举
+enum ProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  STUCK
+}
+
+// 成就表
+model Achievement {
+  id          String            @id @default(cuid())
+  title       String
+  description String
+  icon        String
+  type        AchievementType
+  condition   Json              // 成就条件配置
+  reward      Json?             // 奖励配置
+  rarity      AchievementRarity @default(COMMON)
+  isActive    Boolean           @default(true)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  // 关联关系
+  users       UserAchievement[]
+
+  @@map("achievements")
+}
+
+// 成就类型枚举
+enum AchievementType {
+  COMPLETION
+  STREAK
+  PERFORMANCE
+  EXPLORATION
+  SOCIAL
+}
+
+// 成就稀有度枚举
+enum AchievementRarity {
+  COMMON
+  RARE
+  EPIC
+  LEGENDARY
+}
+
+// 用户成就关联表
+model UserAchievement {
+  id            String      @id @default(cuid())
+  userId        String
+  achievementId String
+  progress      Float       @default(0)
+  unlockedAt    DateTime?
+  createdAt     DateTime    @default(now())
+
+  // 关联关系
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+  @@map("user_achievements")
+}
+
+// 社区帖子表
+model CommunityPost {
+  id          String      @id @default(cuid())
+  authorId    String
+  title       String
+  content     String
+  type        PostType    @default(DISCUSSION)
+  category    String?
+  tags        String[]
+  code        String?     // 代码分享
+  language    String?     // 编程语言
+  levelId     String?     // 关联的关卡ID
+  isSticky    Boolean     @default(false)
+  isPinned    Boolean     @default(false)
+  viewCount   Int         @default(0)
+  likeCount   Int         @default(0)
+  commentCount Int        @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // 关联关系
+  author      User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments    Comment[]
+  likes       Like[]
+
+  @@map("community_posts")
+}
+
+// 帖子类型枚举
+enum PostType {
+  DISCUSSION
+  QUESTION
+  SHARE
+  SHOWCASE
+  HELP
+}
+
+// 评论表
+model Comment {
+  id          String        @id @default(cuid())
+  postId      String
+  authorId    String
+  content     String
+  parentId    String?       // 父评论ID（用于回复）
+  likeCount   Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // 关联关系
+  post        CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author      User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent      Comment?      @relation("CommentReplies", fields: [parentId], references: [id])
+  replies     Comment[]     @relation("CommentReplies")
+  likes       Like[]
+
+  @@map("comments")
+}
+
+// 点赞表
+model Like {
+  id        String         @id @default(cuid())
+  userId    String
+  targetId  String         // 目标ID（帖子或评论）
+  targetType LikeTargetType
+  createdAt DateTime       @default(now())
+
+  // 关联关系
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      CommunityPost? @relation(fields: [targetId], references: [id], onDelete: Cascade)
+  comment   Comment?       @relation(fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, targetId, targetType])
+  @@map("likes")
+}
+
+// 点赞目标类型枚举
+enum LikeTargetType {
+  POST
+  COMMENT
+}
+
+// 关注表
+model Follow {
+  id          String   @id @default(cuid())
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+
+  // 关联关系
+  follower    User     @relation("UserFollows", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User     @relation("UserFollowers", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@map("follows")
+}
+
+// 学习小组表
+model StudyGroup {
+  id          String             @id @default(cuid())
+  name        String
+  description String
+  avatar      String?
+  isPrivate   Boolean            @default(false)
+  maxMembers  Int                @default(50)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  // 关联关系
+  members     StudyGroupMember[]
+
+  @@map("study_groups")
+}
+
+// 学习小组成员表
+model StudyGroupMember {
+  id        String           @id @default(cuid())
+  groupId   String
+  userId    String
+  role      GroupMemberRole  @default(MEMBER)
+  joinedAt  DateTime         @default(now())
+
+  // 关联关系
+  group     StudyGroup       @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, userId])
+  @@map("study_group_members")
+}
+
+// 小组成员角色枚举
+enum GroupMemberRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+// 导师会话表
+model MentorSession {
+  id          String            @id @default(cuid())
+  mentorId    String
+  menteeId    String
+  topic       String
+  description String?
+  status      MentorSessionStatus @default(REQUESTED)
+  scheduledAt DateTime?
+  startedAt   DateTime?
+  endedAt     DateTime?
+  duration    Int?              // 会话时长（分钟）
+  rating      Int?              // 评分（1-5）
+  feedback    String?           // 反馈
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  // 关联关系
+  mentor      User              @relation("MentorSessions", fields: [mentorId], references: [id], onDelete: Cascade)
+  mentee      User              @relation("MenteeSessions", fields: [menteeId], references: [id], onDelete: Cascade)
+
+  @@map("mentor_sessions")
+}
+
+// 导师会话状态枚举
+enum MentorSessionStatus {
+  REQUESTED
+  ACCEPTED
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+// 系统通知表
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  content   String
+  data      Json?            // 额外数据
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  @@map("notifications")
+}
+
+// 通知类型枚举
+enum NotificationType {
+  LEVEL_COMPLETED
+  ACHIEVEMENT_UNLOCKED
+  NEW_FOLLOWER
+  COMMENT_REPLY
+  MENTOR_REQUEST
+  SYSTEM_ANNOUNCEMENT
+}
+
+// 系统配置表
+model SystemConfig {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("system_configs")
+}
+
+// 审计日志表
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  resource  String
+  details   Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@map("audit_logs")
+}
+
+// AI对话记录表
+model AIConversation {
+  id          String   @id @default(cuid())
+  userId      String
+  userMessage String   @db.Text
+  aiResponse  String   @db.Text
+  context     Json?    // 存储对话上下文信息
+  confidence  Float    @default(0.8) // AI回复的置信度
+  helpful     Boolean? // 用户反馈：是否有帮助
+  createdAt   DateTime @default(now())
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("ai_conversations")
+}
+
+// AI学习建议表
+model AIRecommendation {
+  id           String   @id @default(cuid())
+  userId       String
+  type         String   // 'level', 'resource', 'skill', 'practice'
+  title        String
+  description  String   @db.Text
+  priority     Int      @default(5) // 1-10，优先级
+  targetLevelId String?
+  metadata     Json?    // 额外的元数据
+  applied      Boolean  @default(false) // 是否已应用
+  createdAt    DateTime @default(now())
+  expiresAt    DateTime? // 建议过期时间
+  
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("ai_recommendations")
+}

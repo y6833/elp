@@ -1,0 +1,296 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "reset": "Reset",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "continue": "Continue",
+    "finish": "Finish",
+    "close": "Close"
+  },
+  "nav": {
+    "home": "Home",
+    "levels": "Levels",
+    "progress": "Progress",
+    "achievements": "Achievements",
+    "community": "Community",
+    "profile": "Profile",
+    "settings": "Settings",
+    "help": "Help",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember Me",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registration successful",
+    "invalidCredentials": "Invalid username or password",
+    "passwordMismatch": "Passwords do not match",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "usernameRequired": "Username is required"
+  },
+  "home": {
+    "title": "Master Modern Frontend Engineering",
+    "subtitle": "Start Here",
+    "description": "Learn modern frontend build tools like Webpack, Vite, and Rollup through progressive, hands-on challenges. From basic configuration to advanced optimization, from theory to practice, build a complete frontend engineering skill set.",
+    "startLearning": "Start Learning",
+    "viewLevels": "Browse Levels",
+    "whyChoose": "Why Choose ELP?",
+    "learningPath": "Learning Path",
+    "readyToStart": "Ready to start your frontend engineering journey?",
+    "joinDevelopers": "Join thousands of developers in learning modern frontend engineering skills through practice",
+    "features": {
+      "handsOn": {
+        "title": "Hands-on Learning",
+        "description": "Every level is based on real engineering scenarios, helping you master skills through practice"
+      },
+      "progressive": {
+        "title": "Progressive Learning",
+        "description": "From basic concepts to advanced techniques, scientific learning paths help you improve steadily"
+      },
+      "instantFeedback": {
+        "title": "Instant Feedback",
+        "description": "Real-time configuration validation and intelligent hints make learning more efficient"
+      },
+      "comprehensive": {
+        "title": "Comprehensive Content",
+        "description": "Covers all aspects of modern frontend engineering, from building to deployment"
+      },
+      "community": {
+        "title": "Community Support",
+        "description": "Active learning community to exchange experiences with other developers and grow together"
+      },
+      "upToDate": {
+        "title": "Up-to-date",
+        "description": "Keep up with frontend technology development, timely updates of the latest tools and best practices"
+      }
+    },
+    "stats": {
+      "levels": "Learning Levels",
+      "techStack": "Tech Stacks",
+      "learners": "Learners",
+      "completionRate": "Completion Rate"
+    }
+  },
+  "levels": {
+    "title": "Learning Levels",
+    "categories": {
+      "all": "All",
+      "webpack": "Webpack",
+      "vite": "Vite",
+      "buildTools": "Build Tools",
+      "packageManagers": "Package Managers",
+      "cicd": "CI/CD",
+      "testing": "Testing",
+      "performance": "Performance",
+      "deployment": "Deployment"
+    },
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "status": {
+      "notStarted": "Not Started",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "locked": "Locked"
+    },
+    "estimatedTime": "Estimated Time",
+    "prerequisites": "Prerequisites",
+    "objectives": "Objectives",
+    "startLevel": "Start Level",
+    "continueLevel": "Continue Learning",
+    "reviewLevel": "Review Level"
+  },
+  "learning": {
+    "instructions": "Instructions",
+    "objectives": "Objectives",
+    "hints": "Hints",
+    "solution": "Solution",
+    "submit": "Submit Code",
+    "reset": "Reset Code",
+    "format": "Format",
+    "run": "Run",
+    "test": "Test",
+    "validate": "Validate",
+    "nextLevel": "Next Level",
+    "backToLevels": "Back to Levels",
+    "codeEditor": "Code Editor",
+    "console": "Console",
+    "preview": "Preview",
+    "validation": {
+      "success": "Validation successful!",
+      "failed": "Validation failed",
+      "running": "Validating...",
+      "error": "Validation error",
+      "timeout": "Validation timeout"
+    },
+    "attempt": "Attempts",
+    "timeSpent": "Time Spent",
+    "score": "Score"
+  },
+  "progress": {
+    "title": "Learning Progress",
+    "overview": "Overview",
+    "byCategory": "Progress by Category",
+    "recentActivity": "Recent Activity",
+    "overall": "Overall Progress",
+    "completed": "Completed",
+    "inProgress": "In Progress",
+    "remaining": "Remaining",
+    "totalTime": "Total Learning Time",
+    "averageScore": "Average Score",
+    "streak": "Learning Streak",
+    "levelDetails": "Level Details",
+    "completedAt": "Completed At",
+    "attempts": "Attempts",
+    "bestScore": "Best Score"
+  },
+  "achievements": {
+    "title": "Achievements",
+    "unlocked": "Unlocked",
+    "locked": "Locked",
+    "progress": "Progress",
+    "unlockedAt": "Unlocked At",
+    "categories": {
+      "completion": "Completion",
+      "streak": "Streak",
+      "performance": "Performance",
+      "exploration": "Exploration",
+      "social": "Social"
+    },
+    "rarity": {
+      "common": "Common",
+      "rare": "Rare",
+      "epic": "Epic",
+      "legendary": "Legendary"
+    }
+  },
+  "community": {
+    "title": "Learning Community",
+    "discussions": "Discussions",
+    "codeSharing": "Code Sharing",
+    "leaderboard": "Leaderboard",
+    "studyGroups": "Study Groups",
+    "mentors": "Mentors",
+    "events": "Events",
+    "newPost": "New Post",
+    "reply": "Reply",
+    "like": "Like",
+    "share": "Share",
+    "follow": "Follow",
+    "unfollow": "Unfollow",
+    "joinGroup": "Join Group",
+    "createGroup": "Create Group",
+    "requestHelp": "Request Help",
+    "offerHelp": "Offer Help"
+  },
+  "profile": {
+    "title": "Profile",
+    "basicInfo": "Basic Information",
+    "avatar": "Avatar",
+    "username": "Username",
+    "email": "Email",
+    "bio": "Bio",
+    "location": "Location",
+    "website": "Website",
+    "skills": "Skills",
+    "experience": "Experience",
+    "education": "Education",
+    "certificates": "Certificates",
+    "editProfile": "Edit Profile",
+    "changePassword": "Change Password",
+    "privacy": "Privacy Settings",
+    "notifications": "Notification Settings"
+  },
+  "settings": {
+    "title": "Settings",
+    "general": "General",
+    "appearance": "Appearance",
+    "language": "Language",
+    "theme": "Theme",
+    "fontSize": "Font Size",
+    "notifications": "Notifications",
+    "privacy": "Privacy",
+    "account": "Account",
+    "advanced": "Advanced",
+    "export": "Export Data",
+    "import": "Import Data",
+    "reset": "Reset Settings",
+    "deleteAccount": "Delete Account"
+  },
+  "editor": {
+    "language": "Language",
+    "theme": "Theme",
+    "fontSize": "Font Size",
+    "tabSize": "Tab Size",
+    "wordWrap": "Word Wrap",
+    "lineNumbers": "Line Numbers",
+    "minimap": "Minimap",
+    "find": "Find",
+    "replace": "Replace",
+    "format": "Format",
+    "fullscreen": "Fullscreen",
+    "settings": "Settings"
+  },
+  "errors": {
+    "networkError": "Network connection failed",
+    "serverError": "Server error",
+    "notFound": "Page not found",
+    "unauthorized": "Unauthorized access",
+    "forbidden": "Insufficient permissions",
+    "validationFailed": "Validation failed",
+    "unknownError": "Unknown error",
+    "retry": "Retry",
+    "contactSupport": "Contact Support"
+  },
+  "tips": {
+    "welcomeBack": "Welcome back!",
+    "firstTime": "First time? Start with basic levels!",
+    "dailyChallenge": "Daily challenge refreshed",
+    "streakBonus": "Get extra rewards for consecutive learning",
+    "shareProgress": "Share your learning progress",
+    "askForHelp": "Having trouble? Ask the community for help",
+    "exploreMore": "Explore more levels",
+    "practiceMore": "Practice more to master skills"
+  },
+  "time": {
+    "seconds": "seconds",
+    "minutes": "minutes",
+    "hours": "hours",
+    "days": "days",
+    "weeks": "weeks",
+    "months": "months",
+    "years": "years",
+    "ago": "ago",
+    "justNow": "just now",
+    "today": "today",
+    "yesterday": "yesterday",
+    "thisWeek": "this week",
+    "thisMonth": "this month",
+    "thisYear": "this year"
+  }
+}
